@@ -1,0 +1,20 @@
+# Frontend Development Dockerfile
+FROM node:18-alpine
+
+# Install development tools
+RUN apk add --no-cache curl
+
+# Set working directory
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+
+# Install all dependencies
+RUN npm ci
+
+# Expose port
+EXPOSE 3000
+
+# Start with Next.js dev server
+CMD ["npm", "run", "dev"]

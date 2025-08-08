@@ -1,0 +1,16 @@
+{
+  "type": "NodeBuilderMaster",
+  "id": "flow-test",
+  "properties": {
+    "operationMode": "flow",
+    "debugMode": true
+  },
+  "inputs": {
+    "data": {
+      "email": "test@example.com",
+      "subject": "Email de prueba",
+      "body": "Este es un mensaje de prueba para el sistema de flujo automático",
+      "provider": "gmail"
+    }
+  }
+}

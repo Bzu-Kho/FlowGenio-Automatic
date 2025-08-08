@@ -1,0 +1,23 @@
+# Backend Development Dockerfile
+FROM node:18-alpine
+
+# Install development tools
+RUN apk add --no-cache curl
+
+# Set working directory
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+
+# Install all dependencies (including dev)
+RUN npm ci
+
+# Create data directory
+RUN mkdir -p data/logs
+
+# Expose ports
+EXPOSE 3001 9229
+
+# Start with nodemon for hot reload
+CMD ["npm", "run", "dev"]

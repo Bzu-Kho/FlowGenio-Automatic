@@ -3,9 +3,16 @@
 
 import ManualTrigger from '../nodes/triggers/ManualTrigger.js';
 import HttpRequest from '../nodes/data/HttpRequest.js';
+import HttpRequestPro from '../nodes/data/HttpRequestPro.js';
 import IfElse from '../nodes/logic/IfElse.js';
 import SetVariable from '../nodes/data/SetVariable.js';
 import ConsoleOutput from '../nodes/actions/ConsoleOutput.js';
+
+// Specialized AI Builders
+import { DocumentBuilderNode } from '../nodes/builders/DocumentBuilderNode.js';
+import { MediaBuilderNode } from '../nodes/builders/MediaBuilderNode.js';
+import { DevToolsBuilderNode } from '../nodes/builders/DevToolsBuilderNode.js';
+import { CommunicationBuilderNode } from '../nodes/builders/CommunicationBuilderNode.js';
 
 class NodeRegistry {
   constructor() {
@@ -20,9 +27,16 @@ class NodeRegistry {
     // Register core nodes
     this.registerNode('ManualTrigger', ManualTrigger);
     this.registerNode('HttpRequest', HttpRequest);
+    this.registerNode('HttpRequestPro', HttpRequestPro);
     this.registerNode('IfElse', IfElse);
     this.registerNode('SetVariable', SetVariable);
     this.registerNode('ConsoleOutput', ConsoleOutput);
+    
+    // Register specialized AI builders
+    this.registerNode('DocumentBuilder', DocumentBuilderNode);
+    this.registerNode('MediaBuilder', MediaBuilderNode);
+    this.registerNode('DevToolsBuilder', DevToolsBuilderNode);
+    this.registerNode('CommunicationBuilder', CommunicationBuilderNode);
 
     this.initialized = true;
     console.log(`✅ FlowForge Node Registry initialized with ${this.nodes.size} nodes`);

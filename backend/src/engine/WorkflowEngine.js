@@ -2,7 +2,9 @@
 // Executes workflows with proper node orchestration
 
 import { v4 as uuidv4 } from 'uuid';
-import nodeRegistry from './NodeRegistry.js';
+import eventBus from '../shared/EventBus.js';
+import { WorkflowStarted, NodeCompleted } from '../domain/events.js';
+import nodeRegistry from './registry/NodeRegistry.js';
 
 class WorkflowEngine {
   constructor() {
@@ -31,6 +33,9 @@ class WorkflowEngine {
     };
 
     this.activeExecutions.set(executionId, execution);
+
+    // Emitir evento de workflow iniciado
+    eventBus.publish('workflow.started', new WorkflowStarted(workflow.id, executionId));
 
     try {
       this.log(executionId, 'info', 'Starting workflow execution', { 
@@ -243,6 +248,9 @@ class WorkflowEngine {
         duration: nodeInfo.duration,
         outputs: Object.keys(result || {})
       });
+
+      // Emitir evento de nodo completado
+      eventBus.publish('node.completed', new NodeCompleted(nodeId, execution.id, result));
 
       // Execute connected nodes
       const connectedResults = await this.executeConnectedNodes(execution, workflow, nodeId, result);

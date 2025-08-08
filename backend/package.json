@@ -7,7 +7,10 @@
   "scripts": {
     "start": "node server.js",
     "dev": "node --watch server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "echo \"Backend build completed\"",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "docker:build": "docker build -t flowforge-backend .",
+    "docker:run": "docker run -p 3001:3001 flowforge-backend"
   },
   "keywords": [
     "automation",

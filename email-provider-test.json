@@ -1,0 +1,13 @@
+{
+  "type": "NodeBuilderMaster",
+  "id": "email-provider-builder",
+  "properties": {
+    "nodeSpecification": "Un nodo robusto de Email Provider Router que puede enviar y recibir emails a través de múltiples proveedores configurables (Gmail, Outlook 365, SendGrid). El nodo debe soportar: 1) Envío de emails con autenticación SMTP, 2) Recepción de emails vía IMAP (donde esté disponible), 3) Configuración dinámica del proveedor en tiempo de ejecución via msg.provider, 4) Selección de acción via msg.action ('send' o 'receive'), 5) Manejo robusto de errores y validaciones, 6) Soporte para variables de entorno para credenciales, 7) Inputs: to, subject, body para envío; provider y action para ambos modos, 8) Outputs: status para confirmación, emails array para recepción, error para fallos.",
+    "nodeName": "EmailProviderRouter",
+    "nodeCategory": "integration",
+    "debugMode": true,
+    "includeDocumentation": true,
+    "includeExamples": true,
+    "saveGenerated": true
+  }
+}
