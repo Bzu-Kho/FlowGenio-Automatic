@@ -1,262 +1,362 @@
-# 🚀 FlowGenio - Visual Automation Platform
+# 🚀 FlowGenio - Advanced Visual Workflow Automation Platform
 
-**Build powerful automation workflows with visual drag-and-drop interface**
+**Professional workflow automation with AI-powered assistance and real-time streaming**
 
-FlowGenio is a modern, lightweight alternative to n8n, Node-RED, and Zapier. Create automation workflows visually with our intuitive node-based editor, powered by AI assistance and extensive knowledge base.
+FlowGenio is a cutting-edge visual workflow automation platform that combines the power of modern web technologies with intelligent AI assistance. Build complex automation workflows through an intuitive drag-and-drop interface, enhanced with real-time AI streaming and comprehensive theming support.
 
-## ✨ Features
+## ✨ Key Features
 
-- **🎨 Visual Workflow Editor** - Drag-and-drop interface powered by React Flow
-- **🧠 AI-Powered Assistant** - Get suggestions and help from integrated LLM
-- **🔌 Extensible Node System** - Custom nodes with hot-reload support
-- **⚡ Real-time Execution** - Live workflow execution with WebSocket updates
-- **📚 Knowledge Base** - Built-in automation patterns and best practices
-- **🚀 Lightweight** - No Docker required, runs on SQLite
-- **🔒 Local-First** - Your data stays on your machine
+### 🎨 **Modern Visual Interface**
+- **ReactFlow-powered Editor** - Professional drag-and-drop workflow canvas
+- **Real-time Minimap** - Workflow overview integrated into chat panel
+- **Comprehensive Theming** - Dark, Light, and System theme modes
+- **Responsive Design** - Optimized for all screen sizes
 
-## 🏗️ Architecture
+### 🧠 **AI-Powered Assistance**
+- **Real-time AI Streaming** - ChatGPT-style streaming responses
+- **Workflow Optimization** - AI suggestions for better performance
+- **Node Recommendations** - Smart suggestions based on workflow context
+- **Expert Knowledge Base** - Built-in automation patterns and best practices
 
-### Core Components
+### 🔧 **Professional Architecture**
+- **Modular Node System** - 7 organized node categories
+- **Hot-reload Development** - Instant updates during development
+- **TypeScript Support** - Full type safety and IntelliSense
+- **ESLint & Prettier** - Consistent code quality and formatting
 
-- **Frontend**: Next.js 15 + React Flow + Tailwind CSS
-- **Backend**: Node.js + Express + WebSockets
-- **Database**: SQLite (portable, zero-config)
-- **AI Integration**: OpenAI GPT + Local knowledge base
-- **Node System**: Modular, extensible architecture
+### ⚡ **Performance & Reliability**
+- **Separated Ports** - Frontend (3050) and Backend (3003) for optimal performance
+- **WebSocket Integration** - Real-time workflow execution updates
+- **SQLite Database** - Lightweight, zero-configuration data storage
+- **Docker Support** - Container-ready for easy deployment
 
-### 🎯 Node Categories
+## 🏗️ Architecture Overview
 
-| Category        | Description     | Examples                                     |
-| --------------- | --------------- | -------------------------------------------- |
-| 🚀 **Triggers** | Start workflows | Manual, Webhook, Schedule, File Watcher      |
-| 🔀 **Logic**    | Control flow    | If/Else, Switch, Loop, Merge/Split           |
-| 💾 **Data**     | Handle data     | HTTP Request, Set Variable, Read/Write Files |
-| 🤖 **AI/LLM**   | AI operations   | OpenAI GPT, Local LLM, Text Processing       |
-| 🎯 **Actions**  | Execute tasks   | Email, Database Query, Custom Functions      |
+### Technology Stack
 
-## 🚀 Quick Start
+| Component | Technology | Port | Description |
+|-----------|------------|------|-------------|
+| **Frontend** | Next.js 15.4.6 + ReactFlow | 3050 | Modern React application with visual workflow editor |
+| **Backend** | Node.js + Express | 3003 | RESTful API with WebSocket support |
+| **Database** | SQLite | - | Lightweight, portable database |
+| **Styling** | TailwindCSS | - | Utility-first CSS with dark mode support |
+| **AI Integration** | OpenAI GPT | - | Real-time streaming AI assistance |
+
+### 🎯 Node Categories (7 Main Types)
+
+| Category | Color | Description | Example Nodes |
+|----------|-------|-------------|---------------|
+| 🚀 **Trigger Flows** | `bg-blue-500` | Workflow initiators | Manual Trigger, Webhook, Schedule |
+| � **API Calls** | `bg-green-500` | External integrations | HTTP Request, REST API, GraphQL |
+| � **Data Transform** | `bg-purple-500` | Data manipulation | Set Variable, Transform, Parse JSON |
+| � **Conditional Logic** | `bg-orange-500` | Flow control | If/Else, Switch, Router |
+| 💻 **Advanced Scripting** | `bg-red-500` | Custom code execution | JavaScript Node, Python Script |
+| �️ **Flow Control** | `bg-yellow-500` | Workflow management | Loop, Merge, Split, Delay |
+| 🔍 **Debug & Monitor** | `bg-gray-500` | Development tools | Console Output, Logger, Debugger |
+
+## 🚀 Quick Start Guide
 
 ### Prerequisites
 
-- Node.js 18+
-- npm or yarn
-- Git
+- **Node.js** 18.x or higher
+- **npm** or **yarn** package manager
+- **Git** for version control
 
 ### 1. Clone Repository
 
 ```bash
-git clone https://github.com/your-username/flowforge.git
-cd flowforge
+git clone https://github.com/Bzu-Kho/FlowGenio-Automatic.git
+cd FlowGenio-Automatic
 ```
 
 ### 2. Install Dependencies
 
 ```bash
-# Backend
+# Install backend dependencies
 cd backend
 npm install
 
-# Frontend
+# Install frontend dependencies
 cd ../frontend
 npm install
 ```
 
-### 3. Start Development Servers
-
-**Option A: Manual Start**
+### 3. Environment Setup
 
 ```bash
-# Terminal 1 - Backend
+# Backend configuration
 cd backend
-npm run dev
+cp .env.example .env
+# Edit .env with your configuration
 
-# Terminal 2 - Frontend
-cd frontend
-npm run dev
+# Frontend runs without additional config
 ```
 
-**Option B: Automated Script**
+### 4. Start Development Servers
+
+**Option A: Automated Scripts (Recommended)**
 
 ```bash
-# Windows
+# Windows PowerShell
+.\scripts\dev.ps1
+
+# Windows Batch
 scripts\dev.bat
 
-# Linux/Mac
+# Linux/macOS
 chmod +x scripts/dev.sh
 ./scripts/dev.sh
 ```
 
-### 4. Open FlowForge
+**Option B: Manual Start**
 
-- **Frontend**: http://localhost:3000
-- **Backend API**: http://localhost:3001
-- **Health Check**: http://localhost:3001/health
+```bash
+# Terminal 1 - Backend (Port 3003)
+cd backend
+npm run dev
+
+# Terminal 2 - Frontend (Port 3050)
+cd frontend
+npm run dev
+```
+
+### 5. Access FlowGenio
+
+- **Application**: http://localhost:3050
+- **Backend API**: http://localhost:3003
+- **Health Check**: http://localhost:3003/health
+
+## 🎨 User Interface Features
+
+### Theme System
+FlowGenio supports three theme modes with complete UI consistency:
+
+- **🌞 Light Mode** - Clean, professional light interface
+- **🌙 Dark Mode** - Eye-friendly dark interface with proper contrast
+- **🖥️ System Mode** - Automatically follows system preferences
+
+### Integrated Minimap
+- **Real-time Updates** - Automatically reflects workflow changes
+- **Smart Positioning** - Located in chat panel for optimal space usage
+- **Theme Aware** - Properly styled for all theme modes
+
+### AI Chat Interface
+- **Streaming Responses** - Real-time AI assistance like ChatGPT
+- **Workflow Context** - AI understands your current workflow
+- **Drag Support** - Intuitive chat panel interaction
 
 ## 📖 Usage Guide
 
 ### Creating Your First Workflow
 
-1. **Open FlowForge** in your browser (http://localhost:3000)
-2. **Drag nodes** from the palette to the canvas
-3. **Connect nodes** by dragging from output to input ports
-4. **Configure nodes** by clicking and editing properties
-5. **Execute workflow** using the Execute button
+1. **Launch FlowGenio** at http://localhost:3050
+2. **Select Theme** - Choose Light, Dark, or System mode
+3. **Add Trigger Node** - Drag "Manual Trigger" from Trigger Flows category
+4. **Add Processing Node** - Add "HTTP Request" from API Calls category
+5. **Add Logic Node** - Add "If/Else" from Conditional Logic category
+6. **Connect Nodes** - Draw connections between node ports
+7. **Configure Nodes** - Click nodes to set properties
+8. **Test Workflow** - Use Execute button to test
+9. **Monitor Execution** - Watch real-time updates in minimap
 
-### Example: Simple HTTP Workflow
+### Example: API Data Processing Workflow
 
 ```
 Manual Trigger → HTTP Request → If/Else → Console Output
+                              ↓
+                         Transform Data → Email Send
 ```
 
-1. Add a **Manual Trigger** node
-2. Add an **HTTP Request** node (set URL to any API)
-3. Add an **If/Else** node (check if status === 200)
-4. Add **Console Output** nodes to both branches
-5. Connect the nodes and execute!
+### AI Assistant Usage
 
-## 🔧 Node Development
+1. **Open Chat Panel** - Click chat icon in interface
+2. **Ask Questions** - "How do I process API responses?"
+3. **Get Suggestions** - AI provides relevant node recommendations
+4. **Workflow Help** - "Optimize my current workflow"
+5. **Real-time Assistance** - Streaming responses for immediate help
 
-### Creating Custom Nodes
+## 🔧 Development Guide
 
-```javascript
+### Project Structure
+
+```
+FlowGenio-Automatic/
+├── frontend/                 # Next.js application (Port 3050)
+│   ├── src/
+│   │   ├── app/             # Next.js app router
+│   │   ├── components/      # React components
+│   │   │   ├── FlowEditor.tsx        # Main workflow editor
+│   │   │   ├── MiniMapViewer.tsx     # Integrated minimap
+│   │   │   ├── ThemeProvider.tsx     # Theme management
+│   │   │   └── ExpertAssistantChat.tsx # AI chat interface
+│   │   └── hooks/           # Custom React hooks
+│   ├── public/              # Static assets
+│   └── tailwind.config.ts   # Tailwind configuration with dark mode
+├── backend/                 # Node.js API server (Port 3003)
+│   ├── src/
+│   │   ├── engine/          # Workflow execution engine
+│   │   ├── nodes/           # Node implementations
+│   │   ├── services/        # Business logic services
+│   │   └── routes/          # API endpoints
+│   └── server.js           # Main server file
+├── scripts/                # Development automation scripts
+├── docs/                   # Documentation
+└── configs/                # Configuration files
+```
+
+### Custom Node Development
+
+```typescript
 import BaseNode from '../base/BaseNode.js';
 
-class MyCustomNode extends BaseNode {
+class CustomProcessorNode extends BaseNode {
   constructor(config = {}) {
-    super('MyCustomNode', {
+    super('CustomProcessor', {
       ...config,
-      category: 'utility',
-      icon: 'star',
-      description: 'My awesome custom node',
+      category: 'Data Transform',
+      color: 'bg-purple-500',
+      icon: 'processor',
+      description: 'Custom data processing node',
     });
   }
 
   defineInputs() {
-    return [{ name: 'input', type: 'any', required: true }];
+    return [
+      { name: 'data', type: 'object', required: true },
+      { name: 'config', type: 'object', required: false }
+    ];
   }
 
   defineOutputs() {
-    return [{ name: 'output', type: 'any' }];
+    return [
+      { name: 'processed', type: 'object' },
+      { name: 'error', type: 'string' }
+    ];
   }
 
   async execute(context) {
-    const input = context.getInputData('input');
+    try {
+      const data = context.getInputData('data');
+      const config = context.getInputData('config') || {};
+      
+      // Custom processing logic
+      const processed = this.processData(data, config);
+      
+      return { processed };
+    } catch (error) {
+      return { error: error.message };
+    }
+  }
 
-    // Your custom logic here
-    const result = { processed: input };
-
-    return { output: result };
+  processData(data, config) {
+    // Implementation here
+    return data;
   }
 }
 
-export default MyCustomNode;
+export default CustomProcessorNode;
 ```
 
-### Register Your Node
+## 🔌 API Reference
 
-```javascript
-import nodeRegistry from './src/engine/NodeRegistry.js';
-import MyCustomNode from './src/nodes/MyCustomNode.js';
+### Core Workflow API
 
-nodeRegistry.registerNode('MyCustomNode', MyCustomNode);
+```typescript
+// Execute workflow
+POST /api/workflows/execute
+{
+  "workflow": {
+    "nodes": [...],
+    "edges": [...]
+  },
+  "triggerData": {}
+}
+
+// Get execution status
+GET /api/executions/:id
+
+// List available nodes
+GET /api/nodes/palette
 ```
 
-## 🤖 AI Assistant
+### AI Assistant API
 
-FlowForge includes an AI-powered assistant to help you:
+```typescript
+// Stream AI assistance
+POST /api/ai/stream-assist
+{
+  "message": "How do I optimize this workflow?",
+  "workflowContext": {...}
+}
 
-- **Generate node suggestions** based on your workflow description
-- **Optimize existing workflows** for better performance
-- **Debug workflow issues** with detailed analysis
-- **Explain node functionality** and best practices
-
-### Using AI Assistant
-
-```javascript
-// Get workflow suggestions
+// Get node suggestions
 POST /api/ai/suggest-nodes
 {
-  "flowDescription": "I want to fetch data from an API and send emails",
-  "existingNodes": ["ManualTrigger"]
-}
-
-// Optimize workflow
-POST /api/ai/optimize
-{
-  "workflow": { /* your workflow definition */ }
+  "description": "I need to process CSV files",
+  "currentNodes": [...]
 }
 ```
-
-## 📚 API Reference
-
-### Core Endpoints
-
-#### Nodes
-
-- `GET /api/nodes` - Get all available nodes
-- `GET /api/nodes/palette` - Get node palette for UI
-- `GET /api/nodes/:type` - Get specific node metadata
-
-#### Workflow Execution
-
-- `POST /api/workflows/execute` - Execute a workflow
-- `GET /api/executions/active` - Get active executions
-- `GET /api/executions/history` - Get execution history
-
-#### AI Assistant
-
-- `POST /api/ai/assist` - General AI assistance
-- `POST /api/ai/suggest-nodes` - Get node suggestions
-- `POST /api/ai/optimize` - Optimize workflow
-
-#### Knowledge Base
-
-- `GET /api/knowledge/search` - Search knowledge base
-- `POST /api/knowledge/crawl` - Trigger knowledge crawling
 
 ### WebSocket Events
 
-```javascript
-// Connect to WebSocket
-const ws = new WebSocket('ws://localhost:3001/ws');
-
-// Execute workflow with real-time updates
-ws.send(
-  JSON.stringify({
-    type: 'execute_workflow',
-    payload: { workflow, triggerData },
-  }),
-);
+```typescript
+// Real-time workflow execution
+const ws = new WebSocket('ws://localhost:3003/ws');
 
 // Subscribe to execution updates
-ws.send(
-  JSON.stringify({
-    type: 'subscribe_executions',
-  }),
-);
+ws.send(JSON.stringify({
+  type: 'subscribe_execution',
+  executionId: 'exec_123'
+}));
+
+// Receive real-time updates
+ws.onmessage = (event) => {
+  const { type, data } = JSON.parse(event.data);
+  // Handle execution updates
+};
 ```
 
-## 🧪 Testing
+## 🧪 Testing & Quality Assurance
+
+### Code Quality Tools
+
+```bash
+# ESLint - Code linting
+cd frontend
+npm run lint
+
+# Prettier - Code formatting
+npm run format
+
+# Type checking
+npm run type-check
+```
+
+### Testing Commands
 
 ```bash
 # Backend tests
 cd backend
 npm test
 
-# Frontend tests
+# Frontend tests  
 cd frontend
 npm test
 
-# End-to-end tests
-npm run test:e2e
+# Integration tests
+npm run test:integration
 ```
 
-## 🚢 Deployment
+## 🚀 Deployment Options
 
-### Development
+### Development Deployment
 
 ```bash
+# Start development servers
 npm run dev
+
+# With file watching
+npm run dev:watch
 ```
 
 ### Production Build
@@ -266,84 +366,114 @@ npm run dev
 cd frontend
 npm run build
 
-# Start production servers
-cd ../backend
+# Build backend
+cd backend
+npm run build
+
+# Start production
 npm start
 ```
 
-### Docker (Optional)
+### Docker Deployment
 
-```dockerfile
-# Dockerfile example
-FROM node:18-alpine
-WORKDIR /app
-COPY . .
-RUN npm install
-EXPOSE 3000 3001
-CMD ["npm", "start"]
+```yaml
+# docker-compose.yml
+version: '3.8'
+services:
+  flowgenio-frontend:
+    build: ./frontend
+    ports:
+      - "3050:3050"
+    environment:
+      - NODE_ENV=production
+
+  flowgenio-backend:
+    build: ./backend
+    ports:
+      - "3003:3003"
+    environment:
+      - NODE_ENV=production
+```
+
+```bash
+# Deploy with Docker
+docker-compose up -d
 ```
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+We welcome contributions to FlowGenio! Please follow these guidelines:
 
 ### Development Workflow
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+1. **Fork** the repository
+2. **Create branch** `git checkout -b feature/amazing-feature`
+3. **Follow standards** - ESLint, Prettier, TypeScript
+4. **Test thoroughly** - Ensure all tests pass
+5. **Commit with convention** - Use conventional commits
+6. **Push changes** `git push origin feature/amazing-feature`
+7. **Create Pull Request** - Detailed description required
 
-### Code Style
+### Code Standards
 
-- **TypeScript/JavaScript**: ESLint + Prettier
-- **Commit Messages**: Conventional Commits
-- **Testing**: Jest + React Testing Library
+- **TypeScript** - Strict mode enabled
+- **ESLint** - Airbnb configuration
+- **Prettier** - Consistent formatting
+- **Conventional Commits** - Semantic commit messages
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
 
 ## 🙏 Acknowledgments
 
-- **React Flow** - For the amazing visual workflow editor
-- **n8n & Node-RED** - Inspiration for the node-based architecture
+- **ReactFlow** - Powerful workflow visualization library
+- **Next.js** - Modern React framework
+- **TailwindCSS** - Utility-first CSS framework
 - **OpenAI** - AI assistance capabilities
-- **Firecrawl** - Knowledge base automation
+- **Node-RED & n8n** - Inspiration for node-based automation
 
-## 📞 Support
+## 📞 Support & Community
 
-- **Documentation**: [FlowForge Docs](https://docs.flowforge.dev)
-- **Discord**: [Join our community](https://discord.gg/flowforge)
-- **Issues**: [GitHub Issues](https://github.com/your-username/flowforge/issues)
-- **Email**: support@flowforge.dev
+- **Repository**: [GitHub - FlowGenio-Automatic](https://github.com/Bzu-Kho/FlowGenio-Automatic)
+- **Issues**: [Report bugs or request features](https://github.com/Bzu-Kho/FlowGenio-Automatic/issues)
+- **Discussions**: [Community discussions](https://github.com/Bzu-Kho/FlowGenio-Automatic/discussions)
 
 ## 🗺️ Roadmap
 
-### Version 1.1 (Next Release)
+### ✅ Completed Features
 
-- [ ] Custom node marketplace
+- [x] Modern React Flow interface with theming
+- [x] Real-time AI streaming assistance
+- [x] Integrated minimap with workflow overview
+- [x] Comprehensive dark/light/system themes
+- [x] 7-category node organization system
+- [x] TypeScript conversion and code standardization
+- [x] Professional ESLint/Prettier configuration
+
+### 🔄 Current Development (v1.1)
+
+- [ ] Advanced node marketplace
 - [ ] Workflow templates library
-- [ ] Advanced debugging tools
-- [ ] Performance monitoring
+- [ ] Enhanced debugging tools
+- [ ] Performance monitoring dashboard
 
-### Version 1.2 (Future)
+### 🚀 Future Releases (v1.2+)
 
-- [ ] Multi-user collaboration
+- [ ] Multi-user collaboration features
 - [ ] Cloud deployment options
-- [ ] Advanced AI integrations
-- [ ] Enterprise features
-
-### Version 2.0 (Long-term)
-
-- [ ] Visual scripting language
-- [ ] Mobile app support
-- [ ] Real-time collaboration
-- [ ] Enterprise SSO
+- [ ] Advanced AI workflow generation
+- [ ] Enterprise authentication systems
+- [ ] Mobile-responsive optimizations
+- [ ] Real-time collaborative editing
 
 ---
 
-**Built with ❤️ by the FlowForge Team**
+**🎯 Built with passion by the FlowGenio Team**
 
-_Forge your automation workflows with ease!_
+*Empowering automation through intelligent visual workflows*
+---
+
+**🎯 Built with passion by the FlowGenio Team**
+
+*Empowering automation through intelligent visual workflows*
