@@ -3,10 +3,12 @@
 ## Quick Start
 
 ### 1. Prerequisites
+
 - Docker Desktop installed and running
 - Copy `.env.docker` to `.env` and configure your API keys
 
 ### 2. Production Deployment
+
 ```bash
 # Build and start all services
 docker-compose up -d
@@ -19,6 +21,7 @@ docker-compose down
 ```
 
 ### 3. Development Environment
+
 ```bash
 # Start development environment with hot reload
 docker-compose -f docker-compose.dev.yml up -d
@@ -44,6 +47,7 @@ docker-compose -f docker-compose.dev.yml down
 ## 🔧 Configuration
 
 ### Environment Variables
+
 Copy `.env.docker` to `.env` and configure:
 
 ```env
@@ -56,6 +60,7 @@ JWT_SECRET=your_secure_jwt_secret_here
 ## 🛠️ Docker Commands
 
 ### Build Images
+
 ```bash
 # Build all images
 docker-compose build
@@ -66,6 +71,7 @@ docker-compose build frontend
 ```
 
 ### View Services
+
 ```bash
 # List running containers
 docker-compose ps
@@ -79,6 +85,7 @@ docker-compose logs -f
 ```
 
 ### Database Management
+
 ```bash
 # Access backend container
 docker-compose exec backend sh
@@ -91,6 +98,7 @@ docker-compose exec backend ls -la /app/data/
 ```
 
 ### Troubleshooting
+
 ```bash
 # Restart services
 docker-compose restart
@@ -107,12 +115,14 @@ docker-compose down -v
 ## 🔍 Health Checks
 
 Both services include health checks:
+
 - **Backend**: `curl -f http://localhost:3001/api/health`
 - **Frontend**: `curl -f http://localhost:3000`
 
 ## 📊 Monitoring
 
 View container stats:
+
 ```bash
 docker stats
 ```

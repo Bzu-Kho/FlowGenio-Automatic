@@ -1,14 +1,29 @@
-// SecretRepository: Abstracts secret storage
-class SecretRepository {
-  async save(secret) {
-    // TODO: Implement secret save logic
-    throw new Error('Not implemented');
+// In-memory SecretRepository (replace with Vault, AWS Secrets Manager, etc. in production)
+import { Repository } from './Repository.js';
+
+class SecretRepository extends Repository {
+  constructor() {
+    super();
+    this.secrets = new Map();
   }
 
-  async getByKey(key) {
-    // TODO: Implement secret fetch logic
-    throw new Error('Not implemented');
+  async saveSecret(key, value) {
+    this.secrets.set(key, value);
+    return { key };
+  }
+
+  async getSecret(key) {
+    return this.secrets.get(key) || null;
+  }
+
+  async deleteSecret(key) {
+    return this.secrets.delete(key);
+  }
+
+  async listSecrets() {
+    return Array.from(this.secrets.keys());
   }
 }
 
-export default new SecretRepository();
+const secretRepository = new SecretRepository();
+export default secretRepository;

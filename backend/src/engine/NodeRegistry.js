@@ -31,7 +31,7 @@ class NodeRegistry {
     this.registerNode('IfElse', IfElse);
     this.registerNode('SetVariable', SetVariable);
     this.registerNode('ConsoleOutput', ConsoleOutput);
-    
+
     // Register specialized AI builders
     this.registerNode('DocumentBuilder', DocumentBuilderNode);
     this.registerNode('MediaBuilder', MediaBuilderNode);
@@ -65,7 +65,7 @@ class NodeRegistry {
       inputs: sampleNode.inputs,
       outputs: sampleNode.outputs,
       properties: sampleNode.properties,
-      version: sampleNode.version
+      version: sampleNode.version,
     };
 
     this.nodes.set(type, metadata);
@@ -77,7 +77,7 @@ class NodeRegistry {
   validateNodeClass(nodeClass) {
     try {
       const instance = new nodeClass();
-      
+
       // Check required methods
       const requiredMethods = ['execute', 'defineInputs', 'defineOutputs', 'defineProperties'];
       for (const method of requiredMethods) {
@@ -107,7 +107,7 @@ class NodeRegistry {
     if (!this.categories.has(category)) {
       this.categories.set(category, []);
     }
-    
+
     const categoryNodes = this.categories.get(category);
     if (!categoryNodes.includes(nodeType)) {
       categoryNodes.push(nodeType);
@@ -155,9 +155,9 @@ class NodeRegistry {
     if (!this.initialized) {
       this.initialize();
     }
-    
+
     const nodeTypes = this.categories.get(category) || [];
-    return nodeTypes.map(type => this.nodes.get(type)).filter(Boolean);
+    return nodeTypes.map((type) => this.nodes.get(type)).filter(Boolean);
   }
 
   getCategories() {
@@ -174,7 +174,7 @@ class NodeRegistry {
 
     const result = {};
     for (const [category, nodeTypes] of this.categories.entries()) {
-      result[category] = nodeTypes.map(type => this.nodes.get(type)).filter(Boolean);
+      result[category] = nodeTypes.map((type) => this.nodes.get(type)).filter(Boolean);
     }
     return result;
   }
@@ -183,14 +183,14 @@ class NodeRegistry {
   registerCustomNode(type, nodeClass, metadata = {}) {
     try {
       this.registerNode(type, nodeClass);
-      
+
       // Store additional metadata for custom nodes
       const nodeMetadata = this.nodes.get(type);
       nodeMetadata.custom = true;
       nodeMetadata.author = metadata.author;
       nodeMetadata.source = metadata.source;
       nodeMetadata.tags = metadata.tags || [];
-      
+
       console.log(`🔌 Registered custom node: ${type}`);
       return true;
     } catch (error) {
@@ -230,17 +230,17 @@ class NodeRegistry {
     try {
       // Create test instance
       const testNode = this.createNode(type);
-      
+
       // Test initialization
       await testNode.initialize();
-      
+
       // Test validation
       const validation = await testNode.validate();
       if (!validation.valid) {
         return {
           valid: false,
           errors: validation.errors,
-          type: 'validation'
+          type: 'validation',
         };
       }
 
@@ -254,14 +254,13 @@ class NodeRegistry {
 
       return {
         valid: true,
-        message: `Node "${type}" validation successful`
+        message: `Node "${type}" validation successful`,
       };
-
     } catch (error) {
       return {
         valid: false,
         errors: [error.message],
-        type: 'execution'
+        type: 'execution',
       };
     }
   }
@@ -271,14 +270,14 @@ class NodeRegistry {
       getInputData: (port = 'input') => inputData[port] || inputData,
       getVariable: (name) => null, // Mock variable store
       setVariable: (name, value) => {}, // Mock variable store
-      executionId: 'test-' + Date.now()
+      executionId: 'test-' + Date.now(),
     };
   }
 
   // Export/Import node definitions
   exportNodeDefinitions() {
     const definitions = {};
-    
+
     for (const [type, metadata] of this.nodes.entries()) {
       definitions[type] = {
         type: metadata.type,
@@ -291,7 +290,7 @@ class NodeRegistry {
         outputs: metadata.outputs,
         properties: metadata.properties,
         version: metadata.version,
-        custom: metadata.custom || false
+        custom: metadata.custom || false,
       };
     }
 
@@ -308,15 +307,15 @@ class NodeRegistry {
         displayName: this.getCategoryDisplayName(category),
         icon: this.getCategoryIcon(category),
         color: this.getCategoryColor(category),
-        nodes: nodes.map(node => ({
+        nodes: nodes.map((node) => ({
           type: node.type,
           name: node.name,
           description: node.description,
           icon: node.icon,
-          color: node.color
-        }))
+          color: node.color,
+        })),
       };
-      
+
       palette.push(categoryInfo);
     }
 
@@ -330,7 +329,7 @@ class NodeRegistry {
       data: 'Data',
       ai: 'AI & LLM',
       action: 'Actions',
-      utility: 'Utilities'
+      utility: 'Utilities',
     };
     return displayNames[category] || category.charAt(0).toUpperCase() + category.slice(1);
   }
@@ -342,7 +341,7 @@ class NodeRegistry {
       data: 'database',
       ai: 'brain',
       action: 'zap',
-      utility: 'settings'
+      utility: 'settings',
     };
     return icons[category] || 'circle';
   }
@@ -354,7 +353,7 @@ class NodeRegistry {
       data: '#8B5CF6',
       ai: '#F59E0B',
       action: '#EF4444',
-      utility: '#6B7280'
+      utility: '#6B7280',
     };
     return colors[category] || '#6B7280';
   }

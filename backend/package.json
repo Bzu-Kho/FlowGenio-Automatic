@@ -1,7 +1,7 @@
 {
-  "name": "flowforge-backend",
+  "name": "flowgenio-backend",
   "version": "1.0.0",
-  "description": "FlowForge Visual Automation Platform - Backend Server",
+  "description": "FlowGenio Visual Automation Platform - Backend Server",
   "main": "server.js",
   "type": "module",
   "scripts": {
@@ -32,6 +32,13 @@
     "ws": "^8.18.3"
   },
   "devDependencies": {
-    "nodemon": "^3.0.2"
+    "@typescript-eslint/eslint-plugin": "^8.39.0",
+    "@typescript-eslint/parser": "^8.39.0",
+    "eslint": "^9.32.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "eslint-plugin-react": "^7.37.5",
+    "nodemon": "^3.0.2",
+    "prettier": "^3.6.2"
   }
 }

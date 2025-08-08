@@ -1,8 +1,8 @@
 # 🚀 FLOWFORGE - VISUAL AUTOMATION PLATFORM
 
 **Propuesta de Proyecto: Automatización Visual Estilo n8n/Node-RED/Zapier**  
-*Desarrollado por: Lead Developer Team*  
-*Fecha: 7 de Agosto, 2025*
+_Desarrollado por: Lead Developer Team_  
+_Fecha: 7 de Agosto, 2025_
 
 ---
 
@@ -11,9 +11,11 @@
 **"FlowForge"** - Plataforma de automatización visual sin peso, máxima flexibilidad
 
 ### **💡 IDEA CENTRAL**
+
 Crear nuestra propia app de automatización basada en flujos visuales:
+
 - ✅ **Diseño simple** sin peso gráfico
-- ✅ **10-15 nodos básicos** para funcionamiento core  
+- ✅ **10-15 nodos básicos** para funcionamiento core
 - ✅ **Opciones completas**: añadir, crear, modificar, editar nodos
 - ✅ **Estilo Node-RED** con gráficos de nodos simples
 - ✅ **Personalización total** según necesidades
@@ -23,14 +25,16 @@ Crear nuestra propia app de automatización basada en flujos visuales:
 ## 🏗️ **ARQUITECTURA DE NODOS**
 
 ### **🚀 TRIGGERS (Disparadores)**
+
 ```
 📌 Manual Trigger     - Ejecución manual del flujo
 📌 Webhook           - HTTP endpoints para APIs
-📌 Cron/Schedule     - Tareas programadas  
+📌 Cron/Schedule     - Tareas programadas
 📌 File Watcher      - Monitoreo de archivos
 ```
 
 ### **🔀 LOGIC & FLOW (Lógica y Flujo)**
+
 ```
 🔀 If/Else          - Condicionales simples
 🔀 Switch/Router     - Enrutamiento múltiple
@@ -39,14 +43,16 @@ Crear nuestra propia app de automatización basada en flujos visuales:
 ```
 
 ### **💾 DATA (Gestión de Datos)**
+
 ```
 💾 Read File         - Lectura de archivos
-💾 Write File        - Escritura de archivos  
+💾 Write File        - Escritura de archivos
 💾 HTTP Request      - Peticiones web/APIs
 💾 Set Variable      - Manipulación de variables
 ```
 
 ### **🤖 AI & LLM (Inteligencia Artificial)**
+
 ```
 🤖 OpenAI/GPT        - Integración GPT/ChatGPT
 🤖 Local LLM         - LLMs locales (Ollama)
@@ -55,6 +61,7 @@ Crear nuestra propia app de automatización basada en flujos visuales:
 ```
 
 ### **🎯 ACTIONS (Acciones)**
+
 ```
 🎯 Email Send        - Envío de correos
 🎯 Execute Code      - Ejecución de código custom
@@ -67,6 +74,7 @@ Crear nuestra propia app de automatización basada en flujos visuales:
 ## 🛠️ **STACK TECNOLÓGICO PROPUESTO**
 
 ### **Frontend**
+
 ```typescript
 Framework: Next.js 15.3.5
 UI Library: React Flow (canvas visual)
@@ -75,6 +83,7 @@ State: Zustand (ligero vs Redux)
 ```
 
 ### **Backend**
+
 ```typescript
 Runtime: Node.js + Express
 Database: SQLite (portable, sin servidor)
@@ -83,6 +92,7 @@ API: REST + WebSockets (real-time)
 ```
 
 ### **Características Técnicas**
+
 ```
 - Drag & Drop nativo
 - Canvas infinito con zoom/pan
@@ -97,13 +107,14 @@ API: REST + WebSockets (real-time)
 ## 🚀 **ROADMAP DE DESARROLLO**
 
 ### **📦 MVP - FASE 1** (2-3 semanas)
+
 **Objetivo**: Proof of Concept funcionando
 
 ```
 ✅ Canvas básico con React Flow
 ✅ 5 nodos fundamentales:
    - Manual Trigger
-   - HTTP Request  
+   - HTTP Request
    - If/Else
    - Set Variable
    - Console Output
@@ -113,6 +124,7 @@ API: REST + WebSockets (real-time)
 ```
 
 ### **📦 CORE - FASE 2** (2-3 semanas)
+
 **Objetivo**: Plataforma funcional completa
 
 ```
@@ -125,6 +137,7 @@ API: REST + WebSockets (real-time)
 ```
 
 ### **📦 ADVANCED - FASE 3** (3-4 semanas)
+
 **Objetivo**: Diferenciación competitiva
 
 ```
@@ -137,6 +150,7 @@ API: REST + WebSockets (real-time)
 ```
 
 ### **📦 ENTERPRISE - FASE 4** (4-6 semanas)
+
 **Objetivo**: Escalabilidad y productización
 
 ```
@@ -153,15 +167,17 @@ API: REST + WebSockets (real-time)
 ## 💪 **DIFERENCIADORES COMPETITIVOS**
 
 ### **🎯 VS N8N**
+
 ```
 ✅ Más ligero (sin Docker requerido)
-✅ Portable (SQLite vs PostgreSQL)  
+✅ Portable (SQLite vs PostgreSQL)
 ✅ Custom nodes más fáciles
 ✅ MCP integration nativa
 ✅ Startup más rápido
 ```
 
 ### **🎯 VS Node-RED**
+
 ```
 ✅ UI más moderna y intuitiva
 ✅ TypeScript nativo
@@ -171,6 +187,7 @@ API: REST + WebSockets (real-time)
 ```
 
 ### **🎯 VS Zapier**
+
 ```
 ✅ Local-first (sin límites API)
 ✅ Open source y customizable
@@ -184,12 +201,13 @@ API: REST + WebSockets (real-time)
 ## 🎨 **DISEÑO VISUAL**
 
 ### **Estilo de Nodos**
+
 ```
 Forma: Rectángulos redondeados simples
 Tamaño: 120x60px estándar
 Colores: Paleta por categoría
   - 🚀 Triggers: Azul (#3B82F6)
-  - 🔀 Logic: Verde (#10B981)  
+  - 🔀 Logic: Verde (#10B981)
   - 💾 Data: Púrpura (#8B5CF6)
   - 🤖 AI: Naranja (#F59E0B)
   - 🎯 Actions: Rojo (#EF4444)
@@ -199,6 +217,7 @@ Tipografía: Inter (legible, moderna)
 ```
 
 ### **Canvas**
+
 ```
 Fondo: Grid sutil gris claro
 Conexiones: Curvas bezier suaves
@@ -212,6 +231,7 @@ Pan: Ilimitado con mini-mapa
 ## 📊 **ANÁLISIS DE MERCADO**
 
 ### **🎯 Target Inicial**
+
 ```
 - Desarrolladores que buscan alternativa local a Zapier
 - Equipos pequeños/medianos sin presupuesto para enterprise
@@ -220,6 +240,7 @@ Pan: Ilimitado con mini-mapa
 ```
 
 ### **💰 Modelo de Negocio Potencial**
+
 ```
 Freemium:
   - Core: Open source gratuito
@@ -235,38 +256,41 @@ Freemium:
 ### **🤔 Decisiones de Arquitectura**
 
 #### **Canvas Library**
+
 ```
 Opción 1: React Flow (recomendado)
   ✅ Maduro y bien mantenido
   ✅ Performance excelente
   ✅ Ecosistema robusto
-  
+
 Opción 2: Canvas HTML5 custom
   ✅ Control total
   ❌ Más tiempo desarrollo
-  
+
 Opción 3: D3.js + React
   ✅ Flexibilidad máxima
   ❌ Curva aprendizaje alta
 ```
 
 #### **Base de Datos**
+
 ```
 Opción 1: SQLite (recomendado)
   ✅ Zero-config, portable
   ✅ Excelente para MVP
   ✅ Migración fácil a Postgres
-  
+
 Opción 2: JSON Files
   ✅ Súper simple
   ❌ No escala bien
-  
+
 Opción 3: MongoDB
   ✅ Flexible schemas
   ❌ Overhead para MVP
 ```
 
 #### **Plugin System**
+
 ```
 Arquitectura modular:
   - Core engine separado
@@ -280,6 +304,7 @@ Arquitectura modular:
 ## 🚀 **PLAN DE EJECUCIÓN INMEDIATO**
 
 ### **🎯 SEMANA 1-2: Setup + MVP**
+
 ```
 Día 1-2: Project setup + tech stack
 Día 3-4: Canvas básico funcionando
@@ -289,6 +314,7 @@ Día 11-14: UI básica + testing
 ```
 
 ### **🎯 SEMANA 3-4: Core Features**
+
 ```
 Día 15-18: Nodos adicionales (total 10)
 Día 19-22: Persistencia SQLite
@@ -297,6 +323,7 @@ Día 27-28: Testing + refinamiento
 ```
 
 ### **🎯 SEMANA 5-6: Polish + Demo**
+
 ```
 Día 29-32: Features avanzadas
 Día 33-35: Testing completo
@@ -309,6 +336,7 @@ Día 39-42: Demo preparation
 ## 📋 **RECURSOS NECESARIOS**
 
 ### **👥 Equipo Mínimo**
+
 ```
 - 1x Lead Developer (Full-stack)
 - 1x Frontend Developer (React/TypeScript)
@@ -317,6 +345,7 @@ Día 39-42: Demo preparation
 ```
 
 ### **🛠️ Herramientas**
+
 ```
 - VS Code + Extensions
 - Git + GitHub
@@ -326,6 +355,7 @@ Día 39-42: Demo preparation
 ```
 
 ### **💰 Budget Estimado**
+
 ```
 Desarrollo MVP: 2-6 semanas
 Costo mínimo: $0 (solo tiempo)
@@ -338,13 +368,15 @@ Hosting: $10-50/mes (inicio)
 ## 🎉 **SIGUIENTES PASOS**
 
 ### **📅 Acciones Inmediatas**
+
 1. **Validar stack tecnológico** con equipo
-2. **Crear repositorio** y structure inicial  
+2. **Crear repositorio** y structure inicial
 3. **Setup entorno desarrollo** local
 4. **Mockups básicos** de 5 nodos core
 5. **POC canvas** con React Flow
 
 ### **📋 Preguntas para el Equipo**
+
 1. ¿Aprobamos el stack React Flow + Next.js + SQLite?
 2. ¿Preferimos empezar con web app o desktop?
 3. ¿Qué nodos consideramos más prioritarios?
@@ -361,7 +393,7 @@ Hosting: $10-50/mes (inicio)
 ✅ **Diferenciación clara** (local-first, ligero, AI-native)  
 ✅ **Stack moderno** (Next.js, React Flow, TypeScript)  
 ✅ **MVP alcanzable** (2-3 semanas desarrollo)  
-✅ **Escalabilidad evidente** (enterprise features, marketplace)  
+✅ **Escalabilidad evidente** (enterprise features, marketplace)
 
 ### **🚀 RECOMENDACIÓN: GREEN LIGHT**
 
@@ -371,8 +403,8 @@ Hosting: $10-50/mes (inicio)
 
 **📞 Contacto Lead Developer**: GitHub Copilot  
 **📧 Para preguntas**: Usar VS Code + Copilot Chat  
-**📅 Próxima reunión**: Definir timeline y kick-off  
+**📅 Próxima reunión**: Definir timeline y kick-off
 
 ---
 
-*© 2025 FlowForge Project - Documento Técnico Interno*
+_© 2025 FlowForge Project - Documento Técnico Interno_

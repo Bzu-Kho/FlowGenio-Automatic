@@ -1,19 +1,26 @@
-// NodeRepository: Abstracts node persistence (if needed)
-class NodeRepository {
+// In-memory NodeRepository (replace with DB-backed in production)
+import { Repository } from './Repository.js';
+
+class NodeRepository extends Repository {
+  constructor() {
+    super();
+    this.nodes = new Map();
+  }
+
+  async findById(id) {
+    return this.nodes.get(id) || null;
+  }
+
   async save(node) {
-    // TODO: Implement DB save logic
-    throw new Error('Not implemented');
+    if (!node.id) throw new Error('Node must have an id');
+    this.nodes.set(node.id, node);
+    return node;
   }
 
-  async getById(id) {
-    // TODO: Implement DB fetch logic
-    throw new Error('Not implemented');
-  }
-
-  async list() {
-    // TODO: Implement DB list logic
-    throw new Error('Not implemented');
+  async findAll() {
+    return Array.from(this.nodes.values());
   }
 }
 
-export default new NodeRepository();
+const nodeRepository = new NodeRepository();
+export default nodeRepository;

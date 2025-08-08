@@ -67,9 +67,9 @@ Respond in JSON format:
         options: {
           temperature: 0.3,
           top_p: 0.9,
-          max_tokens: 500
-        }
-      })
+          max_tokens: 500,
+        },
+      }),
     });
 
     if (!response.ok) {
@@ -88,7 +88,7 @@ Respond in JSON format:
       if (jsonMatch) {
         return JSON.parse(jsonMatch[0]);
       }
-      
+
       // Fallback: parse text response
       return this.parseTextResponse(response);
     } catch (error) {
@@ -104,7 +104,7 @@ Respond in JSON format:
       headers: {},
       authType: 'none',
       responseFormat: 'json',
-      confidence: 0.5
+      confidence: 0.5,
     };
 
     const text = response.toLowerCase();
@@ -144,7 +144,7 @@ Respond in JSON format:
       headers: { 'Content-Type': 'application/json' },
       authType: 'none',
       responseFormat: 'json',
-      confidence: 0.3
+      confidence: 0.3,
     };
 
     const urlLower = url.toLowerCase();
@@ -172,7 +172,11 @@ Respond in JSON format:
       suggestions.method = 'POST';
     }
 
-    if (descLower.includes('update') || descLower.includes('edit') || descLower.includes('modify')) {
+    if (
+      descLower.includes('update') ||
+      descLower.includes('edit') ||
+      descLower.includes('modify')
+    ) {
       suggestions.method = 'PUT';
     }
 

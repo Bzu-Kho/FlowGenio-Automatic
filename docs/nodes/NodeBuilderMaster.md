@@ -7,21 +7,25 @@ El **NodeBuilder Master** es un nodo revolucionario que utiliza inteligencia art
 ## Features
 
 ### 🤖 AI-Powered Generation
+
 - **Ollama Integration**: Utiliza modelos locales como Llama3 para privacidad total
 - **OpenAI Support**: Compatible con GPT-3.5/GPT-4 para generación avanzada
 - **Fallback System**: Sistema de respaldo si AI no está disponible
 
 ### 🎯 Comprehensive Node Creation
+
 - **Multiple Categories**: Triggers, Data, Logic, Actions, Integrations, Utilities
 - **Complexity Levels**: Simple, Medium, Complex, Expert
 - **Code Styles**: FlowForge, n8n-compatible, Zapier-style, Custom
 
 ### 📚 Auto-Documentation
+
 - **JSON Documentation**: Documentación estructurada automática
 - **Markdown Files**: Documentación legible para humanos
 - **Usage Examples**: Ejemplos de uso generados automáticamente
 
 ### 💾 Smart Saving
+
 - **Auto-Detection**: Detecta automáticamente la carpeta de categoría
 - **Custom Paths**: Permite guardar en ubicaciones personalizadas
 - **Auto-Registration**: Registro automático en NodeRegistry (próximamente)
@@ -166,22 +170,26 @@ El **NodeBuilder Master** es un nodo revolucionario que utiliza inteligencia art
 ## Configuration Options
 
 ### Node Specifications
+
 - **name**: Node class name (PascalCase)
 - **category**: Category folder (triggers, data, logic, actions, etc.)
 - **description**: Detailed functionality description
 - **complexity**: simple | medium | complex | expert
 
 ### AI Settings
+
 - **aiProvider**: ollama | openai | anthropic
 - **model**: Specific model name (llama3:latest, gpt-4, etc.)
 - **codeStyle**: flowforge | n8n | zapier | custom
 
 ### Documentation Settings
+
 - **generateDocs**: Generate comprehensive documentation
 - **docFormat**: json | markdown | both
 - **includeExamples**: Include usage examples and test cases
 
 ### Output Settings
+
 - **autoSave**: Automatically save generated node
 - **saveLocation**: auto | custom | temp
 - **autoRegister**: Register node in NodeRegistry (coming soon)
@@ -202,7 +210,7 @@ class NodeName extends BaseNode {
       ...config,
       category: 'category',
       icon: 'icon-name',
-      description: 'Node description'
+      description: 'Node description',
     });
   }
 
@@ -239,12 +247,14 @@ The NodeBuilder Master uses sophisticated prompting to generate high-quality nod
 ## Integration with Ollama
 
 ### Local AI Benefits
+
 - **Privacy**: All processing happens locally
 - **Speed**: Fast generation without API limits
 - **Customization**: Can fine-tune models for FlowForge patterns
 - **Offline**: Works without internet connection
 
 ### Ollama Setup
+
 ```bash
 # Install Ollama
 curl -fsSL https://ollama.ai/install.sh | sh

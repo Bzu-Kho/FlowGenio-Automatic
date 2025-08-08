@@ -11,17 +11,17 @@ const setVariableNode = {
     variables: {
       type: 'array',
       default: [],
-      description: 'Variables to set'
-    }
+      description: 'Variables to set',
+    },
   },
   async run(ctx) {
     // Dummy implementation
     return { output: ctx.input };
-  }
+  },
 };
 
 export default {
   name: 'set-variable',
   nodes: [setVariableNode],
-  hooks: {}
+  hooks: {},
 };

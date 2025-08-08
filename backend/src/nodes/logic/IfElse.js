@@ -9,7 +9,7 @@ class IfElse extends BaseNode {
       ...config,
       category: 'logic',
       icon: 'git-branch',
-      description: 'Conditional logic with if/else branching'
+      description: 'Conditional logic with if/else branching',
     });
   }
 
@@ -19,8 +19,8 @@ class IfElse extends BaseNode {
         name: 'input',
         type: 'any',
         required: true,
-        description: 'Data to evaluate'
-      }
+        description: 'Data to evaluate',
+      },
     ];
   }
 
@@ -29,13 +29,13 @@ class IfElse extends BaseNode {
       {
         name: 'true',
         type: 'any',
-        description: 'Output when condition is true'
+        description: 'Output when condition is true',
       },
       {
         name: 'false',
         type: 'any',
-        description: 'Output when condition is false'
-      }
+        description: 'Output when condition is false',
+      },
     ];
   }
 
@@ -58,33 +58,33 @@ class IfElse extends BaseNode {
           { value: 'is_empty', label: 'Is empty' },
           { value: 'is_number', label: 'Is number' },
           { value: 'is_string', label: 'Is string' },
-          { value: 'custom', label: 'Custom expression' }
-        ]
+          { value: 'custom', label: 'Custom expression' },
+        ],
       },
       field: {
         type: 'string',
         displayName: 'Field Path',
         description: 'Path to the field to evaluate (e.g., data.name)',
-        placeholder: 'data.field'
+        placeholder: 'data.field',
       },
       value: {
         type: 'string',
         displayName: 'Compare Value',
         description: 'Value to compare against',
-        placeholder: 'comparison value'
+        placeholder: 'comparison value',
       },
       customExpression: {
         type: 'string',
         displayName: 'Custom Expression',
         description: 'JavaScript expression to evaluate (use "data" variable)',
-        placeholder: 'data.value > 100 && data.status === "active"'
+        placeholder: 'data.value > 100 && data.status === "active"',
       },
       passThrough: {
         type: 'boolean',
         displayName: 'Pass Through Data',
         description: 'Pass input data to output (vs just boolean result)',
-        default: true
-      }
+        default: true,
+      },
     };
   }
 
@@ -101,26 +101,28 @@ class IfElse extends BaseNode {
 
       // Get field value from input data
       const fieldValue = this.getFieldValue(inputData, field);
-      
+
       // Evaluate condition
       const conditionResult = await this.evaluateCondition(
         condition,
         fieldValue,
         compareValue,
         customExpression,
-        inputData
+        inputData,
       );
 
       this.log('info', `Condition result: ${conditionResult}`, { fieldValue, compareValue });
 
       // Prepare output data
-      const outputData = passThrough ? inputData : { 
-        result: conditionResult,
-        field: field,
-        fieldValue: fieldValue,
-        compareValue: compareValue,
-        timestamp: new Date().toISOString()
-      };
+      const outputData = passThrough
+        ? inputData
+        : {
+            result: conditionResult,
+            field: field,
+            fieldValue: fieldValue,
+            compareValue: compareValue,
+            timestamp: new Date().toISOString(),
+          };
 
       // Return on appropriate output
       if (conditionResult) {
@@ -128,7 +130,6 @@ class IfElse extends BaseNode {
       } else {
         return { false: outputData };
       }
-
     } catch (error) {
       this.log('error', 'Condition evaluation failed', { error: error.message });
       throw this.createError(`If/Else execution failed: ${error.message}`, 'CONDITION_ERROR');
@@ -137,17 +138,17 @@ class IfElse extends BaseNode {
 
   getFieldValue(data, fieldPath) {
     if (!fieldPath) return data;
-    
+
     try {
       // Support dot notation (e.g., "data.user.name")
       const fields = fieldPath.split('.');
       let value = data;
-      
+
       for (const field of fields) {
         if (value === null || value === undefined) return null;
         value = value[field];
       }
-      
+
       return value;
     } catch (error) {
       return null;
@@ -158,43 +159,45 @@ class IfElse extends BaseNode {
     switch (condition) {
       case 'exists':
         return fieldValue !== null && fieldValue !== undefined;
-        
+
       case 'equals':
         return this.compareValues(fieldValue, compareValue, '===');
-        
+
       case 'not_equals':
         return this.compareValues(fieldValue, compareValue, '!==');
-        
+
       case 'greater_than':
         return this.compareValues(fieldValue, compareValue, '>');
-        
+
       case 'less_than':
         return this.compareValues(fieldValue, compareValue, '<');
-        
+
       case 'contains':
         return String(fieldValue).toLowerCase().includes(String(compareValue).toLowerCase());
-        
+
       case 'starts_with':
         return String(fieldValue).toLowerCase().startsWith(String(compareValue).toLowerCase());
-        
+
       case 'ends_with':
         return String(fieldValue).toLowerCase().endsWith(String(compareValue).toLowerCase());
-        
+
       case 'is_empty':
-        return !fieldValue || 
-               (Array.isArray(fieldValue) && fieldValue.length === 0) ||
-               (typeof fieldValue === 'object' && Object.keys(fieldValue).length === 0) ||
-               String(fieldValue).trim() === '';
-        
+        return (
+          !fieldValue ||
+          (Array.isArray(fieldValue) && fieldValue.length === 0) ||
+          (typeof fieldValue === 'object' && Object.keys(fieldValue).length === 0) ||
+          String(fieldValue).trim() === ''
+        );
+
       case 'is_number':
         return !isNaN(Number(fieldValue)) && !isNaN(parseFloat(fieldValue));
-        
+
       case 'is_string':
         return typeof fieldValue === 'string';
-        
+
       case 'custom':
         return this.evaluateCustomExpression(customExpression, fullData);
-        
+
       default:
         throw new Error(`Unknown condition type: ${condition}`);
     }
@@ -204,27 +207,40 @@ class IfElse extends BaseNode {
     // Try to convert to numbers if both look like numbers
     const num1 = Number(value1);
     const num2 = Number(value2);
-    
+
     if (!isNaN(num1) && !isNaN(num2)) {
       switch (operator) {
-        case '===': return num1 === num2;
-        case '!==': return num1 !== num2;
-        case '>': return num1 > num2;
-        case '<': return num1 < num2;
-        case '>=': return num1 >= num2;
-        case '<=': return num1 <= num2;
+        case '===':
+          return num1 === num2;
+        case '!==':
+          return num1 !== num2;
+        case '>':
+          return num1 > num2;
+        case '<':
+          return num1 < num2;
+        case '>=':
+          return num1 >= num2;
+        case '<=':
+          return num1 <= num2;
       }
     }
-    
+
     // String comparison
     switch (operator) {
-      case '===': return value1 === value2;
-      case '!==': return value1 !== value2;
-      case '>': return String(value1) > String(value2);
-      case '<': return String(value1) < String(value2);
-      case '>=': return String(value1) >= String(value2);
-      case '<=': return String(value1) <= String(value2);
-      default: return false;
+      case '===':
+        return value1 === value2;
+      case '!==':
+        return value1 !== value2;
+      case '>':
+        return String(value1) > String(value2);
+      case '<':
+        return String(value1) < String(value2);
+      case '>=':
+        return String(value1) >= String(value2);
+      case '<=':
+        return String(value1) <= String(value2);
+      default:
+        return false;
     }
   }
 

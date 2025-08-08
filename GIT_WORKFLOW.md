@@ -8,7 +8,7 @@ master (main)     ←── Production ready code
 ├── develop       ←── Integration branch
 │   │
 │   ├── feature/nodes      ←── Node development
-│   ├── feature/frontend   ←── Frontend features  
+│   ├── feature/frontend   ←── Frontend features
 │   ├── feature/backend    ←── Backend features
 │   └── feature/ai         ←── AI integration
 │
@@ -18,6 +18,7 @@ master (main)     ←── Production ready code
 ## 🚀 Common Git Commands for FlowForge
 
 ### Daily Development
+
 ```bash
 # Switch to develop branch
 git checkout develop
@@ -34,6 +35,7 @@ git push origin feature/new-node-type
 ```
 
 ### Commit Message Conventions
+
 ```
 🚀 feat: New feature
 🐛 fix: Bug fix
@@ -46,6 +48,7 @@ git push origin feature/new-node-type
 ```
 
 ### Example Commits
+
 ```bash
 git commit -m "🚀 feat: Add WebSocket real-time execution"
 git commit -m "🐛 fix: Node connection validation error"
@@ -56,6 +59,7 @@ git commit -m "🎨 style: Improve node palette UI"
 ## 🔄 Workflow Steps
 
 1. **Start new feature**
+
    ```bash
    git checkout develop
    git pull origin develop
@@ -63,6 +67,7 @@ git commit -m "🎨 style: Improve node palette UI"
    ```
 
 2. **Work on feature**
+
    ```bash
    # Make changes
    git add .
@@ -70,6 +75,7 @@ git commit -m "🎨 style: Improve node palette UI"
    ```
 
 3. **Merge back to develop**
+
    ```bash
    git checkout develop
    git merge feature/my-feature

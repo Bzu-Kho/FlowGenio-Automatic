@@ -1,19 +1,26 @@
-// WorkflowRepository: Abstracts workflow persistence
-class WorkflowRepository {
+// In-memory WorkflowRepository (replace with DB-backed in production)
+import { Repository } from './Repository.js';
+
+class WorkflowRepository extends Repository {
+  constructor() {
+    super();
+    this.workflows = new Map();
+  }
+
+  async findById(id) {
+    return this.workflows.get(id) || null;
+  }
+
   async save(workflow) {
-    // TODO: Implement DB save logic
-    throw new Error('Not implemented');
+    if (!workflow.id) throw new Error('Workflow must have an id');
+    this.workflows.set(workflow.id, workflow);
+    return workflow;
   }
 
-  async getById(id) {
-    // TODO: Implement DB fetch logic
-    throw new Error('Not implemented');
-  }
-
-  async list() {
-    // TODO: Implement DB list logic
-    throw new Error('Not implemented');
+  async findAll() {
+    return Array.from(this.workflows.values());
   }
 }
 
-export default new WorkflowRepository();
+const workflowRepository = new WorkflowRepository();
+export default workflowRepository;

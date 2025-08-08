@@ -9,7 +9,7 @@ class ConsoleOutput extends BaseNode {
       ...config,
       category: 'action',
       icon: 'terminal',
-      description: 'Output data to console for debugging'
+      description: 'Output data to console for debugging',
     });
   }
 
@@ -19,8 +19,8 @@ class ConsoleOutput extends BaseNode {
         name: 'input',
         type: 'any',
         required: true,
-        description: 'Data to output to console'
-      }
+        description: 'Data to output to console',
+      },
     ];
   }
 
@@ -29,8 +29,8 @@ class ConsoleOutput extends BaseNode {
       {
         name: 'output',
         type: 'object',
-        description: 'Pass-through data with console metadata'
-      }
+        description: 'Pass-through data with console metadata',
+      },
     ];
   }
 
@@ -46,26 +46,26 @@ class ConsoleOutput extends BaseNode {
           { value: 'info', label: 'Info' },
           { value: 'warn', label: 'Warning' },
           { value: 'error', label: 'Error' },
-          { value: 'debug', label: 'Debug' }
-        ]
+          { value: 'debug', label: 'Debug' },
+        ],
       },
       message: {
         type: 'string',
         displayName: 'Message',
         description: 'Custom message to display',
-        placeholder: 'Optional custom message'
+        placeholder: 'Optional custom message',
       },
       includeTimestamp: {
         type: 'boolean',
         displayName: 'Include Timestamp',
         description: 'Add timestamp to console output',
-        default: true
+        default: true,
       },
       includeNodeInfo: {
         type: 'boolean',
         displayName: 'Include Node Info',
         description: 'Add node information to output',
-        default: true
+        default: true,
       },
       formatOutput: {
         type: 'select',
@@ -76,15 +76,15 @@ class ConsoleOutput extends BaseNode {
           { value: 'pretty', label: 'Pretty JSON' },
           { value: 'compact', label: 'Compact JSON' },
           { value: 'string', label: 'String representation' },
-          { value: 'summary', label: 'Data summary only' }
-        ]
+          { value: 'summary', label: 'Data summary only' },
+        ],
       },
       passThrough: {
         type: 'boolean',
         displayName: 'Pass Through Data',
         description: 'Pass input data to output port',
-        default: true
-      }
+        default: true,
+      },
     };
   }
 
@@ -104,7 +104,7 @@ class ConsoleOutput extends BaseNode {
         customMessage,
         includeTimestamp,
         includeNodeInfo,
-        formatOutput
+        formatOutput,
       );
 
       // Output to console with appropriate level
@@ -117,7 +117,7 @@ class ConsoleOutput extends BaseNode {
         timestamp: new Date().toISOString(),
         message: customMessage || 'Console output',
         nodeId: this.id,
-        data: passThrough ? inputData : undefined
+        data: passThrough ? inputData : undefined,
       };
 
       if (passThrough) {
@@ -129,9 +129,9 @@ class ConsoleOutput extends BaseNode {
               _console: {
                 logged: true,
                 timestamp: outputData.timestamp,
-                logLevel
-              }
-            }
+                logLevel,
+              },
+            },
           };
         } else {
           return {
@@ -140,15 +140,14 @@ class ConsoleOutput extends BaseNode {
               _console: {
                 logged: true,
                 timestamp: outputData.timestamp,
-                logLevel
-              }
-            }
+                logLevel,
+              },
+            },
           };
         }
       } else {
         return { output: outputData };
       }
-
     } catch (error) {
       this.log('error', 'Console output execution failed', { error: error.message });
       throw this.createError(`Console Output execution failed: ${error.message}`, 'OUTPUT_ERROR');
@@ -179,34 +178,34 @@ class ConsoleOutput extends BaseNode {
       case 'pretty':
         formattedData = JSON.stringify(data, null, 2);
         break;
-        
+
       case 'compact':
         formattedData = JSON.stringify(data);
         break;
-        
+
       case 'string':
         formattedData = String(data);
         break;
-        
+
       case 'summary':
         formattedData = this.getDataSummary(data);
         break;
-        
+
       default:
         formattedData = JSON.stringify(data, null, 2);
     }
 
     return {
       prefix: parts.join(' '),
-      data: formattedData
+      data: formattedData,
     };
   }
 
   outputToConsole(level, message, data) {
     const { prefix, data: formattedData } = message;
-    
+
     const fullMessage = prefix ? `${prefix}\n${formattedData}` : formattedData;
-    
+
     switch (level) {
       case 'error':
         console.error(fullMessage);
@@ -233,28 +232,29 @@ class ConsoleOutput extends BaseNode {
   getDataSummary(data) {
     if (data === null) return 'null';
     if (data === undefined) return 'undefined';
-    
+
     const type = Array.isArray(data) ? 'array' : typeof data;
-    
+
     switch (type) {
       case 'string':
         return `String (${data.length} chars): "${data.slice(0, 50)}${data.length > 50 ? '...' : ''}"`;
-        
+
       case 'number':
         return `Number: ${data}`;
-        
+
       case 'boolean':
         return `Boolean: ${data}`;
-        
+
       case 'array':
-        return `Array (${data.length} items): [${data.slice(0, 3).map(item => 
-          typeof item === 'string' ? `"${item}"` : String(item)
-        ).join(', ')}${data.length > 3 ? '...' : ''}]`;
-        
+        return `Array (${data.length} items): [${data
+          .slice(0, 3)
+          .map((item) => (typeof item === 'string' ? `"${item}"` : String(item)))
+          .join(', ')}${data.length > 3 ? '...' : ''}]`;
+
       case 'object':
         const keys = Object.keys(data);
         return `Object (${keys.length} keys): {${keys.slice(0, 3).join(', ')}${keys.length > 3 ? '...' : ''}}`;
-        
+
       default:
         return `${type}: ${String(data).slice(0, 100)}`;
     }
@@ -268,14 +268,14 @@ class ConsoleOutput extends BaseNode {
       nodeType: this.type,
       level,
       message,
-      data
+      data,
     };
 
     // In a real implementation, this would emit to an event system
     // For now, we'll just store it for potential debugging
     if (!global.flowForgeLogs) global.flowForgeLogs = [];
     global.flowForgeLogs.push(logEvent);
-    
+
     // Keep only last 1000 logs to prevent memory issues
     if (global.flowForgeLogs.length > 1000) {
       global.flowForgeLogs = global.flowForgeLogs.slice(-1000);

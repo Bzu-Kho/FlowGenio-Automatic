@@ -10,7 +10,7 @@ class HttpRequest extends BaseNode {
       category: 'data',
       icon: 'globe',
       description: 'Professional HTTP client with AI assistance and advanced features',
-      version: '2.0.0'
+      version: '2.0.0',
     });
   }
 
@@ -20,26 +20,26 @@ class HttpRequest extends BaseNode {
         name: 'trigger',
         type: 'any',
         required: false,
-        description: 'Trigger input to execute the request'
+        description: 'Trigger input to execute the request',
       },
       {
         name: 'url',
         type: 'string',
         required: false,
-        description: 'Dynamic URL override'
+        description: 'Dynamic URL override',
       },
       {
         name: 'body',
         type: 'object',
         required: false,
-        description: 'Dynamic request body'
+        description: 'Dynamic request body',
       },
       {
         name: 'headers',
         type: 'object',
         required: false,
-        description: 'Dynamic headers override'
-      }
+        description: 'Dynamic headers override',
+      },
     ];
   }
 
@@ -48,28 +48,28 @@ class HttpRequest extends BaseNode {
       {
         name: 'response',
         type: 'object',
-        description: 'Complete HTTP response'
+        description: 'Complete HTTP response',
       },
       {
         name: 'data',
         type: 'any',
-        description: 'Response body data'
+        description: 'Response body data',
       },
       {
         name: 'headers',
         type: 'object',
-        description: 'Response headers'
+        description: 'Response headers',
       },
       {
         name: 'status',
         type: 'object',
-        description: 'Status information'
+        description: 'Status information',
       },
       {
         name: 'error',
         type: 'object',
-        description: 'Error details if request fails'
-      }
+        description: 'Error details if request fails',
+      },
     ];
   }
 
@@ -82,9 +82,9 @@ class HttpRequest extends BaseNode {
         description: 'Target URL for the request',
         required: true,
         placeholder: 'https://api.example.com/data',
-        category: 'endpoint'
+        category: 'endpoint',
       },
-      
+
       // 🔧 HTTP Method
       method: {
         type: 'select',
@@ -99,8 +99,8 @@ class HttpRequest extends BaseNode {
           { value: 'PATCH', label: 'PATCH - Partial update' },
           { value: 'DELETE', label: 'DELETE - Remove data' },
           { value: 'HEAD', label: 'HEAD - Headers only' },
-          { value: 'OPTIONS', label: 'OPTIONS - Available methods' }
-        ]
+          { value: 'OPTIONS', label: 'OPTIONS - Available methods' },
+        ],
       },
 
       // 📋 Headers Configuration
@@ -111,9 +111,9 @@ class HttpRequest extends BaseNode {
         category: 'headers',
         default: [
           { key: 'Content-Type', value: 'application/json' },
-          { key: 'User-Agent', value: 'FlowForge/2.0' }
+          { key: 'User-Agent', value: 'FlowForge/2.0' },
         ],
-        placeholder: { key: 'Header-Name', value: 'Header-Value' }
+        placeholder: { key: 'Header-Name', value: 'Header-Value' },
       },
 
       // 🔐 Authentication
@@ -130,8 +130,8 @@ class HttpRequest extends BaseNode {
           { value: 'api-key', label: 'API Key (Header)' },
           { value: 'api-key-query', label: 'API Key (Query Parameter)' },
           { value: 'oauth2', label: 'OAuth 2.0' },
-          { value: 'custom', label: 'Custom Authentication' }
-        ]
+          { value: 'custom', label: 'Custom Authentication' },
+        ],
       },
 
       // 🔑 Auth Details
@@ -140,14 +140,17 @@ class HttpRequest extends BaseNode {
         displayName: 'Authentication Details',
         description: 'Authentication configuration',
         category: 'auth',
-        conditional: { field: 'authentication', value: ['basic', 'bearer', 'api-key', 'api-key-query', 'oauth2'] },
+        conditional: {
+          field: 'authentication',
+          value: ['basic', 'bearer', 'api-key', 'api-key-query', 'oauth2'],
+        },
         properties: {
           username: { type: 'string', label: 'Username' },
           password: { type: 'password', label: 'Password' },
           token: { type: 'password', label: 'Token/API Key' },
           headerName: { type: 'string', label: 'Header Name', default: 'X-API-Key' },
-          paramName: { type: 'string', label: 'Parameter Name', default: 'api_key' }
-        }
+          paramName: { type: 'string', label: 'Parameter Name', default: 'api_key' },
+        },
       },
 
       // 📦 Request Body
@@ -164,8 +167,8 @@ class HttpRequest extends BaseNode {
           { value: 'form-urlencoded', label: 'URL Encoded' },
           { value: 'raw', label: 'Raw Text' },
           { value: 'binary', label: 'Binary' },
-          { value: 'multipart', label: 'Multipart Form' }
-        ]
+          { value: 'multipart', label: 'Multipart Form' },
+        ],
       },
 
       body: {
@@ -174,7 +177,7 @@ class HttpRequest extends BaseNode {
         description: 'Request payload',
         category: 'body',
         conditional: { field: 'bodyType', value: ['json', 'form', 'form-urlencoded'] },
-        default: {}
+        default: {},
       },
 
       rawBody: {
@@ -183,7 +186,7 @@ class HttpRequest extends BaseNode {
         description: 'Raw request body',
         category: 'body',
         conditional: { field: 'bodyType', value: ['raw'] },
-        multiline: true
+        multiline: true,
       },
 
       // ⚙️ Advanced Options
@@ -194,7 +197,7 @@ class HttpRequest extends BaseNode {
         default: 30000,
         min: 1000,
         max: 300000,
-        category: 'advanced'
+        category: 'advanced',
       },
 
       retries: {
@@ -204,7 +207,7 @@ class HttpRequest extends BaseNode {
         default: 0,
         min: 0,
         max: 5,
-        category: 'advanced'
+        category: 'advanced',
       },
 
       retryDelay: {
@@ -215,7 +218,7 @@ class HttpRequest extends BaseNode {
         min: 100,
         max: 10000,
         category: 'advanced',
-        conditional: { field: 'retries', operator: '>', value: 0 }
+        conditional: { field: 'retries', operator: '>', value: 0 },
       },
 
       followRedirects: {
@@ -223,7 +226,7 @@ class HttpRequest extends BaseNode {
         displayName: 'Follow Redirects',
         description: 'Automatically follow HTTP redirects',
         default: true,
-        category: 'advanced'
+        category: 'advanced',
       },
 
       maxRedirects: {
@@ -234,7 +237,7 @@ class HttpRequest extends BaseNode {
         min: 1,
         max: 20,
         category: 'advanced',
-        conditional: { field: 'followRedirects', value: true }
+        conditional: { field: 'followRedirects', value: true },
       },
 
       // 🧠 AI Assistant
@@ -243,7 +246,7 @@ class HttpRequest extends BaseNode {
         displayName: 'AI Assistance',
         description: 'Enable AI-powered configuration assistance',
         default: false,
-        category: 'ai'
+        category: 'ai',
       },
 
       aiPrompt: {
@@ -253,7 +256,7 @@ class HttpRequest extends BaseNode {
         category: 'ai',
         conditional: { field: 'aiAssisted', value: true },
         placeholder: 'e.g., "Get user profile from GitHub API using my token"',
-        multiline: true
+        multiline: true,
       },
 
       // 📊 Response Processing
@@ -269,8 +272,8 @@ class HttpRequest extends BaseNode {
           { value: 'text', label: 'Text' },
           { value: 'xml', label: 'XML' },
           { value: 'html', label: 'HTML' },
-          { value: 'binary', label: 'Binary' }
-        ]
+          { value: 'binary', label: 'Binary' },
+        ],
       },
 
       extractData: {
@@ -279,7 +282,7 @@ class HttpRequest extends BaseNode {
         description: 'JSONPath expressions to extract specific data',
         category: 'response',
         default: {},
-        placeholder: { "userId": "$.user.id", "email": "$.user.email" }
+        placeholder: { userId: '$.user.id', email: '$.user.email' },
       },
 
       // 🔍 Validation & Error Handling
@@ -288,7 +291,7 @@ class HttpRequest extends BaseNode {
         displayName: 'Validate Response',
         description: 'Enable response validation',
         default: false,
-        category: 'validation'
+        category: 'validation',
       },
 
       validationRules: {
@@ -300,8 +303,8 @@ class HttpRequest extends BaseNode {
         default: {
           statusCodes: [200, 201, 202],
           requiredFields: [],
-          maxResponseTime: 10000
-        }
+          maxResponseTime: 10000,
+        },
       },
 
       // 🐛 Debug & Logging
@@ -316,16 +319,16 @@ class HttpRequest extends BaseNode {
           { value: 'error', label: 'Errors Only' },
           { value: 'info', label: 'Info' },
           { value: 'debug', label: 'Debug' },
-          { value: 'verbose', label: 'Verbose' }
-        ]
-      }
+          { value: 'verbose', label: 'Verbose' },
+        ],
+      },
     };
   }
 
   async execute(context) {
     const startTime = Date.now();
     const { inputs, properties } = context;
-    
+
     try {
       // 🧠 AI-Assisted Configuration
       if (properties.aiAssisted && properties.aiPrompt) {
@@ -334,29 +337,28 @@ class HttpRequest extends BaseNode {
 
       // 🔗 Build Request Configuration
       const requestConfig = await this.buildRequestConfig(inputs, properties);
-      
+
       // 📊 Log request details
       this.logRequest(requestConfig, properties.logLevel);
-      
+
       // 🚀 Execute Request with Retries
       const response = await this.executeWithRetries(requestConfig, properties);
-      
+
       // ⏱️ Calculate timing
       const responseTime = Date.now() - startTime;
-      
+
       // ✅ Validate Response
       if (properties.validateResponse) {
         await this.validateResponse(response, properties.validationRules);
       }
-      
+
       // 📋 Process Response
       const processedResponse = await this.processResponse(response, properties);
-      
+
       // 📊 Log response details
       this.logResponse(processedResponse, responseTime, properties.logLevel);
-      
+
       return this.createSuccessOutput(processedResponse, responseTime);
-      
     } catch (error) {
       const responseTime = Date.now() - startTime;
       this.logError(error, responseTime, properties.logLevel);
@@ -368,12 +370,12 @@ class HttpRequest extends BaseNode {
   async applyAIConfiguration(properties) {
     // TODO: Implement Ollama integration for AI-assisted configuration
     console.log(`🧠 AI Assistant analyzing: "${properties.aiPrompt}" - HttpRequestPro.js:370`);
-    
+
     // This will be expanded with Ollama integration
     // For now, we'll implement smart defaults based on common patterns
-    
+
     const prompt = properties.aiPrompt.toLowerCase();
-    
+
     // Smart defaults based on AI analysis
     if (prompt.includes('github')) {
       properties.headers = properties.headers || {};
@@ -382,14 +384,14 @@ class HttpRequest extends BaseNode {
         console.log('🧠 AI suggests using GitHub API base URL - HttpRequestPro.js:382');
       }
     }
-    
+
     if (prompt.includes('auth') || prompt.includes('token')) {
       if (properties.authentication === 'none') {
         properties.authentication = 'bearer';
         console.log('🧠 AI suggests using Bearer token authentication - HttpRequestPro.js:389');
       }
     }
-    
+
     if (prompt.includes('post') || prompt.includes('create') || prompt.includes('submit')) {
       properties.method = 'POST';
       console.log('🧠 AI suggests using POST method - HttpRequestPro.js:395');
@@ -403,16 +405,16 @@ class HttpRequest extends BaseNode {
       url: inputs.url || properties.url,
       timeout: properties.timeout || 30000,
       headers: { ...properties.headers, ...inputs.headers },
-      maxRedirects: properties.followRedirects ? (properties.maxRedirects || 5) : 0
+      maxRedirects: properties.followRedirects ? properties.maxRedirects || 5 : 0,
     };
 
     // Add authentication
     this.addAuthentication(config, properties);
-    
+
     // Add body for applicable methods
     if (['POST', 'PUT', 'PATCH'].includes(config.method)) {
       config.body = inputs.body || properties.body || properties.rawBody;
-      
+
       // Set appropriate Content-Type based on body type
       if (properties.bodyType === 'form-urlencoded') {
         config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
@@ -435,11 +437,13 @@ class HttpRequest extends BaseNode {
         return response;
       } catch (error) {
         lastError = error;
-        
+
         if (attempt < maxRetries) {
           const delay = properties.retryDelay || 1000;
-          console.log(`🔄 Retry attempt ${attempt + 1}/${maxRetries} in ${delay}ms - HttpRequestPro.js:441`);
-          await new Promise(resolve => setTimeout(resolve, delay));
+          console.log(
+            `🔄 Retry attempt ${attempt + 1}/${maxRetries} in ${delay}ms - HttpRequestPro.js:441`,
+          );
+          await new Promise((resolve) => setTimeout(resolve, delay));
         }
       }
     }
@@ -453,11 +457,11 @@ class HttpRequest extends BaseNode {
       method: config.method,
       headers: config.headers,
       body: config.body ? JSON.stringify(config.body) : undefined,
-      signal: AbortSignal.timeout(config.timeout)
+      signal: AbortSignal.timeout(config.timeout),
     });
 
     const data = await this.parseResponseData(response);
-    
+
     return {
       status: response.status,
       statusText: response.statusText,
@@ -465,14 +469,14 @@ class HttpRequest extends BaseNode {
       data,
       ok: response.ok,
       url: response.url,
-      redirected: response.redirected
+      redirected: response.redirected,
     };
   }
 
   // 📋 Parse Response Data
   async parseResponseData(response) {
     const contentType = response.headers.get('content-type') || '';
-    
+
     if (contentType.includes('application/json')) {
       return await response.json();
     } else if (contentType.includes('text/')) {
@@ -488,7 +492,7 @@ class HttpRequest extends BaseNode {
       response: {
         ...response,
         responseTime,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
       },
       data: response.data,
       headers: response.headers,
@@ -496,8 +500,8 @@ class HttpRequest extends BaseNode {
         code: response.status,
         text: response.statusText,
         ok: response.ok,
-        responseTime
-      }
+        responseTime,
+      },
     };
   }
 
@@ -509,30 +513,30 @@ class HttpRequest extends BaseNode {
         type: error.name,
         responseTime,
         timestamp: new Date().toISOString(),
-        details: error.cause || error.stack
-      }
+        details: error.cause || error.stack,
+      },
     };
   }
 
   // 🔐 Add Authentication
   addAuthentication(config, properties) {
     const { authentication, authDetails } = properties;
-    
+
     switch (authentication) {
       case 'basic':
         const credentials = btoa(`${authDetails.username}:${authDetails.password}`);
         config.headers['Authorization'] = `Basic ${credentials}`;
         break;
-        
+
       case 'bearer':
         config.headers['Authorization'] = `Bearer ${authDetails.token}`;
         break;
-        
+
       case 'api-key':
         const headerName = authDetails.headerName || 'X-API-Key';
         config.headers[headerName] = authDetails.token;
         break;
-        
+
       case 'api-key-query':
         const paramName = authDetails.paramName || 'api_key';
         const url = new URL(config.url);
@@ -545,9 +549,9 @@ class HttpRequest extends BaseNode {
   // 📊 Logging Methods
   logRequest(config, logLevel) {
     if (logLevel === 'none') return;
-    
+
     console.log(`🌐 HTTP ${config.method} ${config.url} - HttpRequestPro.js:549`);
-    
+
     if (logLevel === 'debug' || logLevel === 'verbose') {
       console.log('📋 Headers: - HttpRequestPro.js:552', config.headers);
       if (config.body) {
@@ -558,9 +562,9 @@ class HttpRequest extends BaseNode {
 
   logResponse(response, responseTime, logLevel) {
     if (logLevel === 'none') return;
-    
+
     console.log(`✅ Response ${response.status} (${responseTime}ms) - HttpRequestPro.js:562`);
-    
+
     if (logLevel === 'debug' || logLevel === 'verbose') {
       console.log('📋 Response Headers: - HttpRequestPro.js:565', response.headers);
       if (logLevel === 'verbose') {
@@ -571,9 +575,9 @@ class HttpRequest extends BaseNode {
 
   logError(error, responseTime, logLevel) {
     if (logLevel === 'none') return;
-    
+
     console.error(`❌ HTTP Error (${responseTime}ms): - HttpRequestPro.js:575`, error.message);
-    
+
     if (logLevel === 'debug' || logLevel === 'verbose') {
       console.error('🔍 Error Details: - HttpRequestPro.js:578', error);
     }

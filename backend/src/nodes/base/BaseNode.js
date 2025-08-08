@@ -56,12 +56,12 @@ class BaseNode {
   // Utility methods
   getCategoryColor() {
     const colors = {
-      trigger: '#3B82F6',    // Blue
-      logic: '#10B981',      // Green
-      data: '#8B5CF6',       // Purple
-      ai: '#F59E0B',         // Orange
-      action: '#EF4444',     // Red
-      utility: '#6B7280'     // Gray
+      trigger: '#3B82F6', // Blue
+      logic: '#10B981', // Green
+      data: '#8B5CF6', // Purple
+      ai: '#F59E0B', // Orange
+      action: '#EF4444', // Red
+      utility: '#6B7280', // Gray
     };
     return colors[this.category] || colors.utility;
   }
@@ -80,7 +80,7 @@ class BaseNode {
       properties: this.properties,
       position: this.position,
       data: this.data,
-      version: this.version
+      version: this.version,
     };
   }
 
@@ -96,22 +96,22 @@ class BaseNode {
 
   // Connection management
   canConnectTo(targetNode, outputPort = 'output', inputPort = 'input') {
-    const output = this.outputs.find(o => o.name === outputPort);
-    const input = targetNode.inputs.find(i => i.name === inputPort);
-    
+    const output = this.outputs.find((o) => o.name === outputPort);
+    const input = targetNode.inputs.find((i) => i.name === inputPort);
+
     if (!output || !input) return false;
-    
+
     // Type compatibility check
     if (output.type === 'any' || input.type === 'any') return true;
     if (output.type === input.type) return true;
-    
+
     // Additional type compatibility rules
     const compatibleTypes = {
-      'string': ['text', 'json'],
-      'number': ['integer', 'float'],
-      'object': ['json', 'array']
+      string: ['text', 'json'],
+      number: ['integer', 'float'],
+      object: ['json', 'array'],
     };
-    
+
     const compatible = compatibleTypes[output.type];
     return compatible && compatible.includes(input.type);
   }
@@ -125,8 +125,8 @@ class BaseNode {
         code,
         message,
         details,
-        timestamp: new Date().toISOString()
-      }
+        timestamp: new Date().toISOString(),
+      },
     };
   }
 
@@ -138,11 +138,14 @@ class BaseNode {
       type: this.type,
       level,
       message,
-      data
+      data,
     };
-    
+
     // TODO: Implement proper logging system
-    console.log(`[${level.toUpperCase()}] ${this.type}(${this.id}): ${message} - BaseNode.js:145`, data);
+    console.log(
+      `[${level.toUpperCase()}] ${this.type}(${this.id}): ${message} - BaseNode.js:145`,
+      data,
+    );
     return logEntry;
   }
 
@@ -155,7 +158,7 @@ class BaseNode {
       category: this.category,
       position: this.position,
       data: this.data,
-      version: this.version
+      version: this.version,
     };
   }
 

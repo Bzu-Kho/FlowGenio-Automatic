@@ -9,7 +9,7 @@ class ManualTrigger extends BaseNode {
       ...config,
       category: 'trigger',
       icon: 'play',
-      description: 'Manually trigger workflow execution'
+      description: 'Manually trigger workflow execution',
     });
   }
 
@@ -22,8 +22,8 @@ class ManualTrigger extends BaseNode {
       {
         name: 'output',
         type: 'object',
-        description: 'Trigger execution data'
-      }
+        description: 'Trigger execution data',
+      },
     ];
   }
 
@@ -33,34 +33,34 @@ class ManualTrigger extends BaseNode {
         type: 'object',
         displayName: 'Trigger Data',
         description: 'Data to pass when triggered',
-        default: {}
+        default: {},
       },
       description: {
         type: 'string',
         displayName: 'Description',
         description: 'Description of this trigger',
-        default: 'Manual trigger'
-      }
+        default: 'Manual trigger',
+      },
     };
   }
 
   async execute(context) {
     try {
       this.log('info', 'Manual trigger executed');
-      
+
       const triggerData = this.getProperty('triggerData', {});
       const description = this.getProperty('description', 'Manual trigger');
-      
+
       const output = {
         trigger: 'manual',
         timestamp: new Date().toISOString(),
         description,
         data: triggerData,
-        executionId: context.executionId || 'manual-' + Date.now()
+        executionId: context.executionId || 'manual-' + Date.now(),
       };
 
       return {
-        output: output
+        output: output,
       };
     } catch (error) {
       throw this.createError(`Manual trigger failed: ${error.message}`);
@@ -70,14 +70,14 @@ class ManualTrigger extends BaseNode {
   async trigger(customData = {}) {
     // Special method for manual triggering
     const triggerData = this.getProperty('triggerData', {});
-    
+
     return {
       output: {
         trigger: 'manual',
         timestamp: new Date().toISOString(),
         data: { ...triggerData, ...customData },
-        executionId: 'manual-' + Date.now()
-      }
+        executionId: 'manual-' + Date.now(),
+      },
     };
   }
 }

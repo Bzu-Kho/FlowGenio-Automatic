@@ -9,7 +9,7 @@ class HttpRequest extends BaseNode {
       ...config,
       category: 'data',
       icon: 'globe',
-      description: 'Send HTTP requests to external APIs'
+      description: 'Send HTTP requests to external APIs',
     });
   }
 
@@ -19,8 +19,8 @@ class HttpRequest extends BaseNode {
         name: 'input',
         type: 'object',
         required: false,
-        description: 'Optional data to include in request'
-      }
+        description: 'Optional data to include in request',
+      },
     ];
   }
 
@@ -29,13 +29,13 @@ class HttpRequest extends BaseNode {
       {
         name: 'output',
         type: 'object',
-        description: 'HTTP response data'
+        description: 'HTTP response data',
       },
       {
         name: 'error',
         type: 'object',
-        description: 'Error information if request fails'
-      }
+        description: 'Error information if request fails',
+      },
     ];
   }
 
@@ -46,7 +46,7 @@ class HttpRequest extends BaseNode {
         displayName: 'URL',
         description: 'Target URL for the request',
         required: true,
-        placeholder: 'https://api.example.com/data'
+        placeholder: 'https://api.example.com/data',
       },
       method: {
         type: 'select',
@@ -58,28 +58,28 @@ class HttpRequest extends BaseNode {
           { value: 'POST', label: 'POST' },
           { value: 'PUT', label: 'PUT' },
           { value: 'DELETE', label: 'DELETE' },
-          { value: 'PATCH', label: 'PATCH' }
-        ]
+          { value: 'PATCH', label: 'PATCH' },
+        ],
       },
       headers: {
         type: 'object',
         displayName: 'Headers',
         description: 'Request headers',
         default: {
-          'Content-Type': 'application/json'
-        }
+          'Content-Type': 'application/json',
+        },
       },
       body: {
         type: 'object',
         displayName: 'Body',
         description: 'Request body (for POST, PUT, PATCH)',
-        default: {}
+        default: {},
       },
       timeout: {
         type: 'number',
         displayName: 'Timeout (ms)',
         description: 'Request timeout in milliseconds',
-        default: 30000
+        default: 30000,
       },
       authentication: {
         type: 'select',
@@ -90,9 +90,9 @@ class HttpRequest extends BaseNode {
           { value: 'none', label: 'None' },
           { value: 'basic', label: 'Basic Auth' },
           { value: 'bearer', label: 'Bearer Token' },
-          { value: 'api-key', label: 'API Key' }
-        ]
-      }
+          { value: 'api-key', label: 'API Key' },
+        ],
+      },
     };
   }
 
@@ -114,7 +114,7 @@ class HttpRequest extends BaseNode {
       const requestOptions = {
         method,
         headers: { ...headers },
-        signal: AbortSignal.timeout(timeout)
+        signal: AbortSignal.timeout(timeout),
       };
 
       // Add authentication
@@ -134,10 +134,10 @@ class HttpRequest extends BaseNode {
 
       // Make the request
       const response = await fetch(url, requestOptions);
-      
+
       let responseData;
       const contentType = response.headers.get('content-type');
-      
+
       if (contentType?.includes('application/json')) {
         responseData = await response.json();
       } else {
@@ -150,7 +150,7 @@ class HttpRequest extends BaseNode {
         headers: Object.fromEntries(response.headers.entries()),
         data: responseData,
         url: response.url,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
       };
 
       if (!response.ok) {
@@ -158,21 +158,20 @@ class HttpRequest extends BaseNode {
         return {
           error: {
             ...result,
-            error: `HTTP ${response.status}: ${response.statusText}`
-          }
+            error: `HTTP ${response.status}: ${response.statusText}`,
+          },
         };
       }
 
       this.log('info', `HTTP request successful (${response.status})`);
       return { output: result };
-
     } catch (error) {
       this.log('error', 'HTTP request failed', { error: error.message });
-      
+
       if (error.name === 'TimeoutError') {
         throw this.createError('Request timeout exceeded', 'TIMEOUT_ERROR');
       }
-      
+
       throw this.createError(`HTTP request failed: ${error.message}`, 'REQUEST_ERROR');
     }
   }
@@ -185,12 +184,12 @@ class HttpRequest extends BaseNode {
         const credentials = btoa(`${username}:${password}`);
         requestOptions.headers['Authorization'] = `Basic ${credentials}`;
         break;
-        
+
       case 'bearer':
         const token = this.getProperty('token', '');
         requestOptions.headers['Authorization'] = `Bearer ${token}`;
         break;
-        
+
       case 'api-key':
         const apiKey = this.getProperty('apiKey', '');
         const apiKeyHeader = this.getProperty('apiKeyHeader', 'X-API-Key');

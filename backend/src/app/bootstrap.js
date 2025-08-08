@@ -6,10 +6,10 @@ import logger from '../observability/logger.js';
 export async function bootstrap() {
   nodeRegistry.initialize();
   await pluginLoader.loadAll(nodeRegistry);
-  const loadedPlugins = pluginLoader.plugins.map(p => p.name);
-  const loadedNodeIds = nodeRegistry.getAllNodes().map(n => n.id);
+  const loadedPlugins = pluginLoader.plugins.map((p) => p.name);
+  const loadedNodeIds = nodeRegistry.getAllNodes().map((n) => n.id);
   logger.info('Bootstrap complete', {
     plugins: loadedPlugins,
-    nodes: loadedNodeIds
+    nodes: loadedNodeIds,
   });
 }

@@ -1,153 +1,152 @@
 export class DocumentBuilderNode {
-    constructor(config = {}) {
-        super({
-            type: 'document-builder',
-            name: 'Document Builder',
-            description: 'Specialized AI builder for document processing nodes (PDF, TXT, DOC, MD, etc.)',
-            category: 'builders',
-            inputs: {
-                documentType: {
-                    type: 'string',
-                    description: 'Type of document to work with',
-                    enum: ['pdf', 'txt', 'doc', 'docx', 'md', 'rtf', 'odt']
-                },
-                operation: {
-                    type: 'string',
-                    description: 'What operation to perform',
-                    enum: ['create', 'parse', 'convert', 'merge', 'extract', 'format']
-                },
-                requirements: {
-                    type: 'string',
-                    description: 'Specific requirements for the document operation'
-                },
-                template: {
-                    type: 'object',
-                    description: 'Template or structure for document creation',
-                    optional: true
-                },
-                styling: {
-                    type: 'object',
-                    description: 'Styling options (fonts, colors, layout)',
-                    optional: true
-                }
-            },
-            outputs: {
-                nodeCode: {
-                    type: 'string',
-                    description: 'Generated node code for document processing'
-                },
-                nodeConfig: {
-                    type: 'object',
-                    description: 'Configuration for the generated node'
-                },
-                dependencies: {
-                    type: 'array',
-                    description: 'Required npm packages for document processing'
-                },
-                examples: {
-                    type: 'array',
-                    description: 'Usage examples for the generated node'
-                }
-            },
-            ...config
-        });
+  constructor(config = {}) {
+    super({
+      type: 'document-builder',
+      name: 'Document Builder',
+      description: 'Specialized AI builder for document processing nodes (PDF, TXT, DOC, MD, etc.)',
+      category: 'builders',
+      inputs: {
+        documentType: {
+          type: 'string',
+          description: 'Type of document to work with',
+          enum: ['pdf', 'txt', 'doc', 'docx', 'md', 'rtf', 'odt'],
+        },
+        operation: {
+          type: 'string',
+          description: 'What operation to perform',
+          enum: ['create', 'parse', 'convert', 'merge', 'extract', 'format'],
+        },
+        requirements: {
+          type: 'string',
+          description: 'Specific requirements for the document operation',
+        },
+        template: {
+          type: 'object',
+          description: 'Template or structure for document creation',
+          optional: true,
+        },
+        styling: {
+          type: 'object',
+          description: 'Styling options (fonts, colors, layout)',
+          optional: true,
+        },
+      },
+      outputs: {
+        nodeCode: {
+          type: 'string',
+          description: 'Generated node code for document processing',
+        },
+        nodeConfig: {
+          type: 'object',
+          description: 'Configuration for the generated node',
+        },
+        dependencies: {
+          type: 'array',
+          description: 'Required npm packages for document processing',
+        },
+        examples: {
+          type: 'array',
+          description: 'Usage examples for the generated node',
+        },
+      },
+      ...config,
+    });
 
-        this.documentLibraries = {
-            pdf: ['pdf-lib', 'puppeteer', 'jspdf', 'pdf2pic'],
-            txt: ['fs', 'iconv-lite', 'encoding'],
-            doc: ['mammoth', 'docx'],
-            docx: ['docx', 'pizzip', 'docxtemplater'],
-            md: ['markdown-it', 'marked', 'showdown'],
-            rtf: ['rtf-parser', 'rtf.js'],
-            odt: ['node-odt2html', 'libreoffice-convert']
-        };
+    this.documentLibraries = {
+      pdf: ['pdf-lib', 'puppeteer', 'jspdf', 'pdf2pic'],
+      txt: ['fs', 'iconv-lite', 'encoding'],
+      doc: ['mammoth', 'docx'],
+      docx: ['docx', 'pizzip', 'docxtemplater'],
+      md: ['markdown-it', 'marked', 'showdown'],
+      rtf: ['rtf-parser', 'rtf.js'],
+      odt: ['node-odt2html', 'libreoffice-convert'],
+    };
 
-        this.documentTemplates = {
-            pdf: {
-                creator: this.generatePDFCreator,
-                parser: this.generatePDFParser,
-                converter: this.generatePDFConverter
-            },
-            txt: {
-                creator: this.generateTextCreator,
-                parser: this.generateTextParser,
-                converter: this.generateTextConverter
-            },
-            md: {
-                creator: this.generateMarkdownCreator,
-                parser: this.generateMarkdownParser,
-                converter: this.generateMarkdownConverter
-            },
-            docx: {
-                creator: this.generateDocxCreator,
-                parser: this.generateDocxParser,
-                converter: this.generateDocxConverter
-            }
-        };
+    this.documentTemplates = {
+      pdf: {
+        creator: this.generatePDFCreator,
+        parser: this.generatePDFParser,
+        converter: this.generatePDFConverter,
+      },
+      txt: {
+        creator: this.generateTextCreator,
+        parser: this.generateTextParser,
+        converter: this.generateTextConverter,
+      },
+      md: {
+        creator: this.generateMarkdownCreator,
+        parser: this.generateMarkdownParser,
+        converter: this.generateMarkdownConverter,
+      },
+      docx: {
+        creator: this.generateDocxCreator,
+        parser: this.generateDocxParser,
+        converter: this.generateDocxConverter,
+      },
+    };
+  }
+
+  async execute() {
+    const { documentType, operation, requirements, template, styling } = this.data;
+
+    try {
+      // Analyze requirements and select appropriate libraries
+      const libraries = this.selectLibraries(documentType, operation);
+
+      // Generate specialized node code
+      const nodeCode = await this.generateDocumentNode(
+        documentType,
+        operation,
+        requirements,
+        template,
+        styling,
+      );
+
+      // Create node configuration
+      const nodeConfig = this.createNodeConfig(documentType, operation);
+
+      // Generate usage examples
+      const examples = this.generateExamples(documentType, operation);
+
+      return {
+        nodeCode,
+        nodeConfig,
+        dependencies: libraries,
+        examples,
+      };
+    } catch (error) {
+      throw new Error(`Document builder failed: ${error.message}`);
+    }
+  }
+
+  selectLibraries(documentType, operation) {
+    const baseLibs = this.documentLibraries[documentType] || [];
+    const commonLibs = ['fs', 'path', 'crypto'];
+
+    // Add operation-specific libraries
+    const operationLibs = {
+      convert: ['sharp', 'imagemin'],
+      merge: ['concat-stream'],
+      extract: ['cheerio', 'jsdom'],
+      format: ['prettier', 'beautify'],
+    };
+
+    return [...new Set([...baseLibs, ...commonLibs, ...(operationLibs[operation] || [])])];
+  }
+
+  async generateDocumentNode(documentType, operation, requirements, template, styling) {
+    const templateMethod = this.documentTemplates[documentType]?.[operation];
+
+    if (templateMethod) {
+      return templateMethod.call(this, requirements, template, styling);
     }
 
-    async execute() {
-        const { documentType, operation, requirements, template, styling } = this.data;
-        
-        try {
-            // Analyze requirements and select appropriate libraries
-            const libraries = this.selectLibraries(documentType, operation);
-            
-            // Generate specialized node code
-            const nodeCode = await this.generateDocumentNode(
-                documentType, 
-                operation, 
-                requirements, 
-                template, 
-                styling
-            );
-            
-            // Create node configuration
-            const nodeConfig = this.createNodeConfig(documentType, operation);
-            
-            // Generate usage examples
-            const examples = this.generateExamples(documentType, operation);
-            
-            return {
-                nodeCode,
-                nodeConfig,
-                dependencies: libraries,
-                examples
-            };
-            
-        } catch (error) {
-            throw new Error(`Document builder failed: ${error.message}`);
-        }
-    }
+    // Fallback to generic generation
+    return this.generateGenericDocumentNode(documentType, operation, requirements);
+  }
 
-    selectLibraries(documentType, operation) {
-        const baseLibs = this.documentLibraries[documentType] || [];
-        const commonLibs = ['fs', 'path', 'crypto'];
-        
-        // Add operation-specific libraries
-        const operationLibs = {
-            convert: ['sharp', 'imagemin'],
-            merge: ['concat-stream'],
-            extract: ['cheerio', 'jsdom'],
-            format: ['prettier', 'beautify']
-        };
-        
-        return [...new Set([...baseLibs, ...commonLibs, ...(operationLibs[operation] || [])])];
-    }
-
-    async generateDocumentNode(documentType, operation, requirements, template, styling) {
-        const templateMethod = this.documentTemplates[documentType]?.[operation];
-        
-        if (templateMethod) {
-            return templateMethod.call(this, requirements, template, styling);
-        }
-        
-        // Fallback to generic generation
-        return this.generateGenericDocumentNode(documentType, operation, requirements);
-    }
-
-    generatePDFCreator(requirements, template, styling) {
-        return `import { BaseNode } from '../BaseNode.js';
+  generatePDFCreator(requirements, template, styling) {
+    return `import { BaseNode } from '../BaseNode.js';
 import PDFDocument from 'pdfkit';
 import fs from 'fs';
 
@@ -214,10 +213,10 @@ export class PDFCreatorNode extends BaseNode {
         });
     }
 }`;
-    }
+  }
 
-    generateMarkdownCreator(requirements, template, styling) {
-        return `import { BaseNode } from '../BaseNode.js';
+  generateMarkdownCreator(requirements, template, styling) {
+    return `import { BaseNode } from '../BaseNode.js';
 import fs from 'fs/promises';
 import marked from 'marked';
 
@@ -276,10 +275,10 @@ export class MarkdownCreatorNode extends BaseNode {
         };
     }
 }`;
-    }
+  }
 
-    generateDocxCreator(requirements, template, styling) {
-        return `import { BaseNode } from '../BaseNode.js';
+  generateDocxCreator(requirements, template, styling) {
+    return `import { BaseNode } from '../BaseNode.js';
 import { Document, Packer, Paragraph, TextRun } from 'docx';
 import fs from 'fs';
 
@@ -362,10 +361,10 @@ export class DocxCreatorNode extends BaseNode {
         };
     }
 }`;
-    }
+  }
 
-    generateGenericDocumentNode(documentType, operation, requirements) {
-        return `import { BaseNode } from '../BaseNode.js';
+  generateGenericDocumentNode(documentType, operation, requirements) {
+    return `import { BaseNode } from '../BaseNode.js';
 
 export class ${this.capitalizeFirst(documentType)}${this.capitalizeFirst(operation)}Node extends BaseNode {
     constructor(config = {}) {
@@ -395,58 +394,58 @@ export class ${this.capitalizeFirst(documentType)}${this.capitalizeFirst(operati
         };
     }
 }`;
-    }
+  }
 
-    createNodeConfig(documentType, operation) {
-        return {
-            type: `${documentType}-${operation}`,
-            category: 'document',
-            icon: this.getDocumentIcon(documentType),
-            color: this.getDocumentColor(documentType),
-            tags: ['document', documentType, operation],
-            version: '1.0.0'
-        };
-    }
+  createNodeConfig(documentType, operation) {
+    return {
+      type: `${documentType}-${operation}`,
+      category: 'document',
+      icon: this.getDocumentIcon(documentType),
+      color: this.getDocumentColor(documentType),
+      tags: ['document', documentType, operation],
+      version: '1.0.0',
+    };
+  }
 
-    generateExamples(documentType, operation) {
-        return [
-            {
-                name: `Basic ${documentType} ${operation}`,
-                description: `Simple example of ${documentType} ${operation}`,
-                config: {
-                    input: `Sample input for ${documentType} ${operation}`
-                }
-            }
-        ];
-    }
+  generateExamples(documentType, operation) {
+    return [
+      {
+        name: `Basic ${documentType} ${operation}`,
+        description: `Simple example of ${documentType} ${operation}`,
+        config: {
+          input: `Sample input for ${documentType} ${operation}`,
+        },
+      },
+    ];
+  }
 
-    getDocumentIcon(documentType) {
-        const icons = {
-            pdf: '📄',
-            txt: '📝',
-            md: '📋',
-            doc: '📄',
-            docx: '📄',
-            rtf: '📄',
-            odt: '📄'
-        };
-        return icons[documentType] || '📄';
-    }
+  getDocumentIcon(documentType) {
+    const icons = {
+      pdf: '📄',
+      txt: '📝',
+      md: '📋',
+      doc: '📄',
+      docx: '📄',
+      rtf: '📄',
+      odt: '📄',
+    };
+    return icons[documentType] || '📄';
+  }
 
-    getDocumentColor(documentType) {
-        const colors = {
-            pdf: '#FF6B6B',
-            txt: '#4ECDC4',
-            md: '#45B7D1',
-            doc: '#96CEB4',
-            docx: '#FFEAA7',
-            rtf: '#DDA0DD',
-            odt: '#98D8C8'
-        };
-        return colors[documentType] || '#95A5A6';
-    }
+  getDocumentColor(documentType) {
+    const colors = {
+      pdf: '#FF6B6B',
+      txt: '#4ECDC4',
+      md: '#45B7D1',
+      doc: '#96CEB4',
+      docx: '#FFEAA7',
+      rtf: '#DDA0DD',
+      odt: '#98D8C8',
+    };
+    return colors[documentType] || '#95A5A6';
+  }
 
-    capitalizeFirst(str) {
-        return str.charAt(0).toUpperCase() + str.slice(1);
-    }
+  capitalizeFirst(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
 }

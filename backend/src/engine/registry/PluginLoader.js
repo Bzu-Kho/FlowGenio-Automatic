@@ -10,7 +10,7 @@ class PluginLoader {
 
   async loadAll(nodeRegistry) {
     if (!fs.existsSync(this.pluginDir)) return;
-    const files = fs.readdirSync(this.pluginDir).filter(f => f.endsWith('.js'));
+    const files = fs.readdirSync(this.pluginDir).filter((f) => f.endsWith('.js'));
     for (const file of files) {
       // Windows: convert to file:// URL for dynamic import
       let pluginPath = path.join(this.pluginDir, file);

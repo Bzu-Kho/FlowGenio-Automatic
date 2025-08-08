@@ -30,8 +30,8 @@ app.get('/health', (req, res) => {
     version: '1.0.0',
     services: {
       api: true,
-      websocket: true
-    }
+      websocket: true,
+    },
   });
 });
 
@@ -44,9 +44,9 @@ app.get('/api/nodes', (req, res) => {
       { type: 'http-request', category: 'data', name: 'HTTP Request' },
       { type: 'email-sender', category: 'actions', name: 'Email Sender' },
       { type: 'document-builder', category: 'builders', name: 'Document Builder' },
-      { type: 'media-builder', category: 'builders', name: 'Media Builder' }
+      { type: 'media-builder', category: 'builders', name: 'Media Builder' },
     ],
-    count: 5
+    count: 5,
   });
 });
 
@@ -55,22 +55,24 @@ const wss = new WebSocketServer({ server });
 
 wss.on('connection', (ws) => {
   console.log('Client connected to WebSocket');
-  
+
   ws.on('message', (message) => {
     try {
       const data = JSON.parse(message);
       console.log('Received:', data);
-      
+
       // Echo back for now
-      ws.send(JSON.stringify({
-        type: 'response',
-        data: { received: data }
-      }));
+      ws.send(
+        JSON.stringify({
+          type: 'response',
+          data: { received: data },
+        }),
+      );
     } catch (error) {
       console.error('WebSocket error:', error);
     }
   });
-  
+
   ws.on('close', () => {
     console.log('Client disconnected');
   });

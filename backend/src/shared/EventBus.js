@@ -17,7 +17,13 @@ class EventBus {
         try {
           handler(payload);
         } catch (err) {
-          // Optionally log error
+          // Improved: log error with context
+          import('../observability/logger.js').then(({ default: logger }) => {
+            logger.error(`EventBus handler error for event: ${eventType}`, {
+              error: err.message,
+              stack: err.stack,
+            });
+          });
         }
       }
     }

@@ -8,13 +8,15 @@ const httpRequestNode = {
   run: async (ctx) => {
     // Dummy implementation
     return { response: { status: 200, data: 'ok' } };
-  }
+  },
 };
 
 export default {
   name: 'core-nodes',
   nodes: [httpRequestNode],
   hooks: {
-    onLoad: () => { /* ... */ }
-  }
+    onLoad: () => {
+      /* ... */
+    },
+  },
 };

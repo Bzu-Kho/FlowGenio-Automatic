@@ -1,200 +1,208 @@
 export class DevToolsBuilderNode {
-    constructor(config = {}) {
-        super({
-            type: 'devtools-builder',
-            name: 'Development Tools Builder',
-            description: 'Specialized AI builder for development tools and utilities',
-            category: 'builders',
-            inputs: {
-                toolType: {
-                    type: 'string',
-                    description: 'Type of development tool to create',
-                    enum: ['api-client', 'code-generator', 'testing', 'deployment', 'monitoring', 'database', 'git', 'ci-cd']
-                },
-                framework: {
-                    type: 'string',
-                    description: 'Target framework or technology',
-                    optional: true
-                },
-                language: {
-                    type: 'string',
-                    description: 'Programming language',
-                    enum: ['javascript', 'typescript', 'python', 'java', 'go', 'rust', 'any'],
-                    default: 'javascript'
-                },
-                operation: {
-                    type: 'string',
-                    description: 'Specific operation or function'
-                },
-                requirements: {
-                    type: 'string',
-                    description: 'Detailed requirements for the tool'
-                }
-            },
-            outputs: {
-                nodeCode: {
-                    type: 'string',
-                    description: 'Generated development tool node code'
-                },
-                nodeConfig: {
-                    type: 'object',
-                    description: 'Configuration for the generated node'
-                },
-                dependencies: {
-                    type: 'array',
-                    description: 'Required packages and dependencies'
-                },
-                documentation: {
-                    type: 'object',
-                    description: 'Usage documentation and examples'
-                }
-            },
-            ...config
-        });
+  constructor(config = {}) {
+    super({
+      type: 'devtools-builder',
+      name: 'Development Tools Builder',
+      description: 'Specialized AI builder for development tools and utilities',
+      category: 'builders',
+      inputs: {
+        toolType: {
+          type: 'string',
+          description: 'Type of development tool to create',
+          enum: [
+            'api-client',
+            'code-generator',
+            'testing',
+            'deployment',
+            'monitoring',
+            'database',
+            'git',
+            'ci-cd',
+          ],
+        },
+        framework: {
+          type: 'string',
+          description: 'Target framework or technology',
+          optional: true,
+        },
+        language: {
+          type: 'string',
+          description: 'Programming language',
+          enum: ['javascript', 'typescript', 'python', 'java', 'go', 'rust', 'any'],
+          default: 'javascript',
+        },
+        operation: {
+          type: 'string',
+          description: 'Specific operation or function',
+        },
+        requirements: {
+          type: 'string',
+          description: 'Detailed requirements for the tool',
+        },
+      },
+      outputs: {
+        nodeCode: {
+          type: 'string',
+          description: 'Generated development tool node code',
+        },
+        nodeConfig: {
+          type: 'object',
+          description: 'Configuration for the generated node',
+        },
+        dependencies: {
+          type: 'array',
+          description: 'Required packages and dependencies',
+        },
+        documentation: {
+          type: 'object',
+          description: 'Usage documentation and examples',
+        },
+      },
+      ...config,
+    });
 
-        this.devToolLibraries = {
-            'api-client': {
-                http: ['axios', 'fetch', 'superagent'],
-                websocket: ['ws', 'socket.io-client'],
-                graphql: ['graphql-request', 'apollo-client'],
-                rest: ['swagger-client', 'openapi-client']
-            },
-            'code-generator': {
-                templates: ['handlebars', 'mustache', 'ejs'],
-                ast: ['@babel/parser', 'typescript', 'espree'],
-                formatting: ['prettier', 'eslint'],
-                scaffolding: ['yeoman-generator', 'plop']
-            },
-            'testing': {
-                unit: ['jest', 'mocha', 'vitest'],
-                e2e: ['playwright', 'cypress', 'puppeteer'],
-                api: ['supertest', 'newman', 'postman'],
-                load: ['artillery', 'k6', 'autocannon']
-            },
-            'deployment': {
-                docker: ['dockerode', 'docker-compose'],
-                cloud: ['aws-sdk', 'azure-sdk', 'google-cloud'],
-                k8s: ['kubernetes-client', 'helm'],
-                ci: ['github-actions', 'gitlab-ci', 'jenkins']
-            },
-            'monitoring': {
-                logs: ['winston', 'pino', 'bunyan'],
-                metrics: ['prometheus-client', 'statsd-client'],
-                tracing: ['jaeger-client', 'opentelemetry'],
-                health: ['express-healthcheck', 'terminus']
-            },
-            'database': {
-                sql: ['knex', 'sequelize', 'prisma'],
-                nosql: ['mongodb', 'redis', 'elasticsearch'],
-                orm: ['typeorm', 'mongoose', 'bookshelf'],
-                migration: ['db-migrate', 'umzug', 'flyway']
-            }
-        };
+    this.devToolLibraries = {
+      'api-client': {
+        http: ['axios', 'fetch', 'superagent'],
+        websocket: ['ws', 'socket.io-client'],
+        graphql: ['graphql-request', 'apollo-client'],
+        rest: ['swagger-client', 'openapi-client'],
+      },
+      'code-generator': {
+        templates: ['handlebars', 'mustache', 'ejs'],
+        ast: ['@babel/parser', 'typescript', 'espree'],
+        formatting: ['prettier', 'eslint'],
+        scaffolding: ['yeoman-generator', 'plop'],
+      },
+      testing: {
+        unit: ['jest', 'mocha', 'vitest'],
+        e2e: ['playwright', 'cypress', 'puppeteer'],
+        api: ['supertest', 'newman', 'postman'],
+        load: ['artillery', 'k6', 'autocannon'],
+      },
+      deployment: {
+        docker: ['dockerode', 'docker-compose'],
+        cloud: ['aws-sdk', 'azure-sdk', 'google-cloud'],
+        k8s: ['kubernetes-client', 'helm'],
+        ci: ['github-actions', 'gitlab-ci', 'jenkins'],
+      },
+      monitoring: {
+        logs: ['winston', 'pino', 'bunyan'],
+        metrics: ['prometheus-client', 'statsd-client'],
+        tracing: ['jaeger-client', 'opentelemetry'],
+        health: ['express-healthcheck', 'terminus'],
+      },
+      database: {
+        sql: ['knex', 'sequelize', 'prisma'],
+        nosql: ['mongodb', 'redis', 'elasticsearch'],
+        orm: ['typeorm', 'mongoose', 'bookshelf'],
+        migration: ['db-migrate', 'umzug', 'flyway'],
+      },
+    };
 
-        this.devToolTemplates = {
-            'api-client': {
-                rest: this.generateRestAPIClient,
-                graphql: this.generateGraphQLClient,
-                websocket: this.generateWebSocketClient
-            },
-            'code-generator': {
-                template: this.generateTemplateGenerator,
-                scaffold: this.generateScaffoldGenerator,
-                ast: this.generateASTGenerator
-            },
-            'testing': {
-                unit: this.generateUnitTester,
-                api: this.generateAPITester,
-                e2e: this.generateE2ETester
-            },
-            'deployment': {
-                docker: this.generateDockerDeployer,
-                cloud: this.generateCloudDeployer,
-                pipeline: this.generatePipelineRunner
-            },
-            'monitoring': {
-                logger: this.generateLogger,
-                metrics: this.generateMetricsCollector,
-                health: this.generateHealthChecker
-            },
-            'database': {
-                query: this.generateDatabaseQuery,
-                migration: this.generateMigrationRunner,
-                backup: this.generateDatabaseBackup
-            }
-        };
+    this.devToolTemplates = {
+      'api-client': {
+        rest: this.generateRestAPIClient,
+        graphql: this.generateGraphQLClient,
+        websocket: this.generateWebSocketClient,
+      },
+      'code-generator': {
+        template: this.generateTemplateGenerator,
+        scaffold: this.generateScaffoldGenerator,
+        ast: this.generateASTGenerator,
+      },
+      testing: {
+        unit: this.generateUnitTester,
+        api: this.generateAPITester,
+        e2e: this.generateE2ETester,
+      },
+      deployment: {
+        docker: this.generateDockerDeployer,
+        cloud: this.generateCloudDeployer,
+        pipeline: this.generatePipelineRunner,
+      },
+      monitoring: {
+        logger: this.generateLogger,
+        metrics: this.generateMetricsCollector,
+        health: this.generateHealthChecker,
+      },
+      database: {
+        query: this.generateDatabaseQuery,
+        migration: this.generateMigrationRunner,
+        backup: this.generateDatabaseBackup,
+      },
+    };
+  }
+
+  async execute() {
+    const { toolType, framework, language, operation, requirements } = this.data;
+
+    try {
+      // Select appropriate libraries
+      const libraries = this.selectDevToolLibraries(toolType, operation, framework);
+
+      // Generate specialized development tool node
+      const nodeCode = await this.generateDevToolNode(
+        toolType,
+        operation,
+        framework,
+        language,
+        requirements,
+      );
+
+      // Create node configuration
+      const nodeConfig = this.createDevToolConfig(toolType, operation);
+
+      // Generate documentation
+      const documentation = this.generateDocumentation(toolType, operation, requirements);
+
+      return {
+        nodeCode,
+        nodeConfig,
+        dependencies: libraries,
+        documentation,
+      };
+    } catch (error) {
+      throw new Error(`DevTools builder failed: ${error.message}`);
+    }
+  }
+
+  selectDevToolLibraries(toolType, operation, framework) {
+    const toolLibs = this.devToolLibraries[toolType] || {};
+    const operationLibs = toolLibs[operation] || toolLibs[Object.keys(toolLibs)[0]] || [];
+    const commonLibs = ['fs', 'path', 'util', 'events'];
+
+    // Add framework-specific libraries
+    const frameworkLibs = this.getFrameworkLibraries(framework);
+
+    return [...new Set([...operationLibs, ...commonLibs, ...frameworkLibs])];
+  }
+
+  getFrameworkLibraries(framework) {
+    const frameworks = {
+      express: ['express', 'cors', 'helmet'],
+      fastify: ['fastify', '@fastify/cors'],
+      nestjs: ['@nestjs/core', '@nestjs/common'],
+      react: ['react', 'react-dom'],
+      vue: ['vue', '@vue/composition-api'],
+      angular: ['@angular/core', '@angular/common'],
+    };
+
+    return frameworks[framework] || [];
+  }
+
+  async generateDevToolNode(toolType, operation, framework, language, requirements) {
+    const templateMethod = this.devToolTemplates[toolType]?.[operation];
+
+    if (templateMethod) {
+      return templateMethod.call(this, framework, language, requirements);
     }
 
-    async execute() {
-        const { toolType, framework, language, operation, requirements } = this.data;
-        
-        try {
-            // Select appropriate libraries
-            const libraries = this.selectDevToolLibraries(toolType, operation, framework);
-            
-            // Generate specialized development tool node
-            const nodeCode = await this.generateDevToolNode(
-                toolType, 
-                operation, 
-                framework, 
-                language, 
-                requirements
-            );
-            
-            // Create node configuration
-            const nodeConfig = this.createDevToolConfig(toolType, operation);
-            
-            // Generate documentation
-            const documentation = this.generateDocumentation(toolType, operation, requirements);
-            
-            return {
-                nodeCode,
-                nodeConfig,
-                dependencies: libraries,
-                documentation
-            };
-            
-        } catch (error) {
-            throw new Error(`DevTools builder failed: ${error.message}`);
-        }
-    }
+    return this.generateGenericDevToolNode(toolType, operation, requirements);
+  }
 
-    selectDevToolLibraries(toolType, operation, framework) {
-        const toolLibs = this.devToolLibraries[toolType] || {};
-        const operationLibs = toolLibs[operation] || toolLibs[Object.keys(toolLibs)[0]] || [];
-        const commonLibs = ['fs', 'path', 'util', 'events'];
-        
-        // Add framework-specific libraries
-        const frameworkLibs = this.getFrameworkLibraries(framework);
-        
-        return [...new Set([...operationLibs, ...commonLibs, ...frameworkLibs])];
-    }
-
-    getFrameworkLibraries(framework) {
-        const frameworks = {
-            express: ['express', 'cors', 'helmet'],
-            fastify: ['fastify', '@fastify/cors'],
-            nestjs: ['@nestjs/core', '@nestjs/common'],
-            react: ['react', 'react-dom'],
-            vue: ['vue', '@vue/composition-api'],
-            angular: ['@angular/core', '@angular/common']
-        };
-        
-        return frameworks[framework] || [];
-    }
-
-    async generateDevToolNode(toolType, operation, framework, language, requirements) {
-        const templateMethod = this.devToolTemplates[toolType]?.[operation];
-        
-        if (templateMethod) {
-            return templateMethod.call(this, framework, language, requirements);
-        }
-        
-        return this.generateGenericDevToolNode(toolType, operation, requirements);
-    }
-
-    generateRestAPIClient(framework, language, requirements) {
-        return `import { BaseNode } from '../BaseNode.js';
+  generateRestAPIClient(framework, language, requirements) {
+    return `import { BaseNode } from '../BaseNode.js';
 import axios from 'axios';
 
 export class RestAPIClientNode extends BaseNode {
@@ -285,10 +293,10 @@ export class RestAPIClientNode extends BaseNode {
         }
     }
 }`;
-    }
+  }
 
-    generateUnitTester(framework, language, requirements) {
-        return `import { BaseNode } from '../BaseNode.js';
+  generateUnitTester(framework, language, requirements) {
+    return `import { BaseNode } from '../BaseNode.js';
 import { jest } from '@jest/globals';
 
 export class UnitTesterNode extends BaseNode {
@@ -445,10 +453,10 @@ export class UnitTesterNode extends BaseNode {
         };
     }
 }`;
-    }
+  }
 
-    generateDockerDeployer(framework, language, requirements) {
-        return `import { BaseNode } from '../BaseNode.js';
+  generateDockerDeployer(framework, language, requirements) {
+    return `import { BaseNode } from '../BaseNode.js';
 import Docker from 'dockerode';
 import fs from 'fs/promises';
 
@@ -604,10 +612,10 @@ export class DockerDeployerNode extends BaseNode {
         return endpoints;
     }
 }`;
-    }
+  }
 
-    generateGenericDevToolNode(toolType, operation, requirements) {
-        return `import { BaseNode } from '../BaseNode.js';
+  generateGenericDevToolNode(toolType, operation, requirements) {
+    return `import { BaseNode } from '../BaseNode.js';
 
 export class ${this.capitalizeFirst(toolType)}${this.capitalizeFirst(operation)}Node extends BaseNode {
     constructor(config = {}) {
@@ -637,66 +645,66 @@ export class ${this.capitalizeFirst(toolType)}${this.capitalizeFirst(operation)}
         };
     }
 }`;
-    }
+  }
 
-    createDevToolConfig(toolType, operation) {
-        return {
-            type: `${toolType}-${operation}`,
-            category: 'development',
-            icon: this.getDevToolIcon(toolType),
-            color: this.getDevToolColor(toolType),
-            tags: ['development', 'tools', toolType, operation],
-            version: '1.0.0'
-        };
-    }
+  createDevToolConfig(toolType, operation) {
+    return {
+      type: `${toolType}-${operation}`,
+      category: 'development',
+      icon: this.getDevToolIcon(toolType),
+      color: this.getDevToolColor(toolType),
+      tags: ['development', 'tools', toolType, operation],
+      version: '1.0.0',
+    };
+  }
 
-    generateDocumentation(toolType, operation, requirements) {
-        return {
-            description: `Generated ${toolType} node for ${operation} operations`,
-            requirements,
-            usage: [
-                {
-                    title: `Basic ${toolType} ${operation}`,
-                    example: `Example usage of the ${toolType} ${operation} node`
-                }
-            ],
-            troubleshooting: [
-                'Ensure all required dependencies are installed',
-                'Check input data format and types',
-                'Verify network connectivity for external services'
-            ]
-        };
-    }
+  generateDocumentation(toolType, operation, requirements) {
+    return {
+      description: `Generated ${toolType} node for ${operation} operations`,
+      requirements,
+      usage: [
+        {
+          title: `Basic ${toolType} ${operation}`,
+          example: `Example usage of the ${toolType} ${operation} node`,
+        },
+      ],
+      troubleshooting: [
+        'Ensure all required dependencies are installed',
+        'Check input data format and types',
+        'Verify network connectivity for external services',
+      ],
+    };
+  }
 
-    getDevToolIcon(toolType) {
-        const icons = {
-            'api-client': '🌐',
-            'code-generator': '⚙️',
-            'testing': '🧪',
-            'deployment': '🚀',
-            'monitoring': '📊',
-            'database': '🗄️',
-            'git': '📋',
-            'ci-cd': '🔄'
-        };
-        return icons[toolType] || '🛠️';
-    }
+  getDevToolIcon(toolType) {
+    const icons = {
+      'api-client': '🌐',
+      'code-generator': '⚙️',
+      testing: '🧪',
+      deployment: '🚀',
+      monitoring: '📊',
+      database: '🗄️',
+      git: '📋',
+      'ci-cd': '🔄',
+    };
+    return icons[toolType] || '🛠️';
+  }
 
-    getDevToolColor(toolType) {
-        const colors = {
-            'api-client': '#FF6B6B',
-            'code-generator': '#4ECDC4',
-            'testing': '#45B7D1',
-            'deployment': '#96CEB4',
-            'monitoring': '#FFEAA7',
-            'database': '#DDA0DD',
-            'git': '#98D8C8',
-            'ci-cd': '#FDA7DF'
-        };
-        return colors[toolType] || '#95A5A6';
-    }
+  getDevToolColor(toolType) {
+    const colors = {
+      'api-client': '#FF6B6B',
+      'code-generator': '#4ECDC4',
+      testing: '#45B7D1',
+      deployment: '#96CEB4',
+      monitoring: '#FFEAA7',
+      database: '#DDA0DD',
+      git: '#98D8C8',
+      'ci-cd': '#FDA7DF',
+    };
+    return colors[toolType] || '#95A5A6';
+  }
 
-    capitalizeFirst(str) {
-        return str.charAt(0).toUpperCase() + str.slice(1).replace('-', '');
-    }
+  capitalizeFirst(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1).replace('-', '');
+  }
 }

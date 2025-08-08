@@ -28,19 +28,19 @@ class WorkflowEngine {
         debug: options.debug || false,
         timeout: options.timeout || 300000, // 5 minutes default
         maxNodes: options.maxNodes || 100,
-        ...options
-      }
+        ...options,
+      },
     };
 
     this.activeExecutions.set(executionId, execution);
 
-    // Emitir evento de workflow iniciado
+    // Emit workflow started event
     eventBus.publish('workflow.started', new WorkflowStarted(workflow.id, executionId));
 
     try {
-      this.log(executionId, 'info', 'Starting workflow execution', { 
-        workflowId: workflow.id, 
-        triggerData 
+      this.log(executionId, 'info', 'Starting workflow execution', {
+        workflowId: workflow.id,
+        triggerData,
       });
 
       // Validate workflow
@@ -73,11 +73,10 @@ class WorkflowEngine {
 
       this.log(executionId, 'info', 'Workflow execution completed', {
         duration: execution.duration,
-        nodesExecuted: execution.nodes.size
+        nodesExecuted: execution.nodes.size,
       });
 
       return this.getExecutionResult(execution);
-
     } catch (error) {
       execution.endTime = new Date();
       execution.duration = execution.endTime - execution.startTime;
@@ -86,7 +85,7 @@ class WorkflowEngine {
       execution.errors.push({
         message: error.message,
         timestamp: new Date(),
-        stack: error.stack
+        stack: error.stack,
       });
 
       this.log(executionId, 'error', 'Workflow execution failed', { error: error.message });
@@ -116,7 +115,7 @@ class WorkflowEngine {
     }
 
     // Validate node references in connections
-    const nodeIds = new Set(workflow.nodes.map(n => n.id));
+    const nodeIds = new Set(workflow.nodes.map((n) => n.id));
     for (const connection of workflow.connections) {
       if (!nodeIds.has(connection.source)) {
         errors.push(`Connection references unknown source node: ${connection.source}`);
@@ -133,7 +132,7 @@ class WorkflowEngine {
 
     return {
       valid: errors.length === 0,
-      errors
+      errors,
     };
   }
 
@@ -170,7 +169,7 @@ class WorkflowEngine {
 
   buildDependencyGraph(workflow) {
     const graph = new Map();
-    
+
     // Initialize all nodes
     for (const node of workflow.nodes) {
       graph.set(node.id, []);
@@ -187,7 +186,7 @@ class WorkflowEngine {
   }
 
   findTriggerNodes(workflow) {
-    return workflow.nodes.filter(node => {
+    return workflow.nodes.filter((node) => {
       const metadata = nodeRegistry.getNodeMetadata(node.type);
       return metadata && metadata.category === 'trigger';
     });
@@ -202,7 +201,7 @@ class WorkflowEngine {
           instance: node,
           data: nodeData,
           status: 'initialized',
-          executions: 0
+          executions: 0,
         });
       } catch (error) {
         throw new Error(`Failed to initialize node ${nodeData.id}: ${error.message}`);
@@ -227,9 +226,9 @@ class WorkflowEngine {
     nodeInfo.startTime = new Date();
 
     try {
-      this.log(execution.id, 'debug', `Executing node ${nodeId}`, { 
+      this.log(execution.id, 'debug', `Executing node ${nodeId}`, {
         type: nodeInfo.instance.type,
-        executions: nodeInfo.executions 
+        executions: nodeInfo.executions,
       });
 
       // Create execution context
@@ -244,39 +243,43 @@ class WorkflowEngine {
       nodeInfo.status = 'completed';
       nodeInfo.lastResult = result;
 
-      this.log(execution.id, 'debug', `Node ${nodeId} completed`, { 
+      this.log(execution.id, 'debug', `Node ${nodeId} completed`, {
         duration: nodeInfo.duration,
-        outputs: Object.keys(result || {})
+        outputs: Object.keys(result || {}),
       });
 
       // Emitir evento de nodo completado
       eventBus.publish('node.completed', new NodeCompleted(nodeId, execution.id, result));
 
       // Execute connected nodes
-      const connectedResults = await this.executeConnectedNodes(execution, workflow, nodeId, result);
+      const connectedResults = await this.executeConnectedNodes(
+        execution,
+        workflow,
+        nodeId,
+        result,
+      );
 
       return {
         nodeId,
         result,
         connectedResults,
-        duration: nodeInfo.duration
+        duration: nodeInfo.duration,
       };
-
     } catch (error) {
       nodeInfo.endTime = new Date();
       nodeInfo.duration = nodeInfo.endTime - nodeInfo.startTime;
       nodeInfo.status = 'failed';
       nodeInfo.error = error.message;
 
-      this.log(execution.id, 'error', `Node ${nodeId} failed`, { 
+      this.log(execution.id, 'error', `Node ${nodeId} failed`, {
         error: error.message,
-        duration: nodeInfo.duration 
+        duration: nodeInfo.duration,
       });
 
       execution.errors.push({
         nodeId,
         error: error.message,
-        timestamp: new Date()
+        timestamp: new Date(),
       });
 
       throw error;
@@ -290,33 +293,34 @@ class WorkflowEngine {
       getInputData: (port = 'input') => {
         // Get data from connected input nodes
         const connections = this.getIncomingConnections(workflow, nodeId);
-        const connection = connections.find(c => c.targetPort === port);
-        
+        const connection = connections.find((c) => c.targetPort === port);
+
         if (connection) {
           const sourceNode = execution.nodes.get(connection.source);
           if (sourceNode && sourceNode.lastResult) {
             return sourceNode.lastResult[connection.sourcePort];
           }
         }
-        
+
         // Fallback to provided input data
         return inputData[port] || inputData;
       },
       getVariable: (name) => execution.variables.get(name),
       setVariable: (name, value) => execution.variables.set(name, value),
-      log: (level, message, data) => this.log(execution.id, level, message, { 
-        nodeId, 
-        ...data 
-      })
+      log: (level, message, data) =>
+        this.log(execution.id, level, message, {
+          nodeId,
+          ...data,
+        }),
     };
   }
 
   getIncomingConnections(workflow, nodeId) {
-    return workflow.connections.filter(c => c.target === nodeId);
+    return workflow.connections.filter((c) => c.target === nodeId);
   }
 
   getOutgoingConnections(workflow, nodeId) {
-    return workflow.connections.filter(c => c.source === nodeId);
+    return workflow.connections.filter((c) => c.source === nodeId);
   }
 
   async executeConnectedNodes(execution, workflow, sourceNodeId, sourceResult) {
@@ -336,8 +340,8 @@ class WorkflowEngine {
     for (const [targetNodeId, connections] of targetNodes.entries()) {
       try {
         // Check if we have output data for any of the connections
-        const hasValidOutput = connections.some(conn => 
-          sourceResult && sourceResult[conn.sourcePort] !== undefined
+        const hasValidOutput = connections.some(
+          (conn) => sourceResult && sourceResult[conn.sourcePort] !== undefined,
         );
 
         if (hasValidOutput) {
@@ -355,7 +359,7 @@ class WorkflowEngine {
       } catch (error) {
         // Log error but continue with other nodes
         this.log(execution.id, 'error', `Failed to execute connected node ${targetNodeId}`, {
-          error: error.message
+          error: error.message,
         });
       }
     }
@@ -369,8 +373,8 @@ class WorkflowEngine {
       try {
         await nodeInfo.instance.cleanup();
       } catch (error) {
-        this.log(execution.id, 'warn', `Cleanup failed for node ${nodeId}`, { 
-          error: error.message 
+        this.log(execution.id, 'warn', `Cleanup failed for node ${nodeId}`, {
+          error: error.message,
         });
       }
     }
@@ -390,7 +394,7 @@ class WorkflowEngine {
       duration: execution.duration,
       nodeCount: execution.nodes.size,
       errorCount: execution.errors.length,
-      error: execution.error
+      error: execution.error,
     });
 
     // Trim history
@@ -415,9 +419,9 @@ class WorkflowEngine {
         status: info.status,
         executions: info.executions,
         duration: info.duration,
-        error: info.error
+        error: info.error,
       })),
-      variables: Object.fromEntries(execution.variables.entries())
+      variables: Object.fromEntries(execution.variables.entries()),
     };
   }
 
@@ -428,7 +432,7 @@ class WorkflowEngine {
       executionId,
       level,
       message,
-      data
+      data,
     };
 
     console.log(`[${level.toUpperCase()}] [${executionId}] ${message}`, data);
@@ -443,13 +447,13 @@ class WorkflowEngine {
 
   // Management methods
   getActiveExecutions() {
-    return Array.from(this.activeExecutions.values()).map(exec => ({
+    return Array.from(this.activeExecutions.values()).map((exec) => ({
       id: exec.id,
       workflowId: exec.workflowId,
       status: exec.status,
       startTime: exec.startTime,
       duration: exec.startTime ? new Date() - exec.startTime : 0,
-      nodeCount: exec.nodes.size
+      nodeCount: exec.nodes.size,
     }));
   }
 

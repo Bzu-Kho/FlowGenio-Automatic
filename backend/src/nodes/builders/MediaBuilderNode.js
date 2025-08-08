@@ -1,177 +1,176 @@
 export class MediaBuilderNode {
-    constructor(config = {}) {
-        super({
-            type: 'media-builder',
-            name: 'Media Builder',
-            description: 'Specialized AI builder for audio/video processing nodes',
-            category: 'builders',
-            inputs: {
-                mediaType: {
-                    type: 'string',
-                    description: 'Type of media to work with',
-                    enum: ['audio', 'video', 'image', 'stream']
-                },
-                operation: {
-                    type: 'string',
-                    description: 'Media operation to perform',
-                    enum: ['convert', 'edit', 'analyze', 'extract', 'compress', 'enhance', 'generate']
-                },
-                format: {
-                    type: 'string',
-                    description: 'Target format or codec',
-                    optional: true
-                },
-                quality: {
-                    type: 'string',
-                    description: 'Quality settings',
-                    enum: ['low', 'medium', 'high', 'lossless'],
-                    optional: true
-                },
-                requirements: {
-                    type: 'string',
-                    description: 'Specific requirements for the media operation'
-                }
-            },
-            outputs: {
-                nodeCode: {
-                    type: 'string',
-                    description: 'Generated node code for media processing'
-                },
-                nodeConfig: {
-                    type: 'object',
-                    description: 'Configuration for the generated node'
-                },
-                dependencies: {
-                    type: 'array',
-                    description: 'Required packages for media processing'
-                },
-                systemRequirements: {
-                    type: 'array',
-                    description: 'System dependencies (ffmpeg, etc.)'
-                }
-            },
-            ...config
-        });
+  constructor(config = {}) {
+    super({
+      type: 'media-builder',
+      name: 'Media Builder',
+      description: 'Specialized AI builder for audio/video processing nodes',
+      category: 'builders',
+      inputs: {
+        mediaType: {
+          type: 'string',
+          description: 'Type of media to work with',
+          enum: ['audio', 'video', 'image', 'stream'],
+        },
+        operation: {
+          type: 'string',
+          description: 'Media operation to perform',
+          enum: ['convert', 'edit', 'analyze', 'extract', 'compress', 'enhance', 'generate'],
+        },
+        format: {
+          type: 'string',
+          description: 'Target format or codec',
+          optional: true,
+        },
+        quality: {
+          type: 'string',
+          description: 'Quality settings',
+          enum: ['low', 'medium', 'high', 'lossless'],
+          optional: true,
+        },
+        requirements: {
+          type: 'string',
+          description: 'Specific requirements for the media operation',
+        },
+      },
+      outputs: {
+        nodeCode: {
+          type: 'string',
+          description: 'Generated node code for media processing',
+        },
+        nodeConfig: {
+          type: 'object',
+          description: 'Configuration for the generated node',
+        },
+        dependencies: {
+          type: 'array',
+          description: 'Required packages for media processing',
+        },
+        systemRequirements: {
+          type: 'array',
+          description: 'System dependencies (ffmpeg, etc.)',
+        },
+      },
+      ...config,
+    });
 
-        this.mediaLibraries = {
-            audio: {
-                processing: ['fluent-ffmpeg', 'node-wav', 'web-audio-api'],
-                analysis: ['meyda', 'audio-features', 'musicmetadata'],
-                synthesis: ['tone', 'elementary-audio', 'supercolliderjs'],
-                streaming: ['node-rtsp-stream', 'rtmp-server']
-            },
-            video: {
-                processing: ['fluent-ffmpeg', 'moviepy', 'opencv4nodejs'],
-                analysis: ['ffprobe-static', 'video-metadata'],
-                editing: ['editly', 'remotion'],
-                streaming: ['node-media-server', 'hls-server']
-            },
-            image: {
-                processing: ['sharp', 'jimp', 'gm'],
-                analysis: ['opencv4nodejs', 'face-api.js'],
-                ai: ['@tensorflow/tfjs-node', 'canvas'],
-                formats: ['imagemin', 'webp-converter']
-            }
-        };
+    this.mediaLibraries = {
+      audio: {
+        processing: ['fluent-ffmpeg', 'node-wav', 'web-audio-api'],
+        analysis: ['meyda', 'audio-features', 'musicmetadata'],
+        synthesis: ['tone', 'elementary-audio', 'supercolliderjs'],
+        streaming: ['node-rtsp-stream', 'rtmp-server'],
+      },
+      video: {
+        processing: ['fluent-ffmpeg', 'moviepy', 'opencv4nodejs'],
+        analysis: ['ffprobe-static', 'video-metadata'],
+        editing: ['editly', 'remotion'],
+        streaming: ['node-media-server', 'hls-server'],
+      },
+      image: {
+        processing: ['sharp', 'jimp', 'gm'],
+        analysis: ['opencv4nodejs', 'face-api.js'],
+        ai: ['@tensorflow/tfjs-node', 'canvas'],
+        formats: ['imagemin', 'webp-converter'],
+      },
+    };
 
-        this.mediaTemplates = {
-            audio: {
-                convert: this.generateAudioConverter,
-                analyze: this.generateAudioAnalyzer,
-                enhance: this.generateAudioEnhancer,
-                generate: this.generateAudioGenerator
-            },
-            video: {
-                convert: this.generateVideoConverter,
-                edit: this.generateVideoEditor,
-                analyze: this.generateVideoAnalyzer,
-                compress: this.generateVideoCompressor
-            },
-            image: {
-                convert: this.generateImageConverter,
-                edit: this.generateImageEditor,
-                analyze: this.generateImageAnalyzer,
-                enhance: this.generateImageEnhancer
-            }
-        };
+    this.mediaTemplates = {
+      audio: {
+        convert: this.generateAudioConverter,
+        analyze: this.generateAudioAnalyzer,
+        enhance: this.generateAudioEnhancer,
+        generate: this.generateAudioGenerator,
+      },
+      video: {
+        convert: this.generateVideoConverter,
+        edit: this.generateVideoEditor,
+        analyze: this.generateVideoAnalyzer,
+        compress: this.generateVideoCompressor,
+      },
+      image: {
+        convert: this.generateImageConverter,
+        edit: this.generateImageEditor,
+        analyze: this.generateImageAnalyzer,
+        enhance: this.generateImageEnhancer,
+      },
+    };
 
-        this.systemDependencies = {
-            ffmpeg: ['fluent-ffmpeg', 'video processing', 'audio processing'],
-            opencv: ['opencv4nodejs', 'computer vision', 'image analysis'],
-            tensorflow: ['@tensorflow/tfjs-node', 'AI processing', 'machine learning']
-        };
+    this.systemDependencies = {
+      ffmpeg: ['fluent-ffmpeg', 'video processing', 'audio processing'],
+      opencv: ['opencv4nodejs', 'computer vision', 'image analysis'],
+      tensorflow: ['@tensorflow/tfjs-node', 'AI processing', 'machine learning'],
+    };
+  }
+
+  async execute() {
+    const { mediaType, operation, format, quality, requirements } = this.data;
+
+    try {
+      // Select appropriate libraries and dependencies
+      const libraries = this.selectMediaLibraries(mediaType, operation);
+      const systemReqs = this.selectSystemRequirements(mediaType, operation);
+
+      // Generate specialized media node
+      const nodeCode = await this.generateMediaNode(
+        mediaType,
+        operation,
+        format,
+        quality,
+        requirements,
+      );
+
+      // Create node configuration
+      const nodeConfig = this.createMediaNodeConfig(mediaType, operation);
+
+      return {
+        nodeCode,
+        nodeConfig,
+        dependencies: libraries,
+        systemRequirements: systemReqs,
+      };
+    } catch (error) {
+      throw new Error(`Media builder failed: ${error.message}`);
+    }
+  }
+
+  selectMediaLibraries(mediaType, operation) {
+    const mediaLibs = this.mediaLibraries[mediaType] || {};
+    const operationLibs = mediaLibs[operation] || mediaLibs.processing || [];
+    const commonLibs = ['fs', 'path', 'stream', 'events'];
+
+    return [...new Set([...operationLibs, ...commonLibs])];
+  }
+
+  selectSystemRequirements(mediaType, operation) {
+    const requirements = [];
+
+    if (mediaType === 'audio' || mediaType === 'video') {
+      requirements.push('ffmpeg');
     }
 
-    async execute() {
-        const { mediaType, operation, format, quality, requirements } = this.data;
-        
-        try {
-            // Select appropriate libraries and dependencies
-            const libraries = this.selectMediaLibraries(mediaType, operation);
-            const systemReqs = this.selectSystemRequirements(mediaType, operation);
-            
-            // Generate specialized media node
-            const nodeCode = await this.generateMediaNode(
-                mediaType, 
-                operation, 
-                format, 
-                quality, 
-                requirements
-            );
-            
-            // Create node configuration
-            const nodeConfig = this.createMediaNodeConfig(mediaType, operation);
-            
-            return {
-                nodeCode,
-                nodeConfig,
-                dependencies: libraries,
-                systemRequirements: systemReqs
-            };
-            
-        } catch (error) {
-            throw new Error(`Media builder failed: ${error.message}`);
-        }
+    if (operation === 'analyze' && mediaType === 'image') {
+      requirements.push('opencv');
     }
 
-    selectMediaLibraries(mediaType, operation) {
-        const mediaLibs = this.mediaLibraries[mediaType] || {};
-        const operationLibs = mediaLibs[operation] || mediaLibs.processing || [];
-        const commonLibs = ['fs', 'path', 'stream', 'events'];
-        
-        return [...new Set([...operationLibs, ...commonLibs])];
+    if (operation === 'generate' || requirements.includes('ai')) {
+      requirements.push('tensorflow');
     }
 
-    selectSystemRequirements(mediaType, operation) {
-        const requirements = [];
-        
-        if (mediaType === 'audio' || mediaType === 'video') {
-            requirements.push('ffmpeg');
-        }
-        
-        if (operation === 'analyze' && mediaType === 'image') {
-            requirements.push('opencv');
-        }
-        
-        if (operation === 'generate' || requirements.includes('ai')) {
-            requirements.push('tensorflow');
-        }
-        
-        return requirements;
+    return requirements;
+  }
+
+  async generateMediaNode(mediaType, operation, format, quality, requirements) {
+    const templateMethod = this.mediaTemplates[mediaType]?.[operation];
+
+    if (templateMethod) {
+      return templateMethod.call(this, format, quality, requirements);
     }
 
-    async generateMediaNode(mediaType, operation, format, quality, requirements) {
-        const templateMethod = this.mediaTemplates[mediaType]?.[operation];
-        
-        if (templateMethod) {
-            return templateMethod.call(this, format, quality, requirements);
-        }
-        
-        return this.generateGenericMediaNode(mediaType, operation, requirements);
-    }
+    return this.generateGenericMediaNode(mediaType, operation, requirements);
+  }
 
-    generateAudioConverter(format, quality, requirements) {
-        return `import { BaseNode } from '../BaseNode.js';
+  generateAudioConverter(format, quality, requirements) {
+    return `import { BaseNode } from '../BaseNode.js';
 import ffmpeg from 'fluent-ffmpeg';
 import fs from 'fs';
 import path from 'path';
@@ -272,10 +271,10 @@ export class AudioConverterNode extends BaseNode {
         });
     }
 }`;
-    }
+  }
 
-    generateVideoConverter(format, quality, requirements) {
-        return `import { BaseNode } from '../BaseNode.js';
+  generateVideoConverter(format, quality, requirements) {
+    return `import { BaseNode } from '../BaseNode.js';
 import ffmpeg from 'fluent-ffmpeg';
 import fs from 'fs';
 
@@ -406,10 +405,10 @@ export class VideoConverterNode extends BaseNode {
         });
     }
 }`;
-    }
+  }
 
-    generateImageEnhancer(format, quality, requirements) {
-        return `import { BaseNode } from '../BaseNode.js';
+  generateImageEnhancer(format, quality, requirements) {
+    return `import { BaseNode } from '../BaseNode.js';
 import sharp from 'sharp';
 import fs from 'fs';
 
@@ -523,10 +522,10 @@ export class ImageEnhancerNode extends BaseNode {
         }
     }
 }`;
-    }
+  }
 
-    generateGenericMediaNode(mediaType, operation, requirements) {
-        return `import { BaseNode } from '../BaseNode.js';
+  generateGenericMediaNode(mediaType, operation, requirements) {
+    return `import { BaseNode } from '../BaseNode.js';
 
 export class ${this.capitalizeFirst(mediaType)}${this.capitalizeFirst(operation)}Node extends BaseNode {
     constructor(config = {}) {
@@ -556,41 +555,41 @@ export class ${this.capitalizeFirst(mediaType)}${this.capitalizeFirst(operation)
         };
     }
 }`;
-    }
+  }
 
-    createMediaNodeConfig(mediaType, operation) {
-        return {
-            type: `${mediaType}-${operation}`,
-            category: 'media',
-            icon: this.getMediaIcon(mediaType),
-            color: this.getMediaColor(mediaType),
-            tags: ['media', mediaType, operation],
-            version: '1.0.0',
-            systemRequirements: this.selectSystemRequirements(mediaType, operation)
-        };
-    }
+  createMediaNodeConfig(mediaType, operation) {
+    return {
+      type: `${mediaType}-${operation}`,
+      category: 'media',
+      icon: this.getMediaIcon(mediaType),
+      color: this.getMediaColor(mediaType),
+      tags: ['media', mediaType, operation],
+      version: '1.0.0',
+      systemRequirements: this.selectSystemRequirements(mediaType, operation),
+    };
+  }
 
-    getMediaIcon(mediaType) {
-        const icons = {
-            audio: '🎵',
-            video: '🎬',
-            image: '🖼️',
-            stream: '📡'
-        };
-        return icons[mediaType] || '🎞️';
-    }
+  getMediaIcon(mediaType) {
+    const icons = {
+      audio: '🎵',
+      video: '🎬',
+      image: '🖼️',
+      stream: '📡',
+    };
+    return icons[mediaType] || '🎞️';
+  }
 
-    getMediaColor(mediaType) {
-        const colors = {
-            audio: '#FF6B9D',
-            video: '#4ECDC4',
-            image: '#45B7D1',
-            stream: '#96CEB4'
-        };
-        return colors[mediaType] || '#95A5A6';
-    }
+  getMediaColor(mediaType) {
+    const colors = {
+      audio: '#FF6B9D',
+      video: '#4ECDC4',
+      image: '#45B7D1',
+      stream: '#96CEB4',
+    };
+    return colors[mediaType] || '#95A5A6';
+  }
 
-    capitalizeFirst(str) {
-        return str.charAt(0).toUpperCase() + str.slice(1);
-    }
+  capitalizeFirst(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
 }

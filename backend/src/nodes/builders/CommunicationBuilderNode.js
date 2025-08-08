@@ -1,206 +1,213 @@
 export class CommunicationBuilderNode {
-    constructor(config = {}) {
-        super({
-            type: 'communication-builder',
-            name: 'Communication Builder',
-            description: 'Specialized AI builder for communication nodes (email, SMS, chat, notifications)',
-            category: 'builders',
-            inputs: {
-                communicationType: {
-                    type: 'string',
-                    description: 'Type of communication to handle',
-                    enum: ['email', 'sms', 'chat', 'push-notification', 'webhook', 'voice', 'social']
-                },
-                operation: {
-                    type: 'string',
-                    description: 'Communication operation',
-                    enum: ['send', 'receive', 'parse', 'template', 'broadcast', 'queue', 'schedule']
-                },
-                provider: {
-                    type: 'string',
-                    description: 'Communication service provider',
-                    optional: true
-                },
-                requirements: {
-                    type: 'string',
-                    description: 'Specific requirements for the communication node'
-                },
-                authentication: {
-                    type: 'object',
-                    description: 'Authentication configuration',
-                    optional: true
-                }
-            },
-            outputs: {
-                nodeCode: {
-                    type: 'string',
-                    description: 'Generated communication node code'
-                },
-                nodeConfig: {
-                    type: 'object',
-                    description: 'Configuration for the generated node'
-                },
-                dependencies: {
-                    type: 'array',
-                    description: 'Required packages for communication'
-                },
-                templates: {
-                    type: 'array',
-                    description: 'Message templates and examples'
-                }
-            },
-            ...config
-        });
+  constructor(config = {}) {
+    super({
+      type: 'communication-builder',
+      name: 'Communication Builder',
+      description:
+        'Specialized AI builder for communication nodes (email, SMS, chat, notifications)',
+      category: 'builders',
+      inputs: {
+        communicationType: {
+          type: 'string',
+          description: 'Type of communication to handle',
+          enum: ['email', 'sms', 'chat', 'push-notification', 'webhook', 'voice', 'social'],
+        },
+        operation: {
+          type: 'string',
+          description: 'Communication operation',
+          enum: ['send', 'receive', 'parse', 'template', 'broadcast', 'queue', 'schedule'],
+        },
+        provider: {
+          type: 'string',
+          description: 'Communication service provider',
+          optional: true,
+        },
+        requirements: {
+          type: 'string',
+          description: 'Specific requirements for the communication node',
+        },
+        authentication: {
+          type: 'object',
+          description: 'Authentication configuration',
+          optional: true,
+        },
+      },
+      outputs: {
+        nodeCode: {
+          type: 'string',
+          description: 'Generated communication node code',
+        },
+        nodeConfig: {
+          type: 'object',
+          description: 'Configuration for the generated node',
+        },
+        dependencies: {
+          type: 'array',
+          description: 'Required packages for communication',
+        },
+        templates: {
+          type: 'array',
+          description: 'Message templates and examples',
+        },
+      },
+      ...config,
+    });
 
-        this.communicationLibraries = {
-            email: {
-                sending: ['nodemailer', 'sendgrid', 'mailgun-js'],
-                parsing: ['mailparser', 'imap-simple'],
-                templates: ['handlebars', 'mustache', 'mjml'],
-                validation: ['validator', 'email-validator']
-            },
-            sms: {
-                sending: ['twilio', 'nexmo', 'aws-sns'],
-                receiving: ['express', 'body-parser'],
-                validation: ['libphonenumber-js']
-            },
-            chat: {
-                platforms: ['discord.js', 'slack-sdk', 'telegram-bot-api'],
-                messaging: ['socket.io', 'ws'],
-                bots: ['botbuilder', 'node-telegram-bot-api']
-            },
-            'push-notification': {
-                mobile: ['firebase-admin', 'apn', 'web-push'],
-                browser: ['web-push', 'push-api'],
-                platforms: ['onesignal', 'pusher']
-            },
-            voice: {
-                calling: ['twilio', 'vonage'],
-                speech: ['google-cloud-speech', 'aws-polly'],
-                processing: ['node-wav', 'speech-to-text']
-            },
-            social: {
-                twitter: ['twitter-api-v2', 'twit'],
-                facebook: ['facebook-nodejs-business-sdk'],
-                linkedin: ['linkedin-api'],
-                instagram: ['instagram-basic-display-api']
-            }
-        };
+    this.communicationLibraries = {
+      email: {
+        sending: ['nodemailer', 'sendgrid', 'mailgun-js'],
+        parsing: ['mailparser', 'imap-simple'],
+        templates: ['handlebars', 'mustache', 'mjml'],
+        validation: ['validator', 'email-validator'],
+      },
+      sms: {
+        sending: ['twilio', 'nexmo', 'aws-sns'],
+        receiving: ['express', 'body-parser'],
+        validation: ['libphonenumber-js'],
+      },
+      chat: {
+        platforms: ['discord.js', 'slack-sdk', 'telegram-bot-api'],
+        messaging: ['socket.io', 'ws'],
+        bots: ['botbuilder', 'node-telegram-bot-api'],
+      },
+      'push-notification': {
+        mobile: ['firebase-admin', 'apn', 'web-push'],
+        browser: ['web-push', 'push-api'],
+        platforms: ['onesignal', 'pusher'],
+      },
+      voice: {
+        calling: ['twilio', 'vonage'],
+        speech: ['google-cloud-speech', 'aws-polly'],
+        processing: ['node-wav', 'speech-to-text'],
+      },
+      social: {
+        twitter: ['twitter-api-v2', 'twit'],
+        facebook: ['facebook-nodejs-business-sdk'],
+        linkedin: ['linkedin-api'],
+        instagram: ['instagram-basic-display-api'],
+      },
+    };
 
-        this.communicationTemplates = {
-            email: {
-                send: this.generateEmailSender,
-                template: this.generateEmailTemplater,
-                parse: this.generateEmailParser
-            },
-            sms: {
-                send: this.generateSMSSender,
-                receive: this.generateSMSReceiver,
-                broadcast: this.generateSMSBroadcaster
-            },
-            chat: {
-                send: this.generateChatSender,
-                bot: this.generateChatBot,
-                webhook: this.generateChatWebhook
-            },
-            'push-notification': {
-                send: this.generatePushSender,
-                broadcast: this.generatePushBroadcaster,
-                subscribe: this.generatePushSubscriber
-            }
-        };
+    this.communicationTemplates = {
+      email: {
+        send: this.generateEmailSender,
+        template: this.generateEmailTemplater,
+        parse: this.generateEmailParser,
+      },
+      sms: {
+        send: this.generateSMSSender,
+        receive: this.generateSMSReceiver,
+        broadcast: this.generateSMSBroadcaster,
+      },
+      chat: {
+        send: this.generateChatSender,
+        bot: this.generateChatBot,
+        webhook: this.generateChatWebhook,
+      },
+      'push-notification': {
+        send: this.generatePushSender,
+        broadcast: this.generatePushBroadcaster,
+        subscribe: this.generatePushSubscriber,
+      },
+    };
 
-        this.providerConfigs = {
-            email: {
-                gmail: { service: 'gmail', auth: ['user', 'pass'] },
-                sendgrid: { apiKey: true },
-                mailgun: { apiKey: true, domain: true },
-                outlook: { service: 'outlook', auth: ['user', 'pass'] }
-            },
-            sms: {
-                twilio: { accountSid: true, authToken: true },
-                nexmo: { apiKey: true, apiSecret: true },
-                aws: { accessKeyId: true, secretAccessKey: true, region: true }
-            },
-            chat: {
-                discord: { token: true },
-                slack: { token: true, signingSecret: true },
-                telegram: { token: true }
-            }
-        };
+    this.providerConfigs = {
+      email: {
+        gmail: { service: 'gmail', auth: ['user', 'pass'] },
+        sendgrid: { apiKey: true },
+        mailgun: { apiKey: true, domain: true },
+        outlook: { service: 'outlook', auth: ['user', 'pass'] },
+      },
+      sms: {
+        twilio: { accountSid: true, authToken: true },
+        nexmo: { apiKey: true, apiSecret: true },
+        aws: { accessKeyId: true, secretAccessKey: true, region: true },
+      },
+      chat: {
+        discord: { token: true },
+        slack: { token: true, signingSecret: true },
+        telegram: { token: true },
+      },
+    };
+  }
+
+  async execute() {
+    const { communicationType, operation, provider, requirements, authentication } = this.data;
+
+    try {
+      // Select appropriate libraries
+      const libraries = this.selectCommunicationLibraries(communicationType, operation, provider);
+
+      // Generate specialized communication node
+      const nodeCode = await this.generateCommunicationNode(
+        communicationType,
+        operation,
+        provider,
+        requirements,
+        authentication,
+      );
+
+      // Create node configuration
+      const nodeConfig = this.createCommunicationConfig(communicationType, operation, provider);
+
+      // Generate message templates
+      const templates = this.generateMessageTemplates(communicationType, operation);
+
+      return {
+        nodeCode,
+        nodeConfig,
+        dependencies: libraries,
+        templates,
+      };
+    } catch (error) {
+      throw new Error(`Communication builder failed: ${error.message}`);
+    }
+  }
+
+  selectCommunicationLibraries(communicationType, operation, provider) {
+    const commLibs = this.communicationLibraries[communicationType] || {};
+    const operationLibs =
+      commLibs[operation] || commLibs.sending || commLibs[Object.keys(commLibs)[0]] || [];
+    const commonLibs = ['crypto', 'util', 'events'];
+
+    // Add provider-specific libraries
+    const providerLibs = this.getProviderLibraries(provider);
+
+    return [...new Set([...operationLibs, ...commonLibs, ...providerLibs])];
+  }
+
+  getProviderLibraries(provider) {
+    const providers = {
+      twilio: ['twilio'],
+      sendgrid: ['@sendgrid/mail'],
+      mailgun: ['mailgun-js'],
+      discord: ['discord.js'],
+      slack: ['@slack/web-api', '@slack/events-api'],
+      telegram: ['node-telegram-bot-api'],
+      firebase: ['firebase-admin'],
+    };
+
+    return providers[provider] || [];
+  }
+
+  async generateCommunicationNode(
+    communicationType,
+    operation,
+    provider,
+    requirements,
+    authentication,
+  ) {
+    const templateMethod = this.communicationTemplates[communicationType]?.[operation];
+
+    if (templateMethod) {
+      return templateMethod.call(this, provider, requirements, authentication);
     }
 
-    async execute() {
-        const { communicationType, operation, provider, requirements, authentication } = this.data;
-        
-        try {
-            // Select appropriate libraries
-            const libraries = this.selectCommunicationLibraries(communicationType, operation, provider);
-            
-            // Generate specialized communication node
-            const nodeCode = await this.generateCommunicationNode(
-                communicationType, 
-                operation, 
-                provider, 
-                requirements, 
-                authentication
-            );
-            
-            // Create node configuration
-            const nodeConfig = this.createCommunicationConfig(communicationType, operation, provider);
-            
-            // Generate message templates
-            const templates = this.generateMessageTemplates(communicationType, operation);
-            
-            return {
-                nodeCode,
-                nodeConfig,
-                dependencies: libraries,
-                templates
-            };
-            
-        } catch (error) {
-            throw new Error(`Communication builder failed: ${error.message}`);
-        }
-    }
+    return this.generateGenericCommunicationNode(communicationType, operation, requirements);
+  }
 
-    selectCommunicationLibraries(communicationType, operation, provider) {
-        const commLibs = this.communicationLibraries[communicationType] || {};
-        const operationLibs = commLibs[operation] || commLibs.sending || commLibs[Object.keys(commLibs)[0]] || [];
-        const commonLibs = ['crypto', 'util', 'events'];
-        
-        // Add provider-specific libraries
-        const providerLibs = this.getProviderLibraries(provider);
-        
-        return [...new Set([...operationLibs, ...commonLibs, ...providerLibs])];
-    }
-
-    getProviderLibraries(provider) {
-        const providers = {
-            twilio: ['twilio'],
-            sendgrid: ['@sendgrid/mail'],
-            mailgun: ['mailgun-js'],
-            discord: ['discord.js'],
-            slack: ['@slack/web-api', '@slack/events-api'],
-            telegram: ['node-telegram-bot-api'],
-            firebase: ['firebase-admin']
-        };
-        
-        return providers[provider] || [];
-    }
-
-    async generateCommunicationNode(communicationType, operation, provider, requirements, authentication) {
-        const templateMethod = this.communicationTemplates[communicationType]?.[operation];
-        
-        if (templateMethod) {
-            return templateMethod.call(this, provider, requirements, authentication);
-        }
-        
-        return this.generateGenericCommunicationNode(communicationType, operation, requirements);
-    }
-
-    generateEmailSender(provider, requirements, authentication) {
-        return `import { BaseNode } from '../BaseNode.js';
+  generateEmailSender(provider, requirements, authentication) {
+    return `import { BaseNode } from '../BaseNode.js';
 import nodemailer from 'nodemailer';
 
 export class EmailSenderNode extends BaseNode {
@@ -344,10 +351,10 @@ export class EmailSenderNode extends BaseNode {
         });
     }
 }`;
-    }
+  }
 
-    generateSMSSender(provider, requirements, authentication) {
-        return `import { BaseNode } from '../BaseNode.js';
+  generateSMSSender(provider, requirements, authentication) {
+    return `import { BaseNode } from '../BaseNode.js';
 import twilio from 'twilio';
 
 export class SMSSenderNode extends BaseNode {
@@ -453,10 +460,10 @@ export class SMSSenderNode extends BaseNode {
         return formatted;
     }
 }`;
-    }
+  }
 
-    generateChatBot(provider, requirements, authentication) {
-        return `import { BaseNode } from '../BaseNode.js';
+  generateChatBot(provider, requirements, authentication) {
+    return `import { BaseNode } from '../BaseNode.js';
 import { Client, GatewayIntentBits } from 'discord.js';
 
 export class ChatBotNode extends BaseNode {
@@ -603,10 +610,10 @@ export class ChatBotNode extends BaseNode {
         };
     }
 }`;
-    }
+  }
 
-    generatePushSender(provider, requirements, authentication) {
-        return `import { BaseNode } from '../BaseNode.js';
+  generatePushSender(provider, requirements, authentication) {
+    return `import { BaseNode } from '../BaseNode.js';
 import admin from 'firebase-admin';
 
 export class PushNotificationSenderNode extends BaseNode {
@@ -746,10 +753,10 @@ export class PushNotificationSenderNode extends BaseNode {
         }
     }
 }`;
-    }
+  }
 
-    generateGenericCommunicationNode(communicationType, operation, requirements) {
-        return `import { BaseNode } from '../BaseNode.js';
+  generateGenericCommunicationNode(communicationType, operation, requirements) {
+    return `import { BaseNode } from '../BaseNode.js';
 
 export class ${this.capitalizeFirst(communicationType)}${this.capitalizeFirst(operation)}Node extends BaseNode {
     constructor(config = {}) {
@@ -779,83 +786,83 @@ export class ${this.capitalizeFirst(communicationType)}${this.capitalizeFirst(op
         };
     }
 }`;
-    }
+  }
 
-    createCommunicationConfig(communicationType, operation, provider) {
-        return {
-            type: `${communicationType}-${operation}`,
-            category: 'communication',
-            icon: this.getCommunicationIcon(communicationType),
-            color: this.getCommunicationColor(communicationType),
-            tags: ['communication', communicationType, operation, provider].filter(Boolean),
-            version: '1.0.0',
-            provider
-        };
-    }
+  createCommunicationConfig(communicationType, operation, provider) {
+    return {
+      type: `${communicationType}-${operation}`,
+      category: 'communication',
+      icon: this.getCommunicationIcon(communicationType),
+      color: this.getCommunicationColor(communicationType),
+      tags: ['communication', communicationType, operation, provider].filter(Boolean),
+      version: '1.0.0',
+      provider,
+    };
+  }
 
-    generateMessageTemplates(communicationType, operation) {
-        const templates = {
-            email: [
-                {
-                    name: 'Welcome Email',
-                    subject: 'Welcome to {{appName}}!',
-                    html: '<h1>Welcome {{userName}}!</h1><p>Thank you for joining us.</p>'
-                },
-                {
-                    name: 'Password Reset',
-                    subject: 'Reset Your Password',
-                    html: '<p>Click <a href="{{resetLink}}">here</a> to reset your password.</p>'
-                }
-            ],
-            sms: [
-                {
-                    name: 'Verification Code',
-                    message: 'Your verification code is: {{code}}'
-                },
-                {
-                    name: 'Order Update',
-                    message: 'Your order #{{orderNumber}} has been {{status}}'
-                }
-            ],
-            'push-notification': [
-                {
-                    name: 'News Update',
-                    title: 'Breaking News',
-                    body: 'Check out the latest updates in our app!'
-                }
-            ]
-        };
-        
-        return templates[communicationType] || [];
-    }
+  generateMessageTemplates(communicationType, operation) {
+    const templates = {
+      email: [
+        {
+          name: 'Welcome Email',
+          subject: 'Welcome to {{appName}}!',
+          html: '<h1>Welcome {{userName}}!</h1><p>Thank you for joining us.</p>',
+        },
+        {
+          name: 'Password Reset',
+          subject: 'Reset Your Password',
+          html: '<p>Click <a href="{{resetLink}}">here</a> to reset your password.</p>',
+        },
+      ],
+      sms: [
+        {
+          name: 'Verification Code',
+          message: 'Your verification code is: {{code}}',
+        },
+        {
+          name: 'Order Update',
+          message: 'Your order #{{orderNumber}} has been {{status}}',
+        },
+      ],
+      'push-notification': [
+        {
+          name: 'News Update',
+          title: 'Breaking News',
+          body: 'Check out the latest updates in our app!',
+        },
+      ],
+    };
 
-    getCommunicationIcon(communicationType) {
-        const icons = {
-            email: '📧',
-            sms: '💬',
-            chat: '🤖',
-            'push-notification': '🔔',
-            webhook: '🔗',
-            voice: '📞',
-            social: '📱'
-        };
-        return icons[communicationType] || '📡';
-    }
+    return templates[communicationType] || [];
+  }
 
-    getCommunicationColor(communicationType) {
-        const colors = {
-            email: '#FF6B6B',
-            sms: '#4ECDC4',
-            chat: '#45B7D1',
-            'push-notification': '#96CEB4',
-            webhook: '#FFEAA7',
-            voice: '#DDA0DD',
-            social: '#FDA7DF'
-        };
-        return colors[communicationType] || '#95A5A6';
-    }
+  getCommunicationIcon(communicationType) {
+    const icons = {
+      email: '📧',
+      sms: '💬',
+      chat: '🤖',
+      'push-notification': '🔔',
+      webhook: '🔗',
+      voice: '📞',
+      social: '📱',
+    };
+    return icons[communicationType] || '📡';
+  }
 
-    capitalizeFirst(str) {
-        return str.charAt(0).toUpperCase() + str.slice(1).replace('-', '');
-    }
+  getCommunicationColor(communicationType) {
+    const colors = {
+      email: '#FF6B6B',
+      sms: '#4ECDC4',
+      chat: '#45B7D1',
+      'push-notification': '#96CEB4',
+      webhook: '#FFEAA7',
+      voice: '#DDA0DD',
+      social: '#FDA7DF',
+    };
+    return colors[communicationType] || '#95A5A6';
+  }
+
+  capitalizeFirst(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1).replace('-', '');
+  }
 }

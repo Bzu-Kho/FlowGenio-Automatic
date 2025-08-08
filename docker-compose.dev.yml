@@ -9,8 +9,8 @@ services:
     container_name: flowforge-backend-dev
     restart: unless-stopped
     ports:
-      - "3001:3001"
-      - "9229:9229"  # Debug port
+      - '3001:3001'
+      - '9229:9229' # Debug port
     environment:
       - NODE_ENV=development
       - PORT=3001
@@ -37,7 +37,7 @@ services:
     container_name: flowforge-frontend-dev
     restart: unless-stopped
     ports:
-      - "3002:3000"
+      - '3002:3000'
     environment:
       - NODE_ENV=development
       - NEXT_PUBLIC_API_URL=http://localhost:3001

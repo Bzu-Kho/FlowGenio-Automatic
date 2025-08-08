@@ -1,0 +1,12 @@
+
+D:\FlowRed\flowforge\frontend\src\app\page.tsx
+  92:12  error  Parsing error: Expression expected
+
+D:\FlowRed\flowforge\frontend\src\components\ExpertAssistantChat.tsx
+  33:14  warning  'err' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\FlowRed\flowforge\frontend\src\components\FlowEditor.tsx
+  346:4  error  Parsing error: Declaration or statement expected
+
+Ô£û 3 problems (2 errors, 1 warning)
+

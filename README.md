@@ -1,8 +1,8 @@
-# 🚀 FlowForge - Visual Automation Platform
+# 🚀 FlowGenio - Visual Automation Platform
 
 **Build powerful automation workflows with visual drag-and-drop interface**
 
-FlowForge is a modern, lightweight alternative to n8n, Node-RED, and Zapier. Create automation workflows visually with our intuitive node-based editor, powered by AI assistance and extensive knowledge base.
+FlowGenio is a modern, lightweight alternative to n8n, Node-RED, and Zapier. Create automation workflows visually with our intuitive node-based editor, powered by AI assistance and extensive knowledge base.
 
 ## ✨ Features
 
@@ -26,19 +26,19 @@ FlowForge is a modern, lightweight alternative to n8n, Node-RED, and Zapier. Cre
 
 ### 🎯 Node Categories
 
-| Category | Description | Examples |
-|----------|-------------|----------|
-| 🚀 **Triggers** | Start workflows | Manual, Webhook, Schedule, File Watcher |
-| 🔀 **Logic** | Control flow | If/Else, Switch, Loop, Merge/Split |
-| 💾 **Data** | Handle data | HTTP Request, Set Variable, Read/Write Files |
-| 🤖 **AI/LLM** | AI operations | OpenAI GPT, Local LLM, Text Processing |
-| 🎯 **Actions** | Execute tasks | Email, Database Query, Custom Functions |
+| Category        | Description     | Examples                                     |
+| --------------- | --------------- | -------------------------------------------- |
+| 🚀 **Triggers** | Start workflows | Manual, Webhook, Schedule, File Watcher      |
+| 🔀 **Logic**    | Control flow    | If/Else, Switch, Loop, Merge/Split           |
+| 💾 **Data**     | Handle data     | HTTP Request, Set Variable, Read/Write Files |
+| 🤖 **AI/LLM**   | AI operations   | OpenAI GPT, Local LLM, Text Processing       |
+| 🎯 **Actions**  | Execute tasks   | Email, Database Query, Custom Functions      |
 
 ## 🚀 Quick Start
 
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - npm or yarn
 - Git
 
@@ -56,7 +56,7 @@ cd flowforge
 cd backend
 npm install
 
-# Frontend  
+# Frontend
 cd ../frontend
 npm install
 ```
@@ -64,17 +64,19 @@ npm install
 ### 3. Start Development Servers
 
 **Option A: Manual Start**
+
 ```bash
 # Terminal 1 - Backend
 cd backend
 npm run dev
 
 # Terminal 2 - Frontend
-cd frontend  
+cd frontend
 npm run dev
 ```
 
 **Option B: Automated Script**
+
 ```bash
 # Windows
 scripts\dev.bat
@@ -125,28 +127,24 @@ class MyCustomNode extends BaseNode {
       ...config,
       category: 'utility',
       icon: 'star',
-      description: 'My awesome custom node'
+      description: 'My awesome custom node',
     });
   }
 
   defineInputs() {
-    return [
-      { name: 'input', type: 'any', required: true }
-    ];
+    return [{ name: 'input', type: 'any', required: true }];
   }
 
   defineOutputs() {
-    return [
-      { name: 'output', type: 'any' }
-    ];
+    return [{ name: 'output', type: 'any' }];
   }
 
   async execute(context) {
     const input = context.getInputData('input');
-    
+
     // Your custom logic here
     const result = { processed: input };
-    
+
     return { output: result };
   }
 }
@@ -194,21 +192,25 @@ POST /api/ai/optimize
 ### Core Endpoints
 
 #### Nodes
+
 - `GET /api/nodes` - Get all available nodes
 - `GET /api/nodes/palette` - Get node palette for UI
 - `GET /api/nodes/:type` - Get specific node metadata
 
 #### Workflow Execution
+
 - `POST /api/workflows/execute` - Execute a workflow
 - `GET /api/executions/active` - Get active executions
 - `GET /api/executions/history` - Get execution history
 
 #### AI Assistant
+
 - `POST /api/ai/assist` - General AI assistance
 - `POST /api/ai/suggest-nodes` - Get node suggestions
 - `POST /api/ai/optimize` - Optimize workflow
 
 #### Knowledge Base
+
 - `GET /api/knowledge/search` - Search knowledge base
 - `POST /api/knowledge/crawl` - Trigger knowledge crawling
 
@@ -219,15 +221,19 @@ POST /api/ai/optimize
 const ws = new WebSocket('ws://localhost:3001/ws');
 
 // Execute workflow with real-time updates
-ws.send(JSON.stringify({
-  type: 'execute_workflow',
-  payload: { workflow, triggerData }
-}));
+ws.send(
+  JSON.stringify({
+    type: 'execute_workflow',
+    payload: { workflow, triggerData },
+  }),
+);
 
 // Subscribe to execution updates
-ws.send(JSON.stringify({
-  type: 'subscribe_executions'
-}));
+ws.send(
+  JSON.stringify({
+    type: 'subscribe_executions',
+  }),
+);
 ```
 
 ## 🧪 Testing
@@ -237,7 +243,7 @@ ws.send(JSON.stringify({
 cd backend
 npm test
 
-# Frontend tests  
+# Frontend tests
 cd frontend
 npm test
 
@@ -248,11 +254,13 @@ npm run test:e2e
 ## 🚢 Deployment
 
 ### Development
+
 ```bash
 npm run dev
 ```
 
 ### Production Build
+
 ```bash
 # Build frontend
 cd frontend
@@ -264,6 +272,7 @@ npm start
 ```
 
 ### Docker (Optional)
+
 ```dockerfile
 # Dockerfile example
 FROM node:18-alpine
@@ -313,18 +322,21 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🗺️ Roadmap
 
 ### Version 1.1 (Next Release)
+
 - [ ] Custom node marketplace
-- [ ] Workflow templates library  
+- [ ] Workflow templates library
 - [ ] Advanced debugging tools
 - [ ] Performance monitoring
 
 ### Version 1.2 (Future)
+
 - [ ] Multi-user collaboration
 - [ ] Cloud deployment options
 - [ ] Advanced AI integrations
 - [ ] Enterprise features
 
 ### Version 2.0 (Long-term)
+
 - [ ] Visual scripting language
 - [ ] Mobile app support
 - [ ] Real-time collaboration
@@ -334,4 +346,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Built with ❤️ by the FlowForge Team**
 
-*Forge your automation workflows with ease!*
+_Forge your automation workflows with ease!_

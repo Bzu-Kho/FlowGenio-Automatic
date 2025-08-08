@@ -17,16 +17,16 @@ class NodeBuilderMaster extends BaseNode {
       icon: 'magic-wand',
       description: 'AI-powered node generator with internal flow automation',
       version: '2.0.0',
-      aiEnabled: true
+      aiEnabled: true,
     });
-    
+
     // State management
     this.memory = new Map();
     this.generatedNodes = new Map();
     this.generationHistory = [];
     this.currentTransformation = null;
     this.isTransformed = false;
-    
+
     // Internal Flow System - Virtual Nodes
     this.internalNodes = new Map();
     this.flowRoutes = [];
@@ -35,12 +35,12 @@ class NodeBuilderMaster extends BaseNode {
       totalSteps: 0,
       data: null,
       transformations: [],
-      errors: []
+      errors: [],
     };
-    
+
     // Initialize virtual processing nodes
     this.initializeVirtualNodes();
-    
+
     // Load persisted memory
     this.loadMemory();
   }
@@ -51,32 +51,32 @@ class NodeBuilderMaster extends BaseNode {
         name: 'trigger',
         type: 'any',
         required: false,
-        description: 'Trigger input to start generation or execute flow'
+        description: 'Trigger input to start generation or execute flow',
       },
       {
         name: 'specification',
         type: 'string',
         required: false,
-        description: 'Node specification (overrides config if provided)'
+        description: 'Node specification (overrides config if provided)',
       },
       {
         name: 'data',
         type: 'any',
         required: false,
-        description: 'Data input for processing through internal flow'
+        description: 'Data input for processing through internal flow',
       },
       {
         name: 'flowConfig',
         type: 'object',
         required: false,
-        description: 'Custom flow configuration for internal processing'
+        description: 'Custom flow configuration for internal processing',
       },
       {
         name: 'memory',
         type: 'object',
         required: false,
-        description: 'Memory context from previous executions'
-      }
+        description: 'Memory context from previous executions',
+      },
     ];
   }
 
@@ -85,38 +85,38 @@ class NodeBuilderMaster extends BaseNode {
       {
         name: 'success',
         type: 'any',
-        description: 'Success output - processed data or generated node'
+        description: 'Success output - processed data or generated node',
       },
       {
         name: 'transformed',
         type: 'any',
-        description: 'Data transformed through internal flow'
+        description: 'Data transformed through internal flow',
       },
       {
         name: 'flowState',
         type: 'object',
-        description: 'Internal flow execution state and metrics'
+        description: 'Internal flow execution state and metrics',
       },
       {
         name: 'memory',
         type: 'object',
-        description: 'Updated memory context'
+        description: 'Updated memory context',
       },
       {
         name: 'error',
         type: 'string',
-        description: 'Error output when processing fails'
+        description: 'Error output when processing fails',
       },
       {
         name: 'nodeReady',
         type: 'object',
-        description: 'Signal when generated node is ready'
+        description: 'Signal when generated node is ready',
       },
       {
         name: 'debug',
         type: 'object',
-        description: 'Debug information and flow trace'
-      }
+        description: 'Debug information and flow trace',
+      },
     ];
   }
 
@@ -130,18 +130,18 @@ class NodeBuilderMaster extends BaseNode {
           { value: 'auto', label: 'Auto (Generate + Flow)' },
           { value: 'generate', label: 'Generate Only' },
           { value: 'flow', label: 'Flow Processing Only' },
-          { value: 'transform', label: 'Transform Mode' }
+          { value: 'transform', label: 'Transform Mode' },
         ],
         label: 'Operation Mode',
-        description: 'How the node should operate'
+        description: 'How the node should operate',
       },
-      
+
       // === FLOW AUTOMATION ===
       enableInternalFlow: {
         type: 'boolean',
         default: true,
         label: 'Enable Internal Flow',
-        description: 'Use internal virtual nodes for data processing'
+        description: 'Use internal virtual nodes for data processing',
       },
       flowStrategy: {
         type: 'select',
@@ -151,10 +151,10 @@ class NodeBuilderMaster extends BaseNode {
           { value: 'linear', label: 'Linear Processing' },
           { value: 'conditional', label: 'Conditional Branching' },
           { value: 'parallel', label: 'Parallel Processing' },
-          { value: 'custom', label: 'Custom Flow' }
+          { value: 'custom', label: 'Custom Flow' },
         ],
         label: 'Flow Strategy',
-        description: 'Internal flow processing strategy'
+        description: 'Internal flow processing strategy',
       },
       maxFlowSteps: {
         type: 'number',
@@ -162,9 +162,9 @@ class NodeBuilderMaster extends BaseNode {
         min: 1,
         max: 50,
         label: 'Max Flow Steps',
-        description: 'Maximum number of internal processing steps'
+        description: 'Maximum number of internal processing steps',
       },
-      
+
       // === CORE SPECIFICATION ===
       nodeSpecification: {
         type: 'textarea',
@@ -172,14 +172,14 @@ class NodeBuilderMaster extends BaseNode {
         label: 'Node Specification',
         description: 'Detailed description of the node to generate or flow to create',
         placeholder: 'Describe the functionality, processing steps, inputs, outputs...',
-        rows: 4
+        rows: 4,
       },
       nodeName: {
         type: 'string',
         default: '',
         label: 'Node Name',
         description: 'Name for the generated node (auto-generated if empty)',
-        placeholder: 'MyCustomNode'
+        placeholder: 'MyCustomNode',
       },
       nodeCategory: {
         type: 'select',
@@ -191,12 +191,12 @@ class NodeBuilderMaster extends BaseNode {
           { value: 'custom', label: 'Custom' },
           { value: 'ai', label: 'AI & ML' },
           { value: 'integration', label: 'Integration' },
-          { value: 'flow', label: 'Flow Automation' }
+          { value: 'flow', label: 'Flow Automation' },
         ],
         label: 'Node Category',
-        description: 'Category for the generated node'
+        description: 'Category for the generated node',
       },
-      
+
       // === AI CONFIGURATION ===
       aiMode: {
         type: 'select',
@@ -205,17 +205,17 @@ class NodeBuilderMaster extends BaseNode {
           { value: 'auto', label: 'Auto (Ollama → OpenAI)' },
           { value: 'ollama', label: 'Ollama (Local)' },
           { value: 'openai', label: 'OpenAI (Cloud)' },
-          { value: 'disabled', label: 'Disabled' }
+          { value: 'disabled', label: 'Disabled' },
         ],
         label: 'AI Mode',
-        description: 'AI provider preference'
+        description: 'AI provider preference',
       },
       aiModel: {
         type: 'string',
         default: 'llama3.1',
         label: 'AI Model',
         description: 'Specific AI model to use (e.g., llama3.1, gpt-4)',
-        placeholder: 'llama3.1'
+        placeholder: 'llama3.1',
       },
       aiTemperature: {
         type: 'number',
@@ -224,90 +224,90 @@ class NodeBuilderMaster extends BaseNode {
         max: 1,
         step: 0.1,
         label: 'AI Temperature',
-        description: 'Creativity level (0 = deterministic, 1 = creative)'
+        description: 'Creativity level (0 = deterministic, 1 = creative)',
       },
-      
+
       // === MEMORY & PERSISTENCE ===
       useMemory: {
         type: 'boolean',
         default: true,
         label: 'Use Memory',
-        description: 'Enable memory for context persistence between executions'
+        description: 'Enable memory for context persistence between executions',
       },
       memoryKey: {
         type: 'string',
         default: 'default',
         label: 'Memory Key',
         description: 'Memory namespace for this node instance',
-        placeholder: 'default'
+        placeholder: 'default',
       },
       saveGenerated: {
         type: 'boolean',
         default: true,
         label: 'Save Generated Nodes',
-        description: 'Save generated nodes to filesystem for reuse'
+        description: 'Save generated nodes to filesystem for reuse',
       },
       autoTransform: {
         type: 'boolean',
         default: false,
         label: 'Auto Transform',
-        description: 'Automatically transform into generated node on success'
+        description: 'Automatically transform into generated node on success',
       },
-      
+
       // === FLOW CONTROL ===
       flowMemory: {
         type: 'boolean',
         default: true,
         label: 'Flow Memory',
-        description: 'Remember flow state between steps'
+        description: 'Remember flow state between steps',
       },
       flowRetry: {
         type: 'boolean',
         default: true,
         label: 'Flow Retry',
-        description: 'Auto-retry failed flow steps'
+        description: 'Auto-retry failed flow steps',
       },
       flowOptimization: {
         type: 'boolean',
         default: true,
         label: 'Flow Optimization',
-        description: 'Optimize flow routes dynamically'
+        description: 'Optimize flow routes dynamically',
       },
-      
+
       // === GENERATION OPTIONS ===
       includeDocumentation: {
         type: 'boolean',
         default: true,
         label: 'Include Documentation',
-        description: 'Generate comprehensive documentation'
+        description: 'Generate comprehensive documentation',
       },
       includeTests: {
         type: 'boolean',
         default: false,
         label: 'Include Tests',
-        description: 'Generate test files for the node'
+        description: 'Generate test files for the node',
       },
       includeExamples: {
         type: 'boolean',
         default: true,
         label: 'Include Examples',
-        description: 'Generate usage examples'
+        description: 'Generate usage examples',
       },
-      
+
       // === ADVANCED ===
       outputDirectory: {
         type: 'string',
         default: './generated-nodes',
         label: 'Output Directory',
         description: 'Directory to save generated nodes',
-        placeholder: './generated-nodes'
+        placeholder: './generated-nodes',
       },
       debugMode: {
         type: 'boolean',
         default: false,
         label: 'Debug Mode',
-        description: 'Enable detailed logging and debugging information'
-      }
+        description: 'Enable detailed logging and debugging information',
+      },
     };
   }
 
@@ -322,17 +322,17 @@ class NodeBuilderMaster extends BaseNode {
       type: 'virtual-input',
       execute: async (data, context) => {
         this.log('🔍 Virtual Input Processor', { data });
-        
+
         // Analyze input data structure
         const analysis = this.analyzeInputData(data);
-        
+
         return {
           success: true,
           data: data,
           analysis,
-          recommendations: this.getProcessingRecommendations(analysis)
+          recommendations: this.getProcessingRecommendations(analysis),
         };
-      }
+      },
     });
 
     // Virtual Data Transformer Node
@@ -341,23 +341,23 @@ class NodeBuilderMaster extends BaseNode {
       type: 'virtual-transform',
       execute: async (data, context, config) => {
         this.log('🔄 Virtual Data Transformer', { data, config });
-        
+
         let transformedData = data;
-        
+
         // Apply transformation rules
         if (config && config.rules && config.rules.length > 0) {
           for (const rule of config.rules) {
             transformedData = this.applyTransformRule(transformedData, rule);
           }
         }
-        
+
         return {
           success: true,
           data: transformedData,
           transformationApplied: config?.rules || [],
-          originalData: data
+          originalData: data,
         };
-      }
+      },
     });
 
     // Virtual Output Formatter Node
@@ -366,9 +366,9 @@ class NodeBuilderMaster extends BaseNode {
       type: 'virtual-output',
       execute: async (data, context, config) => {
         this.log('📤 Virtual Output Formatter', { data, config });
-        
+
         const formattedOutput = this.formatOutput(data, config);
-        
+
         return {
           success: true,
           data: formattedOutput,
@@ -376,81 +376,79 @@ class NodeBuilderMaster extends BaseNode {
           metadata: {
             processedAt: new Date().toISOString(),
             nodeId: this.id,
-            flowStep: context.flowStep || 'final'
-          }
+            flowStep: context.flowStep || 'final',
+          },
         };
-      }
+      },
     });
 
     this.log('🏗️ Virtual nodes initialized', {
       count: this.internalNodes.size,
-      nodes: Array.from(this.internalNodes.keys())
+      nodes: Array.from(this.internalNodes.keys()),
     });
   }
 
   // Flow execution methods...
   async executeInternalFlow(data, properties, context) {
     this.log('🌊 Starting internal flow execution');
-    
+
     try {
       const route = [
         { nodeId: 'input-processor', config: {} },
         { nodeId: 'data-transformer', config: {} },
-        { nodeId: 'output-formatter', config: {} }
+        { nodeId: 'output-formatter', config: {} },
       ];
-      
+
       let currentData = data;
       const flowResults = [];
-      
+
       for (let i = 0; i < route.length; i++) {
         const step = route[i];
-        
+
         try {
           this.log(`🔄 Flow step ${i + 1}/${route.length}: ${step.nodeId}`);
-          
+
           const virtualNode = this.internalNodes.get(step.nodeId);
           if (!virtualNode) {
             throw new Error(`Virtual node not found: ${step.nodeId}`);
           }
-          
+
           const stepContext = {
             ...context,
             flowStep: i + 1,
-            totalSteps: route.length
+            totalSteps: route.length,
           };
-          
+
           const result = await virtualNode.execute(currentData, stepContext, step.config);
-          
+
           if (result.success) {
             currentData = result.data;
             flowResults.push({
               step: i + 1,
               nodeId: step.nodeId,
-              result: result
+              result: result,
             });
           } else {
             throw new Error(result.error || 'Virtual node execution failed');
           }
-          
         } catch (error) {
           this.log(`❌ Flow step ${i + 1} failed`, error);
           throw error;
         }
       }
-      
+
       return {
         success: true,
         data: currentData,
         flowResults: flowResults,
-        route: route
+        route: route,
       };
-      
     } catch (error) {
       this.log('❌ Internal flow execution failed', error);
       return {
         success: false,
         error: error.message,
-        data: data
+        data: data,
       };
     }
   }
@@ -461,7 +459,7 @@ class NodeBuilderMaster extends BaseNode {
       dataType: typeof data,
       size: JSON.stringify(data).length,
       needsTransformation: true,
-      benefitsFromAI: typeof data === 'string' && data.length > 50
+      benefitsFromAI: typeof data === 'string' && data.length > 50,
     };
   }
 
@@ -479,66 +477,66 @@ class NodeBuilderMaster extends BaseNode {
       metadata: {
         type: typeof data,
         processed: true,
-        timestamp: new Date().toISOString()
-      }
+        timestamp: new Date().toISOString(),
+      },
     };
   }
 
   async execute(inputs, context) {
     const startTime = Date.now();
-    
+
     console.log('🔧 NodeBuilder Master execute called');
     console.log('  - this.data:', this.data);
     console.log('  - inputs:', inputs);
     console.log('  - context:', context);
-    
+
     // FIXED: Use this.data which contains the actual configured properties
     const configuredProperties = this.data || {};
     const defaultProperties = this.defineProperties();
-    
+
     // Merge default properties with configured ones from this.data
     const properties = {
       ...Object.fromEntries(
-        Object.entries(defaultProperties).map(([key, prop]) => [key, prop.default])
+        Object.entries(defaultProperties).map(([key, prop]) => [key, prop.default]),
       ),
-      ...configuredProperties
+      ...configuredProperties,
     };
-    
+
     console.log('🔧 Final properties:', properties);
-    
+
     try {
       // Initialize execution context
       const execContext = {
         requestId: context.requestId || `nodebuilder-${Date.now()}`,
         timestamp: new Date().toISOString(),
         properties,
-        inputs
+        inputs,
       };
-      
+
       // Debug logging
       if (properties.debugMode) {
         this.log('🔧 NodeBuilder Master execution started', {
           context: execContext,
           currentState: {
             isTransformed: this.isTransformed,
-            hasCurrentTransformation: !!this.currentTransformation
-          }
+            hasCurrentTransformation: !!this.currentTransformation,
+          },
         });
       }
-      
+
       // === OPERATION MODE ROUTING ===
       const operationMode = properties.operationMode || 'auto';
-      
+
       if (operationMode === 'flow' || (operationMode === 'auto' && inputs.data)) {
         // FLOW PROCESSING MODE
         this.log('🌊 Entering flow processing mode');
-        
+
         const flowResult = await this.executeInternalFlow(
-          inputs.data || inputs.trigger || 'default data', 
-          properties, 
-          execContext
+          inputs.data || inputs.trigger || 'default data',
+          properties,
+          execContext,
         );
-        
+
         // Prepare flow outputs
         const executionTime = Date.now() - startTime;
         const outputs = {
@@ -547,114 +545,113 @@ class NodeBuilderMaster extends BaseNode {
             success: flowResult.success,
             steps: flowResult.flowResults?.length || 0,
             executionTime,
-            route: flowResult.route
-          }
+            route: flowResult.route,
+          },
         };
-        
+
         if (flowResult.success) {
           outputs.success = flowResult.data;
         } else {
           outputs.error = flowResult.error;
         }
-        
+
         if (properties.debugMode) {
           outputs.debug = {
             executionTime,
             flowResults: flowResult.flowResults,
-            context: execContext
+            context: execContext,
           };
         }
-        
+
         return outputs;
       }
-      
+
       // === NODE GENERATION MODE ===
       if (operationMode === 'generate' || operationMode === 'auto') {
         this.log('🏗️ Entering node generation mode');
-        
+
         // Check if this node is already transformed
         if (this.isTransformed && this.currentTransformation) {
           return await this.executeTransformedNode(inputs, execContext);
         }
-        
+
         // Get specification from input or properties
         const specification = inputs.specification || properties.nodeSpecification;
         if (!specification || specification.trim().length === 0) {
           throw new Error('Node specification is required for generation mode');
         }
-        
+
         // Generate the node
         const generationResult = await this.generateNode(specification, execContext);
-        
+
         // Auto-transform if enabled
         if (properties.autoTransform && generationResult.success) {
           await this.transformToNode(generationResult);
         }
-        
+
         // Prepare generation outputs
         const executionTime = Date.now() - startTime;
         const outputs = {
-          success: generationResult
+          success: generationResult,
         };
-        
+
         if (generationResult.success) {
           outputs.nodeReady = {
             nodeName: generationResult.nodeName,
             nodeType: generationResult.nodeType,
             filePath: generationResult.filePath,
-            canTransform: true
+            canTransform: true,
           };
         } else {
           outputs.error = generationResult.error;
         }
-        
+
         if (properties.debugMode) {
           outputs.debug = {
             executionTime,
             context: execContext,
-            generationResult
+            generationResult,
           };
         }
-        
+
         return outputs;
       }
-      
+
       // === TRANSFORM MODE ===
       if (operationMode === 'transform') {
         this.log('🔄 Entering transform mode');
-        
+
         if (!this.currentTransformation) {
           throw new Error('No transformation available. Generate a node first.');
         }
-        
+
         return await this.executeTransformedNode(inputs, execContext);
       }
-      
+
       // Default fallback
       throw new Error(`Unknown operation mode: ${operationMode}`);
-      
     } catch (error) {
       const executionTime = Date.now() - startTime;
-      
+
       this.log('❌ NodeBuilder Master execution failed', {
         error: error.message,
-        executionTime
+        executionTime,
       });
-      
+
       return {
         error: error.message,
         flowState: {
           success: false,
           executionTime,
-          error: error.message
-        }
+          error: error.message,
+        },
       };
     }
   }
 
   async generateNode(specification, context) {
     const properties = this.config.properties || {};
-    
+
     try {
       // Prepare generation parameters
       const generationParams = {
@@ -666,41 +663,40 @@ class NodeBuilderMaster extends BaseNode {
         includeDocumentation: properties.includeDocumentation !== false,
         includeTests: properties.includeTests === true,
         includeExamples: properties.includeExamples !== false,
-        context: context.memory
+        context: context.memory,
       };
-      
+
       this.log('🤖 Starting node generation', generationParams);
-      
+
       // Generate node using template (AI integration comes later)
       const generationResult = await this.generateNodeTemplate(generationParams);
-      
+
       // Save generated node if enabled
       if (properties.saveGenerated && generationResult.success) {
         await this.saveGeneratedNode(generationResult, properties.outputDirectory);
       }
-      
+
       // Add to generation history
       this.generationHistory.push({
         timestamp: context.timestamp,
         specification,
         result: generationResult,
-        params: generationParams
+        params: generationParams,
       });
-      
+
       // Limit history size
       if (this.generationHistory.length > 50) {
         this.generationHistory = this.generationHistory.slice(-50);
       }
-      
+
       return generationResult;
-      
     } catch (error) {
       this.log('❌ Node generation failed', error);
       return {
         success: false,
         error: error.message,
         aiProvider: 'none',
-        aiModel: 'none'
+        aiModel: 'none',
       };
     }
   }
@@ -708,22 +704,22 @@ class NodeBuilderMaster extends BaseNode {
   async generateNodeTemplate(params) {
     const nodeName = params.nodeName || 'CustomNode';
     const nodeType = this.sanitizeNodeName(nodeName);
-    
+
     // Generate node code using template
     const nodeCode = this.generateNodeCodeTemplate(nodeType, params);
-    
+
     // Generate documentation if requested
     let documentation = null;
     if (params.includeDocumentation) {
       documentation = this.generateDocumentationTemplate(nodeType, params);
     }
-    
+
     // Generate tests if requested
     let tests = null;
     if (params.includeTests) {
       tests = this.generateTestTemplate(nodeType, params);
     }
-    
+
     return {
       success: true,
       nodeName,
@@ -735,7 +731,7 @@ class NodeBuilderMaster extends BaseNode {
       specification: params.specification,
       generatedAt: new Date().toISOString(),
       aiProvider: 'template',
-      aiModel: 'template-based'
+      aiModel: 'template-based',
     };
   }
 
@@ -943,7 +939,7 @@ describe('${nodeType}', () => {
     try {
       const baseDir = path.resolve(outputDirectory || './generated-nodes');
       const nodeDir = path.join(baseDir, generationResult.nodeType);
-      
+
       // Ensure directories exist
       if (!fs.existsSync(baseDir)) {
         fs.mkdirSync(baseDir, { recursive: true });
@@ -951,24 +947,24 @@ describe('${nodeType}', () => {
       if (!fs.existsSync(nodeDir)) {
         fs.mkdirSync(nodeDir, { recursive: true });
       }
-      
+
       // Save node code
       const nodeFile = path.join(nodeDir, `${generationResult.nodeType}.js`);
       fs.writeFileSync(nodeFile, generationResult.nodeCode, 'utf8');
       generationResult.filePath = nodeFile;
-      
+
       // Save documentation
       if (generationResult.documentation) {
         const docFile = path.join(nodeDir, 'README.md');
         fs.writeFileSync(docFile, generationResult.documentation, 'utf8');
       }
-      
+
       // Save tests
       if (generationResult.tests) {
         const testFile = path.join(nodeDir, `${generationResult.nodeType}.test.js`);
         fs.writeFileSync(testFile, generationResult.tests, 'utf8');
       }
-      
+
       // Save manifest
       const manifest = {
         nodeType: generationResult.nodeType,
@@ -979,18 +975,17 @@ describe('${nodeType}', () => {
         files: {
           node: `${generationResult.nodeType}.js`,
           documentation: generationResult.documentation ? 'README.md' : null,
-          tests: generationResult.tests ? `${generationResult.nodeType}.test.js` : null
-        }
+          tests: generationResult.tests ? `${generationResult.nodeType}.test.js` : null,
+        },
       };
-      
+
       const manifestFile = path.join(nodeDir, 'manifest.json');
       fs.writeFileSync(manifestFile, JSON.stringify(manifest, null, 2), 'utf8');
-      
+
       this.log('💾 Generated node saved successfully', {
         nodeType: generationResult.nodeType,
-        directory: nodeDir
+        directory: nodeDir,
       });
-      
     } catch (error) {
       this.log('❌ Failed to save generated node', error);
       throw error;
@@ -1001,17 +996,16 @@ describe('${nodeType}', () => {
     try {
       this.currentTransformation = generationResult;
       this.isTransformed = true;
-      
+
       this.log('🔄 Transformed to generated node', {
         nodeType: generationResult.nodeType,
-        nodeName: generationResult.nodeName
+        nodeName: generationResult.nodeName,
       });
-      
+
       // Update node appearance
       this.config.name = generationResult.nodeName;
       this.config.description = `Transformed: ${generationResult.specification.substring(0, 50)}...`;
       this.config.icon = 'magic-wand-sparkles';
-      
     } catch (error) {
       this.log('❌ Transformation failed', error);
       throw error;
@@ -1023,25 +1017,24 @@ describe('${nodeType}', () => {
       if (!this.currentTransformation) {
         throw new Error('No transformation available');
       }
-      
+
       // Simulate execution of the generated node
       this.log('🎯 Executing transformed node', {
         nodeType: this.currentTransformation.nodeType,
-        inputs: inputs.data || inputs.trigger
+        inputs: inputs.data || inputs.trigger,
       });
-      
+
       return {
         success: {
           message: 'Transformed node executed successfully',
           nodeType: this.currentTransformation.nodeType,
-          result: inputs.data || inputs.trigger || 'No data provided'
+          result: inputs.data || inputs.trigger || 'No data provided',
         },
-        memory: context.memory
+        memory: context.memory,
       };
-      
     } catch (error) {
       return {
-        error: error.message
+        error: error.message,
       };
     }
   }
@@ -1066,7 +1059,7 @@ describe('${nodeType}', () => {
       const data = {
         memory: Array.from(this.memory.entries()),
         history: this.generationHistory.slice(-20),
-        savedAt: new Date().toISOString()
+        savedAt: new Date().toISOString(),
       };
       fs.writeFileSync(memoryFile, JSON.stringify(data, null, 2), 'utf8');
     } catch (error) {
@@ -1082,14 +1075,14 @@ describe('${nodeType}', () => {
     this.memory.set(key, {
       ...this.memory.get(key),
       ...data,
-      updatedAt: new Date().toISOString()
+      updatedAt: new Date().toISOString(),
     });
-    
+
     // Auto-save memory occasionally
     if (Math.random() < 0.1) {
       this.saveMemory();
     }
-    
+
     return this.memory.get(key);
   }
 
@@ -1097,9 +1090,10 @@ describe('${nodeType}', () => {
   generateNodeName(specification) {
     // Extract potential node name from specification
     const words = specification.split(/\s+/).slice(0, 3);
-    return words.map(word => 
-      word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
-    ).join('') + 'Node';
+    return (
+      words.map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join('') +
+      'Node'
+    );
   }
 
   sanitizeNodeName(name) {

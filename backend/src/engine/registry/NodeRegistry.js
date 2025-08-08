@@ -7,9 +7,9 @@ class NodeRegistry {
   }
 
   initialize() {
-  if (this.initialized) return;
-  // All core nodes and plugins are loaded via PluginLoader
-  this.initialized = true;
+    if (this.initialized) return;
+    // All core nodes and plugins are loaded via PluginLoader
+    this.initialized = true;
   }
 
   registerNode(type, nodeClass) {
