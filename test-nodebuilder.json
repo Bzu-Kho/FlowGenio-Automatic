@@ -1,3 +1,0 @@
-{
-  "specification": "Un nodo que extraiga texto de PDFs. Debería poder leer archivos PDF locales o desde URLs, extraer todo el texto o páginas específicas, y formatear la salida como texto plano o JSON estructurado."
-}

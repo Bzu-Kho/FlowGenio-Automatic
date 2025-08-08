@@ -1,4 +1,5 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# FlowGenio Frontend .gitignore
+# Next.js and React development files
 
 # dependencies
 /node_modules
@@ -39,3 +40,14 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Development reports (not needed in repo)
+prettier-report.txt
+eslint-report.txt
+
+# IDE files
+.vscode/
+.idea/
+
+# ESLint cache
+.eslintcache

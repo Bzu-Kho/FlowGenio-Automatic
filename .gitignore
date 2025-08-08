@@ -1,8 +1,8 @@
-# 🚫 FlowForge .gitignore
-# Ignore files and directories that shouldn't be tracked
+# 🚫 FlowGenio .gitignore
+# Professional configuration for clean repository
 
 # ======================
-# Dependencies
+# Dependencies & Lock Files
 # ======================
 node_modules/
 npm-debug.log*
@@ -10,27 +10,34 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 .pnpm-debug.log*
+package-lock.json
+yarn.lock
 
 # ======================
-# Environment Variables
+# Environment & Configuration
 # ======================
 .env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
+.env.docker
 
 # ======================
-# Build outputs
+# Build Outputs & Cache
 # ======================
 /frontend/.next/
 /frontend/out/
-/frontend/build
+/frontend/build/
+/frontend/.turbo/
 /backend/dist/
 /backend/build/
+.cache/
+.parcel-cache/
+.eslintcache
 
 # ======================
-# Database & Data
+# Database & Runtime Data
 # ======================
 *.db
 *.sqlite
@@ -38,9 +45,25 @@ pnpm-debug.log*
 /backend/data/
 /data/
 *.log
+logs/
+pids
+*.pid
+*.seed
+*.pid.lock
 
 # ======================
-# OS generated files
+# Development & Testing Files
+# ======================
+coverage/
+*.lcov
+.nyc_output
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# ======================
+# OS Generated Files
 # ======================
 .DS_Store
 .DS_Store?
@@ -52,101 +75,95 @@ Thumbs.db
 desktop.ini
 
 # ======================
-# IDE and Editor files
+# IDE & Editor Files
 # ======================
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
+.vscode-test
 
 # ======================
-# Temporary files
+# Temporary & Cache Files
 # ======================
 *.tmp
 *.temp
-.cache/
-.parcel-cache/
-
-# ======================
-# Coverage reports
-# ======================
-coverage/
-*.lcov
-.nyc_output
-
-# ======================
-# Runtime data
-# ======================
-pids
-*.pid
-*.seed
-*.pid.lock
-
-# ======================
-# Optional npm cache directory
-# ======================
 .npm
-
-# ======================
-# Optional eslint cache
-# ======================
-.eslintcache
-
-# ======================
-# Microbundle cache
-# ======================
-.rpt2_cache/
-.rts2_cache_cjs/
-.rts2_cache_es/
-.rts2_cache_umd/
-
-# ======================
-# Optional REPL history
-# ======================
 .node_repl_history
-
-# ======================
-# Output of 'npm pack'
-# ======================
 *.tgz
-
-# ======================
-# Yarn Integrity file
-# ======================
 .yarn-integrity
-
-# ======================
-# dotenv environment variables file
-# ======================
-.env.test
-
-# ======================
-# Serverless directories
-# ======================
-.serverless/
-
-# ======================
-# FuseBox cache
-# ======================
 .fusebox/
-
-# ======================
-# DynamoDB Local files
-# ======================
 .dynamodb/
-
-# ======================
-# TernJS port file
-# ======================
 .tern-port
 
 # ======================
-# FlowForge specific
+# FlowGenio Specific Exclusions
 # ======================
-/backend/src/database/*.db
-/backend/logs/
-/knowledge-base/
-/temp/
+# Development artifacts
+/scripts/logs/
+/scripts/temp/
 execution-*.json
 workflow-*.json
+test-*.json
+simple-test.json
+email-provider-test.json
+flow-test.json
+
+# Reports and analysis
+prettier-report.txt
+eslint-report.txt
+*-report.txt
+
+# Development databases
+/backend/src/database/*.db
+
+# Knowledge base cache
+/knowledge-base/cache/
+/backend/src/knowledge/cache/
+
+# Temporary workflow files
+/temp/
+/tmp/
+
+# Docker volumes and data
+/docker-data/
+/volumes/
+
+# User-specific configurations
+.flowgenio/
+user-config.json
+
+# Deployment artifacts
+/dist/
+/release/
+
+# Backup files
+*.backup
+*.bak
+
+# Development scripts output
+script-output.txt
+deployment.log
+
+# ======================
+# Serverless & Cloud
+# ======================
+.serverless/
+.terraform/
+terraform.tfstate
+terraform.tfstate.backup
+
+# ======================
+# Mobile Development
+# ======================
+.expo/
+.expo-shared/
+
+# ======================
+# Archive Files
+# ======================
+*.zip
+*.tar.gz
+*.rar
+*.7z

@@ -1,9 +1,0 @@
-{
-  "type": "NodeBuilderMaster",
-  "id": "test-nodebuilder",
-  "properties": {
-    "nodeSpecification": "Un nodo simple que sume dos números.",
-    "nodeName": "SumadorSimple",
-    "debugMode": true
-  }
-}
